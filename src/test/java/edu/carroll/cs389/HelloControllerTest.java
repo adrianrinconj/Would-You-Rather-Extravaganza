@@ -18,8 +18,8 @@ public class HelloControllerTest {
 
     @Test
     public void indexTest() throws Exception {
-        mockMvc.perform(get("/hello")).andDo(print())
+        mockMvc.perform(get("/")).andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(content().string(equalTo("Hello from Spring Boot!")));
+                .andExpect(content().string(equalTo("index")));
     }
 }
