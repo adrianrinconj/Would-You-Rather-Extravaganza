@@ -1,4 +1,4 @@
-package edu.carroll.cs389.web.controller;
+package edu.carroll.cs389;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
