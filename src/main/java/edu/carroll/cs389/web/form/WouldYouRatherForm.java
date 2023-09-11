@@ -6,24 +6,24 @@ import jakarta.validation.constraints.Size;
 public class WouldYouRatherForm {
 
     @NotNull
-    private String optionA = "would you rather A";
+    private String optionA;
     @NotNull
-    private String optionB = "would you rather B";
+    private String optionB;
 
     public String getOptionA() {
         return optionA;
     }
 
-    public void setOptionA(String optionA) {
-        this.optionA = optionA;
+    public void setOptionA(String newOptionA) {
+        this.optionA = newOptionA;
     }
 
     public String getOptionB() {
         return optionB;
     }
 
-    public void setOptionB(String optionB) {
-        this.optionB = optionB;
+    public void setOptionB(String newOptionB) {
+        this.optionB = newOptionB;
     }
 
 }

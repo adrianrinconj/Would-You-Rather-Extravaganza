@@ -20,14 +20,10 @@ public class WouldYouRatherController {
     }
 
     @PostMapping("/wouldYouRatherEntry")
-    public String optionsPost() {
-        return "redirect:/displayOptions";
-    }
-
-    @GetMapping("/displayOptions")
-    public String displayGet(@ModelAttribute WouldYouRatherForm wouldYouRatherForm, Model model) {
+    public String optionsPost(@ModelAttribute WouldYouRatherForm wouldYouRatherForm, Model model) {
         model.addAttribute("wouldYouRatherForm", wouldYouRatherForm);
+
         return "DisplayOptions";
     }
-
+    
 }
