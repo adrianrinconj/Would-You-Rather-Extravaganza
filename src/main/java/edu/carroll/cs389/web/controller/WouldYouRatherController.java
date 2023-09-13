@@ -22,7 +22,6 @@ public class WouldYouRatherController {
     @PostMapping("/wouldYouRatherEntry")
     public String optionsPost(@ModelAttribute WouldYouRatherForm wouldYouRatherForm, Model model) {
         model.addAttribute("wouldYouRatherForm", wouldYouRatherForm);
-
         return "DisplayOptions";
     }
 
