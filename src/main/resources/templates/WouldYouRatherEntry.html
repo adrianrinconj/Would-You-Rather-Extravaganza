@@ -2,15 +2,16 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Login page</title>
+    <link th:href="@{/styles/WYR.css}" rel="stylesheet" />
+    <title>Would You Rather Question Entry</title>
 </head>
 <body>
-<center><h1>What Would You Rather?</h1></center>
+<h1 class="coolheader">What Would You Rather?</h1>
 <form action="#" th:action="@{/wouldYouRatherEntry}" th:object="${wouldYouRatherForm}" method="post">
     <input type="text" th:field="*{optionA}" placeholder="optionA"/>
-<!--    <span th:if="${#fields.hasErrors('optionA')}" th:errors="*{optionA}">Username error</span><br/>-->
+    <!--    <span th:if="${#fields.hasErrors('optionA')}" th:errors="*{optionA}">Username error</span><br/>-->
     <input type="text" th:field="*{optionB}" placeholder="optionB"/>
-<!--    <span th:if="${#fields.hasErrors('optionB')}" th:errors="*{optionB}">Password error</span><br/>-->
+    <!--    <span th:if="${#fields.hasErrors('optionB')}" th:errors="*{optionB}">Password error</span><br/>-->
     <button type="submit">Submit</button>
 </form>
 </body>
