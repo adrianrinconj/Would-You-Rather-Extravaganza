@@ -1,6 +1,6 @@
 :root {
   --Background: #363062;
-  --Secondary:  #827397;
+  --Secondary:  #8654cc;
   --Third: #E9D5DA;
   --Borders: #E9D5DA;
   --TextColor: #fff;
@@ -27,10 +27,15 @@ header {
 
 p {
   flex: 1;
+  flex-grow: 1;
   padding: 10px;
+  margin: 10px;
+  border-radius: 25px;
   text-align: center;
-  background-color: #827397;
+  background-color: #b986ff;
+  border-width: 2px;
   border-color: white;
+  border-style: solid;
   text-overline-color: black;
   font-family: "Rokkitt";
   font-size: 1.25em;
@@ -42,12 +47,14 @@ body {
   background-repeat: no-repeat;
   background-size: cover; */
   background-color: #363062;
+  width:100%;
   margin: 0%;
   opacity: 80%;
   display: flex;
-  flex-flow: column wrap;
+  flex-flow: column;
   justify-content: center;
-  text-align: center;
+  align-items: center;
+
 }
 
 
@@ -57,9 +64,8 @@ div {
   border-style: solid;
   background-color: var(--Secondary);
   border-color: var(--Borders);
-  margin: 2%;
   padding: 2%;
-  box-shadow: 0.10em 0.20em var(--Accent);
+  /*box-shadow: 0.10em 0.20em var(--Accent);*/
 }
 
 main{
@@ -69,10 +75,10 @@ main{
   justify-content: center;
 }
 
-  
-  /* Dropdown button */
 
- 
+/* Dropdown button */
+
+
 
 
 .coolheader{
@@ -83,30 +89,46 @@ main{
   color: var(--TextColor);
   position: relative;
   font-size: 2.2em;
-  
+
 }
 
 form {
   background-color: #827397;
   margin: 2%;
   padding: 1em;
+  width: 80%;
+  height: 80%;
   display: flex;
-  flex-flow: row wrap;
+  flex-flow: column;
   justify-content: space-evenly;
 }
 
 input {
   background-color: aliceblue;
+  flex-grow: 1;
 }
 
 a {
-  background-color: #827397;
-  padding: 10px;
+  margin: 5px;
   text-overline-color: black;
 }
 
 .optionsDivider {
   display: flex;
-  /*flex-flow: column;*/
-  justify-content: space-between;
+  flex-grow: 1;
+  flex-flow: row;
+  border-style: none;
+  justify-content: space-evenly;
+  border-radius: 25px;
+  width: 80%;
+}
+
+.mainContentDiv {
+  display: flex;
+  flex-flow: column;
+  border-style: none;
+  justify-content: space-evenly;
+  align-items: center;
+  border-radius: 25px;
+  width: 80%;
 }
