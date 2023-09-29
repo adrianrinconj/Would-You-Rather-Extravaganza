@@ -1,0 +1,91 @@
+:root {
+  --Background: #363062;
+  --Secondary:  #827397;
+  --Third: #E9D5DA;
+  --Borders: #E9D5DA;
+  --TextColor: #fff;
+
+  /* --Background: rgb(148, 170, 194);
+  --Secondary:  rgb(190, 210, 233);
+  --Third: rgb(163, 230, 241); */
+  /* Previous Colors in case i hate new ones */
+  --Accent: #111;
+}
+
+html {
+  background-color: var(--Background);
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+}
+
+header {
+  background-color: var(--Secondary);
+  display: flex;
+  justify-content: center;
+}
+
+p {
+  text-align: left;
+  font-family: "Rokkitt";
+  font-size: 1.25em;
+}
+
+
+body {
+  /* background-image: url("background.jpg");
+  background-repeat: no-repeat;
+  background-size: cover; */
+  background-color: #363062;
+  margin: 0%;
+  opacity: 80%;
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  text-align: center;
+}
+
+
+div {
+  flex: 1;
+  border-width: 2px;
+  border-style: solid;
+  background-color: var(--Secondary);
+  border-color: var(--Borders);
+  margin: 2%;
+  padding: 2%;
+  box-shadow: 0.10em 0.20em var(--Accent);
+}
+
+main{
+  background-color: var(--Background);
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+}
+
+  
+  /* Dropdown button */
+
+ 
+
+
+.coolheader{
+  font-family: "Ultra";
+  text-shadow:4px 4px var(--Accent);
+  padding: 0.1em;
+  margin: 0.2em;
+  color: var(--TextColor);
+  position: relative;
+  font-size: 2.2em;
+  
+}
+
+form {
+  background-color: #827397;
+  margin: 2%;
+  padding: 1em;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+}
