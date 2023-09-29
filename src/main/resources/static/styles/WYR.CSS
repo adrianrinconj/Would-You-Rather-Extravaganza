@@ -26,7 +26,12 @@ header {
 }
 
 p {
-  text-align: left;
+  flex: 1;
+  padding: 10px;
+  text-align: center;
+  background-color: #827397;
+  border-color: white;
+  text-overline-color: black;
   font-family: "Rokkitt";
   font-size: 1.25em;
 }
@@ -88,4 +93,20 @@ form {
   display: flex;
   flex-flow: row wrap;
   justify-content: space-evenly;
+}
+
+input {
+  background-color: aliceblue;
+}
+
+a {
+  background-color: #827397;
+  padding: 10px;
+  text-overline-color: black;
+}
+
+.optionsDivider {
+  display: flex;
+  /*flex-flow: column;*/
+  justify-content: space-between;
 }

@@ -2,12 +2,18 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link th:href="@{/styles/WYR.css}" rel="stylesheet" />
     <title>Login page</title>
 </head>
 <body>
 <center><h1>Login</h1></center>
-<p th:text="'Option A:' + ${wouldYouRatherForm.optionA}"/>
-<p th:text="'Option B:' + ${wouldYouRatherForm.optionB}"/>
-<p></p>
+<div class="optionsDivider" style="flex-flow: column">
+    <div class="optionsDivider">
+        <p th:text="'Option A:' + ${optionA}"/>
+        <p th:text="'Option B:' + ${optionB}"/>
+    </div>
+    <a th:href="@{/DisplayOptions}">Refresh Question</a>
+    <a th:href="@{/wouldYouRatherEntry}">Go to Entry</a>
+</div>
 </body>
 </html>
