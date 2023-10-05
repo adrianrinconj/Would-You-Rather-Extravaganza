@@ -22,6 +22,7 @@ public class WouldYouRatherDisplayController {
         model.addAttribute("wouldYouRatherForm", new WouldYouRatherForm());
         Question randomQuestion = questionService.randomQuestion();
 
+
         if(randomQuestion != null) {
             model.addAttribute("optionA", randomQuestion.getOptionA());
             model.addAttribute("optionB", randomQuestion.getOptionB());

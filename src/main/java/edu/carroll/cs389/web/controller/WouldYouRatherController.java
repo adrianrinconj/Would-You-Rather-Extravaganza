@@ -32,9 +32,15 @@ public class WouldYouRatherController {
 
     @PostMapping("/")
     public String optionsPost(@Valid @ModelAttribute WouldYouRatherForm wouldYouRatherForm, BindingResult result, RedirectAttributes attrs ) {
+
         if (result.hasErrors()) {
             return "WouldYouRatherEntry";
         }
+
+//        if (!questionService.validateQuestion()){
+//
+//        }
+
         Question newEntry = new Question(wouldYouRatherForm.getOptionA(), wouldYouRatherForm.getOptionB());
         questionService.addQuestion(newEntry);
         return "redirect:/DisplayOptions";
