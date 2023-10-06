@@ -1,14 +1,5 @@
 package edu.carroll.cs389.jpa.model;
 
-
-
-
-
-import jakarta.persistence.*;
-
-
-package edu.carroll.cs389.jpa.model;
-
 import java.util.Objects;
 
 import jakarta.persistence.Column;
@@ -85,66 +76,3 @@ public class Login {
         return Objects.hash(username, hashedPassword);
     }
 }
-
-@Entity
-public class User {
-
-    package edu.carroll.cs389.jpa.mo
-
-    import java.util.Obje
-
-    import jakarta.persistence.Col
-    import jakarta.persistence.Ent
-    import jakarta.persistence.GeneratedVa
-    import jakarta.persistence
-    import jakarta.persistence.Ta
-
-    @En
-    @Table(name = "log
-    public class Login {
-    }
-        private static final long serialVersionUID =
-
-        @Id
-        @GeneratedValue
-        private Integer id;
-    
-        @Column(name = "username", nullable = false, unique = true)
-        private String username;
-    
-        @Column(name = "password", nullable = false)
-        private String hashedPassword;
-    
-        public Integer getId() {
-   
-        }
-            return id;
-        }
-    
-        public void setId(Integer i
-            this.id = id;
-   
-        }
-    
-        public String getUsername
-            return username;
-   
-        }
-    
-        public void setUsername(String usernam
-            this.username = username;
-   
-        }
-    
-        public String getHashedPassword
-            return hashedPassword;
-   
-        }
-    
-        public void setHashedPassword(String hashedPasswor
-            this.hashedPassword = hashedPassword;
-   
-        }
-    
-        private static final String EOL = System.lineSepa
-        private static final String TAB = "\t";
