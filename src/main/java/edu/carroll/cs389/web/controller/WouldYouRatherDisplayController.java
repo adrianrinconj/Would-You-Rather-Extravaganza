@@ -8,9 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class WouldYouRatherDisplayController {
@@ -24,8 +21,17 @@ public class WouldYouRatherDisplayController {
     public String optionsGet(Model model) {
         model.addAttribute("wouldYouRatherForm", new WouldYouRatherForm());
         Question randomQuestion = questionService.randomQuestion();
-        model.addAttribute("optionA", randomQuestion.getOptionA());
-        model.addAttribute("optionB", randomQuestion.getOptionB());
+
+
+        if(randomQuestion != null) {
+            model.addAttribute("optionA", randomQuestion.getOptionA());
+            model.addAttribute("optionB", randomQuestion.getOptionB());
+        }
+        else{
+            model.addAttribute("optionA", "no option");
+            model.addAttribute("optionB", "no option");
+        }
+
         return "/DisplayOptions";
     }
 

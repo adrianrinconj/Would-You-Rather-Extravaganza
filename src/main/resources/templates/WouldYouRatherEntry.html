@@ -7,13 +7,113 @@
 </head>
 <body>
 <h1 class="coolheader">What Would You Rather?</h1>
-<form action="#" th:action="@{/wouldYouRatherEntry}" th:object="${wouldYouRatherForm}" method="post">
-    <div class="optionsDivider">
-        <input type="text" th:field="*{optionA}" placeholder="optionA"/>
-        <input type="text" th:field="*{optionB}" placeholder="optionB"/>
-    </div>
+<form action="#" th:action="@{/}" th:object="${wouldYouRatherForm}" method="post">
+    <input type="text" th:field="*{optionA}" placeholder="optionA"/>
+    <td th:if="${#fields.hasErrors('optionA')}" th:errors="*{optionA}">Option A Error</td>
+    <!--    <span th:if="${#fields.hasErrors('optionA')}" th:errors="*{optionA}">Username error</span><br/>-->
+    <input type="text" th:field="*{optionB}" placeholder="optionB"/>
+    <td th:if="${#fields.hasErrors('optionB')}" th:errors="*{optionB}">Option A Error</td>
+
+    <!--    <span th:if="${#fields.hasErrors('optionB')}" th:errors="*{optionB}">Password error</span><br/>-->
     <button type="submit">Submit</button>
     <a th:href="@{/DisplayOptions}"> Vote on what others are wondering!</a>
 </form>
 </body>
 </html>
+
+<!--<!DOCTYPE HTML>-->
+<!--<html xmlns:th="http://www.thymeleaf.org" lang="en">-->
+<!--<head>-->
+<!--    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />-->
+<!--    <link th:href="@{/styles/WYR.css}" rel="stylesheet" />-->
+<!--    <title>Would You Rather Question Entry</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<h1 class="coolheader">What Would You Rather?</h1>-->
+<!--<form action="#" th:action="@{/}" th:object="${wouldYouRatherForm}" method="POST" id="myForm">-->
+<!--    <label for="optionA">-->
+<!--        <input type="text" th:field="*{optionA}" placeholder="optionA" id="optionA"/>-->
+<!--    </label>-->
+
+<!--    &lt;!&ndash;    <span th:if="${#fields.hasErrors('optionA')}" th:errors="*{optionA}">Username error</span><br/>&ndash;&gt;-->
+<!--    <label for="optionB">-->
+<!--        <input type="text" th:field="*{optionB}" placeholder="optionB" id="optionB"/>-->
+<!--    </label>-->
+<!--    &lt;!&ndash;    <span th:if="${#fields.hasErrors('optionB')}" th:errors="*{optionB}">Password error</span><br/>&ndash;&gt;-->
+<!--    <button type = "submit" onclick = "clearText()"> clear input field</button>-->
+<!--</form>-->
+<!--<a th:href="@{/DisplayOptions}"> go to display </a>-->
+<!--</body>-->
+<!--<script>-->
+<!--    function clearText(event) {-->
+<!--        // access input field-->
+<!--        let input1 = document.getElementById('optionA');-->
+<!--        // clear the input field.-->
+<!--        input1.value = "";-->
+<!--    }-->
+<!--</script>-->
+<!--</html>-->
+
+
+<!--<!DOCTYPE HTML>-->
+<!--<html xmlns:th="http://www.thymeleaf.org" lang="en">-->
+<!--<head>-->
+<!--    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />-->
+<!--    <link th:href="@{/styles/WYR.css}" rel="stylesheet" />-->
+<!--    <title>Would You Rather Question Entry</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<h1 class="coolheader">What Would You Rather?</h1>-->
+<!--<form action="#" th:action="@{/}" th:object="${wouldYouRatherForm}" method="post" id="myForm">-->
+<!--    <input type="text" th:field="*{optionA}" placeholder="optionA" id="optionA" />-->
+<!--    &lt;!&ndash;    <span th:if="${#fields.hasErrors('optionA')}" th:errors="*{optionA}">Username error</span><br/>&ndash;&gt;-->
+<!--    <input type="text" th:field="*{optionB}" placeholder="optionB" id="optionB" />-->
+<!--    &lt;!&ndash;    <span th:if="${#fields.hasErrors('optionB')}" th:errors="*{optionB}">Password error</span><br/>&ndash;&gt;-->
+<!--    <button type="submit" id="btn">Submit</button>-->
+<!--</form>-->
+<!--<a th:href="@{/DisplayOptions}"> go to display </a>-->
+<!--</body>-->
+<!--<script>-->
+<!--    const btn = document.getElementById('btn');-->
+
+<!--    btn.addEventListener('click', function handleClick(event) {-->
+<!--        const optionAInput = document.getElementById('optionA');-->
+<!--        const optionBInput = document.getElementById('optionB');-->
+<!--        console.log(optionAInput.value);-->
+<!--        console.log(optionBInput.value);-->
+
+<!--        optionAInput.value = '';-->
+<!--        optionBInput.value = '';-->
+<!--    });-->
+<!--</script>-->
+<!--</html>-->
+
+
+
+
+<!--<!DOCTYPE HTML>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />-->
+<!--    <link th:href="@{/styles/WYR.css}" rel="stylesheet" />-->
+<!--    <title>Would You Rather Question Entry</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<h1 class="coolheader">What Would You Rather?</h1>-->
+<!--<form action="#" th:action="@{/}" th:object="${wouldYouRatherForm}" method="post" id="myForm">-->
+<!--    <input type="text" th:field="*{optionA}" placeholder="optionA" id="optionA"/>-->
+<!--    &lt;!&ndash;    <span th:if="${#fields.hasErrors('optionA')}" th:errors="*{optionA}">Username error</span><br/>&ndash;&gt;-->
+<!--    <input type="text" th:field="*{optionB}" placeholder="optionB" id="optionB"/>-->
+<!--    &lt;!&ndash;    <span th:if="${#fields.hasErrors('optionB')}" th:errors="*{optionB}">Password error</span><br/>&ndash;&gt;-->
+<!--    <input type="submit" onclick="fun()" id="subBtn" value="Submit">-->
+<!--</form>-->
+<!--<a th:href="@{/DisplayOptions}"> go to display </a>-->
+<!--</body>-->
+<!--<script>-->
+<!--    function fun(){-->
+<!--        document.getElementById("myForm").submit();-->
+<!--        document.getElementById('optionA').value='';-->
+<!--        document.getElementById('optionB').value='';-->
+<!--    }-->
+<!--</script>-->
+<!--</html>-->

@@ -1,9 +1,6 @@
 package edu.carroll.cs389.jpa.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Question {
@@ -12,7 +9,10 @@ public class Question {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "optionA", nullable = false, unique = true)
     private String optionA;
+
+    @Column(name = "optionB", nullable = false, unique = true)
     private String optionB;
 
     // Constructors
@@ -21,6 +21,7 @@ public class Question {
     public Question(String optionA, String optionB) {
         this.optionA = optionA;
         this.optionB = optionB;
+
     }
 
     public String getOptionA() {

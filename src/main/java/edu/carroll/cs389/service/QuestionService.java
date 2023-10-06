@@ -1,10 +1,58 @@
+//package edu.carroll.cs389.service;
+//import edu.carroll.cs389.jpa.model.Question;
+//import edu.carroll.cs389.jpa.repo.QuestionRepository;
+//import org.springframework.data.domain.Page;
+//import org.springframework.data.domain.PageRequest;
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.stereotype.Service;
+//
+//import java.util.HashSet;
+//import java.util.Iterator;
+//
+//@Service
+//public class QuestionService {
+//
+//    @Autowired
+//    private QuestionRepository repository;
+//
+//    // Fetch all questions
+//    public Iterable<Question> getAllQuestions() {
+//        return repository.findAll();
+//    }
+//
+//    // Add a new question
+//    public void addQuestion(Question question) {
+//        repository.save(question);
+//    }
+//
+//    public Question randomQuestion() {
+//        List<Question> allQ = repository.findAll();
+//        // Stack Overflow help with getting a random entity from the DB
+//        Long qty = repository.count();
+//        int idx = (int)(Math.random() * qty);
+//        Page<Question> questionPage = repository.findAll(PageRequest.of(idx, 1));
+//        Question q = null;
+//        if (questionPage.hasContent()) {
+//            q = questionPage.getContent().get(0);
+//        }
+//        return q;
+//    }
+//
+//}
+
+
 package edu.carroll.cs389.service;
 import edu.carroll.cs389.jpa.model.Question;
 import edu.carroll.cs389.jpa.repo.QuestionRepository;
+import edu.carroll.cs389.web.form.WouldYouRatherForm;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
 
 @Service
 public class QuestionService {
@@ -17,21 +65,25 @@ public class QuestionService {
         return repository.findAll();
     }
 
+//    boolean validateQuestion(WouldYouRatherForm wouldYouRatherForm) {
+//        return false;
+//    }
+
     // Add a new question
     public void addQuestion(Question question) {
         repository.save(question);
     }
 
     public Question randomQuestion() {
+        List<Question> allQ = repository.findAll();
         // Stack Overflow help with getting a random entity from the DB
-        Long qty = repository.count();
-        int idx = (int)(Math.random() * qty);
-        Page<Question> questionPage = repository.findAll(PageRequest.of(idx, 1));
-        Question q = null;
-        if (questionPage.hasContent()) {
-            q = questionPage.getContent().get(0);
+        int idx = (int)(Math.random() * allQ.size());
+        return allQ.get(idx);
+//        Question q = null;
+//        if (questionPage.hasContent()) {
+//            q = questionPage.getContent().get(0);
         }
-        return q;
-    }
 
-}
+//    public boolean validateQuestion(WouldYouRatherForm wouldYouRatherForm);
+//        return q;
+    }

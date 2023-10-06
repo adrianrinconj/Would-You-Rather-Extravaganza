@@ -6,8 +6,11 @@ import jakarta.validation.constraints.Size;
 public class WouldYouRatherForm {
 
     @NotNull
+    @Size(min = 1, message = "Please place a scenario here")
+
     private String optionA;
     @NotNull
+    @Size(min = 1, message = "Please place a scenario here")
     private String optionB;
 
     public String getOptionA() {
