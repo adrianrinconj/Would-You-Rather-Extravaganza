@@ -2,9 +2,7 @@ package edu.carroll.cs389.web.controller;
 
 
 import edu.carroll.cs389.service.UserService;
-import edu.carroll.cs389.web.form.LoginForm;
 import edu.carroll.cs389.web.form.RegisterLoginForm;
-import edu.carroll.cs389.web.form.WouldYouRatherForm;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,7 +15,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 public class RegisterController {
 
-    private final UserService userService = new UserService();
+    private final UserService userService;
+
+    public RegisterController(UserService userService) {
+        this.userService = userService;
+    }
 
 
     @GetMapping("/Register")
