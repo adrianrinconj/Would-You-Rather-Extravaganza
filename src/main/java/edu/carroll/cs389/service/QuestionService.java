@@ -45,25 +45,22 @@ package edu.carroll.cs389.service;
 import edu.carroll.cs389.jpa.model.Question;
 import edu.carroll.cs389.jpa.repo.QuestionRepository;
 import edu.carroll.cs389.jpa.repo.UserRepository;
-import edu.carroll.cs389.web.form.WouldYouRatherForm;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import edu.carroll.cs389.jpa.model.User;
 
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 
 @Service
 public class QuestionService {
 
-    @Autowired
     private QuestionRepository repository;
 
-    @Autowired
     private UserRepository userRepository;
+
+    public QuestionService(QuestionRepository repository, UserRepository userRepository) {
+        this.repository = repository;
+        this.userRepository = userRepository;
+    }
 
     // Fetch all questions
     public Iterable<Question> getAllQuestions() {

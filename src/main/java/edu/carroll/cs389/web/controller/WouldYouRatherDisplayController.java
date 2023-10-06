@@ -15,7 +15,7 @@ public class WouldYouRatherDisplayController {
     private final QuestionService questionService;
 
 
-    private User currentUser = new User("George", "Password");
+    private User currentUser = new User("loba", "Password");
     private Question currentQuestion;
 
     public WouldYouRatherDisplayController(QuestionService questionService) {
@@ -56,8 +56,8 @@ public class WouldYouRatherDisplayController {
     @GetMapping("/results")
     public String showResults(Model model) {
 
-        model.addAttribute("A Votes", currentQuestion.getVotesForOptionA().size());
-        model.addAttribute("B Votes", currentQuestion.getVotesForOptionB().size());
+        model.addAttribute("AVotes", currentQuestion.getVotesForOptionA().size());
+        model.addAttribute("BVotes", currentQuestion.getVotesForOptionB().size());
         return "Results";
     }
 

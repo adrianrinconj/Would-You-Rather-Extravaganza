@@ -1,14 +1,10 @@
 package edu.carroll.cs389.web.controller;
 
 
-import edu.carroll.cs389.jpa.model.Question;
 import edu.carroll.cs389.jpa.model.User;
-import edu.carroll.cs389.service.QuestionService;
 import edu.carroll.cs389.service.UserService;
 import edu.carroll.cs389.web.form.LoginForm;
-import edu.carroll.cs389.web.form.WouldYouRatherForm;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,8 +16,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 public class LoginController {
 
-    @Autowired
-    private final UserService userService = new UserService();
+
+    private final UserService userService;
+
+    public LoginController(UserService userService) {
+        this.userService = userService;
+    }
 
 
     @GetMapping("/Login")
@@ -29,7 +29,7 @@ public class LoginController {
     public String LoginGet(Model model) {
         model.addAttribute("LoginForm", new LoginForm());
         /// XXX Hard coded for working purposes
-        User newUser = new User("George", "password");
+        User newUser = new User("stoobydooby", "password");
         userService.addUser(newUser);
         return "Login";
     }
@@ -40,8 +40,9 @@ public class LoginController {
 
         if (!result.hasErrors() && loggedUser != null) {
             model.addAttribute("Current User", loggedUser);
+            return "WouldYouRatherEntry";
         }
 
-        return "WouldYouRatherEntry";
+        return "Login";
     }
 }
