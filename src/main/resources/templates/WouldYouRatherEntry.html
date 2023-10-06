@@ -10,11 +10,9 @@
 <form action="#" th:action="@{/}" th:object="${wouldYouRatherForm}" method="post">
     <input type="text" th:field="*{optionA}" placeholder="optionA"/>
     <td th:if="${#fields.hasErrors('optionA')}" th:errors="*{optionA}">Option A Error</td>
-    <!--    <span th:if="${#fields.hasErrors('optionA')}" th:errors="*{optionA}">Username error</span><br/>-->
     <input type="text" th:field="*{optionB}" placeholder="optionB"/>
     <td th:if="${#fields.hasErrors('optionB')}" th:errors="*{optionB}">Option A Error</td>
 
-    <!--    <span th:if="${#fields.hasErrors('optionB')}" th:errors="*{optionB}">Password error</span><br/>-->
     <button type="submit">Submit</button>
     <a th:href="@{/DisplayOptions}"> Vote on what others are wondering!</a>
 </form>

@@ -2,9 +2,14 @@ package edu.carroll.cs389.jpa.model;
 
 import jakarta.persistence.*;
 
-@Entity
-public class Question {
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+@Entity
+public class Question implements Serializable {
+
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -14,6 +19,19 @@ public class Question {
 
     @Column(name = "optionB", nullable = false, unique = true)
     private String optionB;
+
+
+    @ManyToMany
+    @JoinTable(name = "votes_optionA",
+            joinColumns = @JoinColumn(name = "question_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private List<User> votesForOptionA = new ArrayList<>();
+
+    @ManyToMany
+    @JoinTable(name = "votes_optionB",
+            joinColumns = @JoinColumn(name = "question_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private List<User> votesForOptionB = new ArrayList<>();
 
     // Constructors
     public Question() {}
@@ -40,6 +58,22 @@ public class Question {
         this.optionB = optionB;
     }
 
+    public List<User> getVotesForOptionA() {
+        return votesForOptionA;
+    }
+
+    public void voteForOptionA(User votingUser){
+        votesForOptionA.add(votingUser);
+    }
+
+    public List<User> getVotesForOptionB() {
+        return votesForOptionB;
+    }
+
+    public void voteForOptionB(User votingUser){
+        votesForOptionB.add(votingUser);
+    }
+
     public Long getId() {
         return id;
     }
@@ -47,6 +81,5 @@ public class Question {
     public void setId(Long id) {
         this.id = id;
     }
-// Getters and Setters
-    // ... auto-generate using your IDE
+
 }

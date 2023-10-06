@@ -3,17 +3,16 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link th:href="@{/styles/WYR.css}" rel="stylesheet" />
-    <title>What Would You Rather?</title>
+    <title>Vote Results</title>
 </head>
 <body>
-<h1>What Would you Rather?</h1>
+<h1>Vote Results</h1>
 <div class="mainContentDiv" style="flex-flow: column">
     <div class="optionsDivider">
-        <p th:href="@{/voteA}" th:text="'Option A: ' + ${optionA}"/>
-        <p th:href="@{/voteB}" th:text="'Option B: ' + ${optionB}"/>
+        <p th:text="'Option A: ' + ${AVotes}"/>
+        <p th:text="'Option B: ' + ${BVotes}"/>
     </div>
-    <a th:href="@{/DisplayOptions}">Refresh Question</a>
-    <a th:href="@{/}">Go to Entry</a>
+    <a th:href="@{/DisplayOptions}">Next Question</a>
 </div>
 </body>
 </html>

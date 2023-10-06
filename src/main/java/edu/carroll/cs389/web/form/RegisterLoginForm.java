@@ -3,7 +3,7 @@ package edu.carroll.cs389.web.form;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
-public class LoginForm {
+public class RegisterLoginForm {
 
     @NotNull
     @Size(min = 1, message = "You must enter a username")

@@ -44,11 +44,13 @@
 package edu.carroll.cs389.service;
 import edu.carroll.cs389.jpa.model.Question;
 import edu.carroll.cs389.jpa.repo.QuestionRepository;
+import edu.carroll.cs389.jpa.repo.UserRepository;
 import edu.carroll.cs389.web.form.WouldYouRatherForm;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import edu.carroll.cs389.jpa.model.User;
 
 import java.util.HashSet;
 import java.util.Iterator;
@@ -60,30 +62,57 @@ public class QuestionService {
     @Autowired
     private QuestionRepository repository;
 
+    @Autowired
+    private UserRepository userRepository;
+
     // Fetch all questions
     public Iterable<Question> getAllQuestions() {
         return repository.findAll();
     }
 
-//    boolean validateQuestion(WouldYouRatherForm wouldYouRatherForm) {
-//        return false;
-//    }
-
     // Add a new question
     public void addQuestion(Question question) {
-        repository.save(question);
+        if (uniqueQuestion(question)) {
+            repository.save(question);
+        }
     }
 
-    public Question randomQuestion() {
+    public boolean uniqueQuestion(Question newQuestion) {
+        for (Question currentQuestion : getAllQuestions()) {
+            if (newQuestion.getOptionA() == currentQuestion.getOptionA() || newQuestion.getOptionB() == currentQuestion.getOptionB()){
+                return false;
+            }
+        }
+        return true;
+    }
+
+//    IS this the right way to do this?
+//    public void voteForOptionA(Question currentQuestion,User currentUser){
+//        currentQuestion.getVotesForOptionA().add(currentUser);
+//        repository.save(currentQuestion);
+//    }
+
+    public Question randomUnseenQuestion(User currentUser) {
         List<Question> allQ = repository.findAll();
-        // Stack Overflow help with getting a random entity from the DB
-        int idx = (int)(Math.random() * allQ.size());
-        return allQ.get(idx);
-//        Question q = null;
-//        if (questionPage.hasContent()) {
-//            q = questionPage.getContent().get(0);
+
+        // Remove all questions the user has already seen
+        allQ.removeAll(currentUser.getSeenQuestions());
+
+        // If the user has seen all the questions, handle accordingly.
+        if (allQ.isEmpty()) {
+            //XXX HOW SHOULD THIS BE HANDLED?
+            return null;
         }
 
-//    public boolean validateQuestion(WouldYouRatherForm wouldYouRatherForm);
-//        return q;
+        // Randomly select a question from the remaining questions
+        int idx = (int)(Math.random() * allQ.size());
+        return allQ.get(idx);
     }
+
+    public void markQuestionAsSeen(User user, Question question) {
+        user.getSeenQuestions().add(question);
+        userRepository.save(user);
+    }
+
+
+}

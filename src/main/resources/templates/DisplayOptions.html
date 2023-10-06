@@ -9,8 +9,12 @@
 <h1>What Would you Rather?</h1>
 <div class="mainContentDiv" style="flex-flow: column">
     <div class="optionsDivider">
-        <p th:text="'Option A: ' + ${optionA}"/>
-        <p th:text="'Option B: ' + ${optionB}"/>
+        <a th:href="@{/voteA}">
+            <p th:text="'Option A: ' + ${optionA}"/>
+        </a>
+        <a th:href="@{/voteB}">
+            <p th:text="'Option B: ' + ${optionB}"/>
+        </a>
     </div>
     <a th:href="@{/DisplayOptions}">Refresh Question</a>
     <a th:href="@{/}">Go to Entry</a>

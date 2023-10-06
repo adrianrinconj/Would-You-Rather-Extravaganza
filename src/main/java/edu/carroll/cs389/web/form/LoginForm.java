@@ -3,30 +3,29 @@ package edu.carroll.cs389.web.form;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
-public class WouldYouRatherForm {
+public class LoginForm {
 
     @NotNull
-    @Size(min = 1, message = "Please place a scenario here")
-
-    private String optionA;
+    @Size(min = 1, message = "You must enter a username")
+    private String username;
     @NotNull
-    @Size(min = 1, message = "Please place a scenario here")
-    private String optionB;
+    @Size(min = 1, message = "You must enter a password")
+    private String rawPassword;
 
-    public String getOptionA() {
-        return optionA;
+    public String getUsername() {
+        return username;
     }
 
-    public void setOptionA(String newOptionA) {
-        this.optionA = newOptionA;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getOptionB() {
-        return optionB;
+    public String getRawPassword() {
+        return rawPassword;
     }
 
-    public void setOptionB(String newOptionB) {
-        this.optionB = newOptionB;
+    public void setRawPassword(String rawPassword) {
+        this.rawPassword = rawPassword;
     }
 
 }

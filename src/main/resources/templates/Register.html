@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1 class="coolheader">Please log in</h1>
-<form action="#" th:action="@{/}" th:object="${LoginForm}" method="post">
+<form action="#" th:action="@{/}" th:object="${registerLoginForm}" method="post">
 
     <input type="text" th:field="*{username}" placeholder="Username"/>
     <td th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username Error</td>

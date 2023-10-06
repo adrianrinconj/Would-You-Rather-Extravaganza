@@ -5,6 +5,17 @@
     <title>Title</title>
 </head>
 <body>
+<h1 class="coolheader">Please log in</h1>
+<form action="#" th:action="@{/}" th:object="${LoginForm}" method="post">
 
+    <input type="text" th:field="*{username}" placeholder="Username"/>
+    <td th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username Error</td>
+
+    <input type="text" th:field="*{rawPassword}" placeholder="Password"/>
+    <td th:if="${#fields.hasErrors('rawPassword')}" th:errors="*{rawPassword}">Password Error</td>
+
+    <button type="submit">Submit</button>
+    <a th:href="@{/DisplayOptions}"> Vote on what others are wondering!</a>
+</form>
 </body>
 </html>
