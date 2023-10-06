@@ -4,9 +4,6 @@ package edu.carroll.cs389.web.controller;
 import edu.carroll.cs389.jpa.model.Question;
 import edu.carroll.cs389.jpa.model.User;
 import edu.carroll.cs389.service.QuestionService;
-import edu.carroll.cs389.service.UserService;
-import edu.carroll.cs389.web.form.WouldYouRatherForm;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,12 +12,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class WouldYouRatherDisplayController {
 
 
-    @Autowired
-    private final QuestionService questionService = new QuestionService();
+    private final QuestionService questionService;
 
 
     private User currentUser = new User("George", "Password");
     private Question currentQuestion;
+
+    public WouldYouRatherDisplayController(QuestionService questionService) {
+        this.questionService = questionService;
+    }
 
     @GetMapping("/DisplayOptions")
     public String optionsGet(Model model) {
@@ -55,6 +55,7 @@ public class WouldYouRatherDisplayController {
 
     @GetMapping("/results")
     public String showResults(Model model) {
+
         model.addAttribute("A Votes", currentQuestion.getVotesForOptionA().size());
         model.addAttribute("B Votes", currentQuestion.getVotesForOptionB().size());
         return "Results";
