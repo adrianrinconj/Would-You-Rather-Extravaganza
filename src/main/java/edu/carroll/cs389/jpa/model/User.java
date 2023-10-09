@@ -19,6 +19,7 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    // @Column makes the tables. In this case this is the user table; not nullable
     @Column(unique = true, nullable = false)
     private String username;
 
@@ -37,6 +38,7 @@ public class User implements Serializable {
     private List<Question> seenQuestions;
 
 
+    // creates the User; constructor
     public User(String username, String rawPassword) {
         this.username = username;
         this.password = encryptPassword(rawPassword);  // Ensuring the password is encoded
@@ -45,6 +47,7 @@ public class User implements Serializable {
 
     }
 
+    //empty constructor needed
     public User() {
 
     }
@@ -69,6 +72,7 @@ public class User implements Serializable {
         return password;
     }
 
+    // hashing algorithm that stores 'salt' and compares it to other passwords 'salt'
     public byte[] encryptPassword(String rawPassword) {
 
         //Message digest requires exception handling

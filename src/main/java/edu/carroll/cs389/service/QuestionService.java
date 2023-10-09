@@ -57,6 +57,7 @@ public class QuestionService {
 
     private UserRepository userRepository;
 
+    // constructor
     public QuestionService(QuestionRepository repository, UserRepository userRepository) {
         this.repository = repository;
         this.userRepository = userRepository;
@@ -73,7 +74,7 @@ public class QuestionService {
             repository.save(question);
         }
     }
-
+    // makes sure that all questions are unique
     public boolean uniqueQuestion(Question newQuestion) {
         for (Question currentQuestion : getAllQuestions()) {
             if (newQuestion.getOptionA() == currentQuestion.getOptionA() || newQuestion.getOptionB() == currentQuestion.getOptionB()){
@@ -83,11 +84,6 @@ public class QuestionService {
         return true;
     }
 
-//    IS this the right way to do this?
-//    public void voteForOptionA(Question currentQuestion,User currentUser){
-//        currentQuestion.getVotesForOptionA().add(currentUser);
-//        repository.save(currentQuestion);
-//    }
 
     public Question randomUnseenQuestion(User currentUser) {
         List<Question> allQ = repository.findAll();

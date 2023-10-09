@@ -21,6 +21,7 @@ public class Question implements Serializable {
     private String optionB;
 
 
+    //This joins users and question tables to show the votes
     @ManyToMany
     @JoinTable(name = "votes_optionA",
             joinColumns = @JoinColumn(name = "question_id"),
@@ -36,6 +37,7 @@ public class Question implements Serializable {
     // Constructors
     public Question() {}
 
+    //constructor
     public Question(String optionA, String optionB) {
         this.optionA = optionA;
         this.optionB = optionB;

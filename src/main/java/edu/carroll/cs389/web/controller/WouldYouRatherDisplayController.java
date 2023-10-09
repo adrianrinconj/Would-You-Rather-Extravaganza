@@ -14,13 +14,14 @@ public class WouldYouRatherDisplayController {
 
     private final QuestionService questionService;
 
-
     private User currentUser = new User("George", "Password");
     private Question currentQuestion;
 
+    // constructor
     public WouldYouRatherDisplayController(QuestionService questionService) {
         this.questionService = questionService;
     }
+
 
     @GetMapping("/DisplayOptions")
     public String optionsGet(Model model) {
