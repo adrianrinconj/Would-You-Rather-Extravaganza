@@ -18,7 +18,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class WouldYouRatherController {
 
 
-
     private final QuestionService questionService;
 
     public WouldYouRatherController(QuestionService questionService) {
@@ -34,7 +33,7 @@ public class WouldYouRatherController {
     }
 
     @PostMapping("/")
-    public String optionsPost(@Valid @ModelAttribute WouldYouRatherForm wouldYouRatherForm, BindingResult result, RedirectAttributes attrs ) {
+    public String optionsPost(@Valid @ModelAttribute WouldYouRatherForm wouldYouRatherForm, BindingResult result, RedirectAttributes attrs) {
 
         if (result.hasErrors()) {
             return "WouldYouRatherEntry";

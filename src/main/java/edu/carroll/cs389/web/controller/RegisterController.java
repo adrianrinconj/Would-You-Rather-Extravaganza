@@ -1,6 +1,7 @@
 package edu.carroll.cs389.web.controller;
 
 
+import edu.carroll.cs389.jpa.model.User;
 import edu.carroll.cs389.service.UserService;
 import edu.carroll.cs389.web.form.RegisterLoginForm;
 import jakarta.validation.Valid;
@@ -30,10 +31,17 @@ public class RegisterController {
     }
 
     @PostMapping("/Register")
-    public String RegisterPost(@Valid @ModelAttribute RegisterLoginForm registerLoginForm, BindingResult result, RedirectAttributes attrs ) {
+    public String RegisterPost(@Valid @ModelAttribute RegisterLoginForm registerLoginForm, BindingResult result, RedirectAttributes attrs) {
 
-        if (result.hasErrors()) {
-
+        if (!result.hasErrors()) {
+            boolean success = userService.addUser(new User(registerLoginForm.getUsername(), registerLoginForm.getRawPassword()));
+            if (success) {
+                // something to add success popup or welcome
+                return "WouldYouRatherEntry";
+            }
+            else {
+                // something to add pop up or "username exists message"
+            }
         }
 
         return "Register";

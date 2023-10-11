@@ -34,7 +34,8 @@ public class Question implements Serializable {
     private List<User> votesForOptionB = new ArrayList<>();
 
     // Constructors
-    public Question() {}
+    public Question() {
+    }
 
     public Question(String optionA, String optionB) {
         this.optionA = optionA;
@@ -62,7 +63,7 @@ public class Question implements Serializable {
         return votesForOptionA;
     }
 
-    public void voteForOptionA(User votingUser){
+    public void voteForOptionA(User votingUser) {
         votesForOptionA.add(votingUser);
     }
 
@@ -70,7 +71,7 @@ public class Question implements Serializable {
         return votesForOptionB;
     }
 
-    public void voteForOptionB(User votingUser){
+    public void voteForOptionB(User votingUser) {
         votesForOptionB.add(votingUser);
     }
 

@@ -30,7 +30,7 @@ public class User implements Serializable {
     private byte[] salt = new byte[16];
 
     // ManyToMany relationship with Question entity
-    @ManyToMany
+    @ManyToMany (fetch = FetchType.EAGER)
     @JoinTable(name = "user_seen_questions",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "question_id"))
@@ -40,7 +40,7 @@ public class User implements Serializable {
     public User(String username, String rawPassword) {
         this.username = username;
         this.password = encryptPassword(rawPassword);  // Ensuring the password is encoded
-        this.seenQuestions  = new ArrayList<>();
+        this.seenQuestions = new ArrayList<>();
         random.nextBytes(salt);
 
     }
@@ -77,8 +77,7 @@ public class User implements Serializable {
             MessageDigest md = MessageDigest.getInstance("SHA-512");
             md.update(salt);
             return md.digest(rawPassword.getBytes(StandardCharsets.UTF_8));
-        }
-        catch (java.security.NoSuchAlgorithmException e) {
+        } catch (java.security.NoSuchAlgorithmException e) {
             System.out.println("SHA-512 doe not exist");
         }
 

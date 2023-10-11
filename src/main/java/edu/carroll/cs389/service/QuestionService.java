@@ -42,6 +42,7 @@
 
 
 package edu.carroll.cs389.service;
+
 import edu.carroll.cs389.jpa.model.Question;
 import edu.carroll.cs389.jpa.repo.QuestionRepository;
 import edu.carroll.cs389.jpa.repo.UserRepository;
@@ -49,6 +50,7 @@ import org.springframework.stereotype.Service;
 import edu.carroll.cs389.jpa.model.User;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class QuestionService {
@@ -76,18 +78,13 @@ public class QuestionService {
 
     public boolean uniqueQuestion(Question newQuestion) {
         for (Question currentQuestion : getAllQuestions()) {
-            if (newQuestion.getOptionA() == currentQuestion.getOptionA() || newQuestion.getOptionB() == currentQuestion.getOptionB()){
+            if (Objects.equals(newQuestion.getOptionA(), currentQuestion.getOptionA()) || Objects.equals(newQuestion.getOptionB(), currentQuestion.getOptionB())) {
                 return false;
             }
         }
         return true;
     }
 
-//    IS this the right way to do this?
-//    public void voteForOptionA(Question currentQuestion,User currentUser){
-//        currentQuestion.getVotesForOptionA().add(currentUser);
-//        repository.save(currentQuestion);
-//    }
 
     public Question randomUnseenQuestion(User currentUser) {
         List<Question> allQ = repository.findAll();
@@ -102,7 +99,7 @@ public class QuestionService {
         }
 
         // Randomly select a question from the remaining questions
-        int idx = (int)(Math.random() * allQ.size());
+        int idx = (int) (Math.random() * allQ.size());
         return allQ.get(idx);
     }
 
@@ -110,6 +107,5 @@ public class QuestionService {
         user.getSeenQuestions().add(question);
         userRepository.save(user);
     }
-
 
 }

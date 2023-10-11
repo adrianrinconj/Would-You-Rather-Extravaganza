@@ -17,7 +17,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class LoginController {
 
 
-
     private final UserService userService;
 
     public LoginController(UserService userService) {
@@ -36,7 +35,7 @@ public class LoginController {
     }
 
     @PostMapping("/Login")
-    public String RegisterPost(@Valid @ModelAttribute Model model, LoginForm loginForm, BindingResult result, RedirectAttributes attrs ) {
+    public String RegisterPost(@Valid @ModelAttribute Model model, LoginForm loginForm, BindingResult result, RedirectAttributes attrs) {
         User loggedUser = userService.loginValidation(loginForm.getUsername(), loginForm.getRawPassword());
 
         if (!result.hasErrors() && loggedUser != null) {
