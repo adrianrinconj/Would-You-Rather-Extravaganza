@@ -1,7 +1,8 @@
 package edu.carroll.cs389.web.controller;
 
 
-import edu.carroll.cs389.service.UserService;
+import edu.carroll.cs389.jpa.model.User;
+import edu.carroll.cs389.service.UserServiceImpl;
 import edu.carroll.cs389.web.form.RegisterLoginForm;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
@@ -20,10 +21,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 public class RegisterController {
 
-    private final UserService userService;
+    private final UserServiceImpl userServiceImpl;
 
-    public RegisterController(UserService userService) {
-        this.userService = userService;
+    public RegisterController(UserServiceImpl userServiceImpl) {
+        this.userServiceImpl = userServiceImpl;
     }
 
 
@@ -35,10 +36,17 @@ public class RegisterController {
     }
 
     @PostMapping("/Register")
-    public String RegisterPost(@Valid @ModelAttribute RegisterLoginForm registerLoginForm, BindingResult result, RedirectAttributes attrs ) {
+    public String RegisterPost(@Valid @ModelAttribute RegisterLoginForm registerLoginForm, BindingResult result, RedirectAttributes attrs) {
 
-        if (result.hasErrors()) {
-
+        if (!result.hasErrors()) {
+            boolean success = userServiceImpl.addUser(new User(registerLoginForm.getUsername(), registerLoginForm.getRawPassword()));
+            if (success) {
+                // something to add success popup or welcome
+                return "WouldYouRatherEntry";
+            }
+            else {
+                // something to add pop up or "username exists message"
+            }
         }
 
         return "Register";
