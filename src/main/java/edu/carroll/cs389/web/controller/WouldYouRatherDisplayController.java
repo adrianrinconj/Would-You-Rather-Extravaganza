@@ -35,6 +35,7 @@ public class WouldYouRatherDisplayController {
         currentUser = userServiceImpl.userLookupUsername("Guest");
     }
 
+
     /**
      * Handles the GET request for displaying game options.
      *

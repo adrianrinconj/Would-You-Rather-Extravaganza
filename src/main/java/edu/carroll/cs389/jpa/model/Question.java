@@ -24,6 +24,7 @@ public class Question implements Serializable {
     @Column(name = "optionB", nullable = false, unique = true)
     private String optionB;
 
+    //This joins users and question tables to show the votes
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "votes_optionA",
             joinColumns = @JoinColumn(name = "question_id"),
@@ -42,6 +43,7 @@ public class Question implements Serializable {
     public Question() {
     }
 
+    //constructor
     /**
      * Constructs a question with the given options.
      *

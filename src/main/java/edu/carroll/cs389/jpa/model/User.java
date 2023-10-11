@@ -22,6 +22,7 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    // @Column makes the tables. In this case this is the user table; not nullable
     @Column(unique = true, nullable = false)
     private String username;
 
@@ -39,6 +40,8 @@ public class User implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "question_id"))
     private List<Question> seenQuestions;
 
+
+    // creates the User; constructor
     /**
      * Constructs a user with the given username and raw password.
      *
@@ -52,6 +55,7 @@ public class User implements Serializable {
         random.nextBytes(salt);
     }
 
+    //empty constructor needed
     /**
      * Default constructor.
      */
@@ -97,6 +101,7 @@ public class User implements Serializable {
         return password;
     }
 
+    // hashing algorithm that stores 'salt' and compares it to other passwords 'salt'
     /**
      * Encrypts the given raw password using SHA-512 and a salt.
      *
