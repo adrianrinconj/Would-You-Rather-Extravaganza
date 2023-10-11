@@ -53,11 +53,11 @@ public class WouldYouRatherController {
     public String optionsPost(@Valid @ModelAttribute WouldYouRatherForm wouldYouRatherForm, BindingResult result, RedirectAttributes attrs) {
 
         if (result.hasErrors()) {
-            return "redirect:/WouldYouRatherEntry";
+            return "WouldYouRatherEntry";
         }
 
         Question newEntry = new Question(wouldYouRatherForm.getOptionA(), wouldYouRatherForm.getOptionB());
         questionService.addQuestion(newEntry);
-        return "redirect:/WouldYouRatherEntry";
+        return "WouldYouRatherEntry";
     }
 }

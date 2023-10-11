@@ -63,6 +63,6 @@ public class LoginController {
             return "WouldYouRatherEntry";
         }
 
-        return "redirect:/Login";
+        return "Login";
     }
 }
