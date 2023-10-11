@@ -1,81 +1,41 @@
-//package edu.carroll.cs389.service;
-//import edu.carroll.cs389.jpa.model.Question;
-//import edu.carroll.cs389.jpa.repo.QuestionRepository;
-//import org.springframework.data.domain.Page;
-//import org.springframework.data.domain.PageRequest;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.stereotype.Service;
-//
-//import java.util.HashSet;
-//import java.util.Iterator;
-//
-//@Service
-//public class QuestionService {
-//
-//    @Autowired
-//    private QuestionRepository repository;
-//
-//    // Fetch all questions
-//    public Iterable<Question> getAllQuestions() {
-//        return repository.findAll();
-//    }
-//
-//    // Add a new question
-//    public void addQuestion(Question question) {
-//        repository.save(question);
-//    }
-//
-//    public Question randomQuestion() {
-//        List<Question> allQ = repository.findAll();
-//        // Stack Overflow help with getting a random entity from the DB
-//        Long qty = repository.count();
-//        int idx = (int)(Math.random() * qty);
-//        Page<Question> questionPage = repository.findAll(PageRequest.of(idx, 1));
-//        Question q = null;
-//        if (questionPage.hasContent()) {
-//            q = questionPage.getContent().get(0);
-//        }
-//        return q;
-//    }
-//
-//}
-
-
 package edu.carroll.cs389.service;
 
 import edu.carroll.cs389.jpa.model.Question;
 import edu.carroll.cs389.jpa.repo.QuestionRepository;
 import edu.carroll.cs389.jpa.repo.UserRepository;
-import org.springframework.stereotype.Service;
 import edu.carroll.cs389.jpa.model.User;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Implementation of the Question Service.
+ */
 @Service
-public class QuestionService {
+public class QuestionServiceImpl implements QuestionServiceInterface {
 
-    private QuestionRepository repository;
+    private final QuestionRepository repository;
+    private final UserRepository userRepository;
 
-    private UserRepository userRepository;
-
-    public QuestionService(QuestionRepository repository, UserRepository userRepository) {
+    public QuestionServiceImpl(QuestionRepository repository, UserRepository userRepository) {
         this.repository = repository;
         this.userRepository = userRepository;
     }
 
-    // Fetch all questions
+    @Override
     public Iterable<Question> getAllQuestions() {
         return repository.findAll();
     }
 
-    // Add a new question
+    @Override
     public void addQuestion(Question question) {
         if (uniqueQuestion(question)) {
             repository.save(question);
         }
     }
 
+    @Override
     public boolean uniqueQuestion(Question newQuestion) {
         for (Question currentQuestion : getAllQuestions()) {
             if (Objects.equals(newQuestion.getOptionA(), currentQuestion.getOptionA()) || Objects.equals(newQuestion.getOptionB(), currentQuestion.getOptionB())) {
@@ -85,7 +45,7 @@ public class QuestionService {
         return true;
     }
 
-
+    @Override
     public Question randomUnseenQuestion(User currentUser) {
         List<Question> allQ = repository.findAll();
 
@@ -103,9 +63,10 @@ public class QuestionService {
         return allQ.get(idx);
     }
 
+    @Override
     public void markQuestionAsSeen(User user, Question question) {
         user.getSeenQuestions().add(question);
         userRepository.save(user);
     }
-
 }
+

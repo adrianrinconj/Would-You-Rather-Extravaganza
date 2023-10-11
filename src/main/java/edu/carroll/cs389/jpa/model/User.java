@@ -9,6 +9,9 @@ import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents a user entity with associated authentication and relationship details.
+ */
 @Entity
 @Table(name = "users")
 public class User implements Serializable {
@@ -22,7 +25,7 @@ public class User implements Serializable {
     @Column(unique = true, nullable = false)
     private String username;
 
-    // using Byte allows larger numbers of users to be stored
+    // Using Byte allows larger numbers of users to be stored
     @Column(nullable = false)
     private byte[] password;
 
@@ -30,62 +33,92 @@ public class User implements Serializable {
     private byte[] salt = new byte[16];
 
     // ManyToMany relationship with Question entity
-    @ManyToMany (fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_seen_questions",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "question_id"))
     private List<Question> seenQuestions;
 
-
+    /**
+     * Constructs a user with the given username and raw password.
+     *
+     * @param username    The username of the user.
+     * @param rawPassword The raw password which will be encrypted.
+     */
     public User(String username, String rawPassword) {
         this.username = username;
         this.password = encryptPassword(rawPassword);  // Ensuring the password is encoded
         this.seenQuestions = new ArrayList<>();
         random.nextBytes(salt);
-
     }
 
+    /**
+     * Default constructor.
+     */
     public User() {
-
     }
 
+    /**
+     * @return The unique identifier of the user.
+     */
     public Long getId() {
         return id;
     }
 
+    /**
+     * Sets the unique identifier of the user.
+     *
+     * @param id The unique identifier.
+     */
     public void setId(Long id) {
         this.id = id;
     }
 
+    /**
+     * @return The username of the user.
+     */
     public String getUsername() {
         return username;
     }
 
+    /**
+     * Sets the username of the user.
+     *
+     * @param username The username.
+     */
     public void setUsername(String username) {
         this.username = username;
     }
 
+    /**
+     * @return The encrypted password of the user.
+     */
     public byte[] getPassword() {
         return password;
     }
 
+    /**
+     * Encrypts the given raw password using SHA-512 and a salt.
+     *
+     * @param rawPassword The raw password to be encrypted.
+     * @return The encrypted password.
+     */
     public byte[] encryptPassword(String rawPassword) {
-
-        //Message digest requires exception handling
         try {
-            //this portion uses SHA-512 encryption to hash the password and store it
+            // This portion uses SHA-512 encryption to hash the password and store it
             MessageDigest md = MessageDigest.getInstance("SHA-512");
             md.update(salt);
             return md.digest(rawPassword.getBytes(StandardCharsets.UTF_8));
         } catch (java.security.NoSuchAlgorithmException e) {
-            System.out.println("SHA-512 doe not exist");
+            System.out.println("SHA-512 does not exist");
         }
-
         return salt;
     }
 
+    /**
+     * @return The list of questions seen by the user.
+     */
     public List<Question> getSeenQuestions() {
         return seenQuestions;
     }
-
 }

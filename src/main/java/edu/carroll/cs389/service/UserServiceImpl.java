@@ -6,25 +6,29 @@ import org.springframework.stereotype.Service;
 
 import java.util.Objects;
 
+/**
+ * Implementation of the User Service.
+ */
 @Service
-public class UserService {
+public class UserServiceImpl implements UserServiceInterface {
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    public UserService(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
+    @Override
     public boolean addUser(User newUser) {
         if (uniqueUser(newUser.getUsername())) {
             userRepository.save(newUser);
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }
 
+    @Override
     public boolean uniqueUser(String Username) {
         for (User a : userRepository.findAll()) {
             if (Objects.equals(a.getUsername(), Username)) {
@@ -34,6 +38,7 @@ public class UserService {
         return true;
     }
 
+    @Override
     public User loginValidation(String Username, String rawPassword) {
         for (User a : userRepository.findAll()) {
             if (Objects.equals(a.getUsername(), Username) && a.getPassword() == a.encryptPassword(rawPassword)) {
@@ -43,7 +48,8 @@ public class UserService {
         return null;
     }
 
-    public User userLookupID (Long UserID) {
+    @Override
+    public User userLookupID(Long UserID) {
         for (User a : userRepository.findAll()) {
             if (Objects.equals(a.getId(), UserID)) {
                 return a;
@@ -51,6 +57,8 @@ public class UserService {
         }
         return null;
     }
+
+    @Override
     public User userLookupUsername(String Username) {
         for (User a : userRepository.findAll()) {
             if (Objects.equals(a.getUsername(), Username)) {
@@ -59,5 +67,4 @@ public class UserService {
         }
         return null;
     }
-
 }
