@@ -4,6 +4,7 @@ import edu.carroll.cs389.jpa.model.User;
 import edu.carroll.cs389.jpa.repo.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.Objects;
 
 /**
@@ -41,7 +42,7 @@ public class UserServiceImpl implements UserServiceInterface {
     @Override
     public User loginValidation(String Username, String rawPassword) {
         for (User a : userRepository.findAll()) {
-            if (Objects.equals(a.getUsername(), Username) && a.getPassword() == a.encryptPassword(rawPassword)) {
+            if (Objects.equals(a.getUsername(), Username) && Arrays.equals(a.getPassword(), a.encryptPassword(rawPassword))) {
                 return a;
             }
         }

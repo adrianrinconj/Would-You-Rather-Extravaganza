@@ -31,7 +31,7 @@ public class User implements Serializable {
     private byte[] password;
 
     private transient SecureRandom random = new SecureRandom();
-    private byte[] salt = new byte[16];
+    public byte[] salt = new byte[16];
 
     // ManyToMany relationship with Question entity
     @ManyToMany(fetch = FetchType.EAGER)
@@ -50,9 +50,9 @@ public class User implements Serializable {
      */
     public User(String username, String rawPassword) {
         this.username = username;
+        random.nextBytes(salt);
         this.password = encryptPassword(rawPassword);  // Ensuring the password is encoded
         this.seenQuestions = new ArrayList<>();
-        random.nextBytes(salt);
     }
 
     //empty constructor needed
@@ -110,9 +110,10 @@ public class User implements Serializable {
      */
     public byte[] encryptPassword(String rawPassword) {
         try {
+            byte[] tempSalt = salt.clone();
             // This portion uses SHA-512 encryption to hash the password and store it
             MessageDigest md = MessageDigest.getInstance("SHA-512");
-            md.update(salt);
+            md.update(tempSalt);
             return md.digest(rawPassword.getBytes(StandardCharsets.UTF_8));
         } catch (java.security.NoSuchAlgorithmException e) {
             System.out.println("SHA-512 does not exist");

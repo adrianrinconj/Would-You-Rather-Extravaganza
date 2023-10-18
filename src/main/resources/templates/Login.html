@@ -1,13 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
 <h1 class="coolheader">Please log in</h1>
-<form action="#" th:action="@{/Login}" th:object="${LoginForm}" method="post">
+<form action="#" th:action="@{/login}" th:object="${loginForm}" method="post">
 
+    <span th:if="${#fields.hasGlobalErrors()}" th:errors="*{global}">Global error</span><br/>
     <input type="text" th:field="*{username}" placeholder="Username"/>
     <td th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username Error</td>
 

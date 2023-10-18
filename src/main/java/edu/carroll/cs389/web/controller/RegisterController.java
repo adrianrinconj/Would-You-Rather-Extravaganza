@@ -29,7 +29,6 @@ public class RegisterController {
 
 
     @GetMapping("/Register")
-
     public String RegisterGet(Model model) {
         model.addAttribute("registerLoginForm", new RegisterLoginForm());
         return "Register";
