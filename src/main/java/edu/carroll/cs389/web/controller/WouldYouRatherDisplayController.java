@@ -8,6 +8,8 @@ import edu.carroll.cs389.service.UserServiceImpl;
 import edu.carroll.cs389.service.UserServiceInterface;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.data.repository.query.Param;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,15 +24,15 @@ import java.util.Objects;
  */
 @Controller
 public class WouldYouRatherDisplayController {
-
     private final QuestionServiceInterface questionService;
     private final UserServiceInterface userService;
+    private static final Logger logInfo = LoggerFactory.getLogger((WouldYouRatherDisplayController.class));
 
     /**
      * Constructs the WouldYouRatherDisplayController with the provided question and user service implementations.
      *
      * @param questionService The question service implementation.
-     * @param userServiceImpl The user service implementation.
+     * @param userService The user service implementation.
      */
     public WouldYouRatherDisplayController(QuestionServiceInterface questionService, UserServiceInterface userService) {
         this.questionService = questionService;
@@ -58,9 +60,14 @@ public class WouldYouRatherDisplayController {
 
         if (randomQuestion != null) {
             model.addAttribute("currentQuestion",randomQuestion);
+            logInfo.info("randomQuestion is not null; both optionA and optionB are filled");
+
             model.addAttribute("optionA", randomQuestion.getOptionA());
             model.addAttribute("optionB", randomQuestion.getOptionB());
         } else {
+            //logging
+            logInfo.debug("one of the questions has no options");
+
             model.addAttribute("optionA", "no option");
             model.addAttribute("optionB", "no option");
         }

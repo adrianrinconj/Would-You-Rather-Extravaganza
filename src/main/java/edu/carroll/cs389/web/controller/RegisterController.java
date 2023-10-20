@@ -8,6 +8,8 @@ import edu.carroll.cs389.web.form.LoginForm;
 import edu.carroll.cs389.web.form.RegisterLoginForm;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,6 +26,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class RegisterController {
+    private static final Logger logInfo = LoggerFactory.getLogger((RegisterController.class));
 
     private final UserServiceInterface userService;
 
@@ -41,6 +44,7 @@ public class RegisterController {
     @PostMapping("/register")
     public String RegisterPost(@Valid @ModelAttribute RegisterLoginForm registerLoginForm, BindingResult result, HttpSession session) {
         if (result.hasErrors()) {
+            logInfo.debug("result.hasErrors() == true");
             return "Register";
         }
         if (!userService.uniqueUser(registerLoginForm.getUsername())) {

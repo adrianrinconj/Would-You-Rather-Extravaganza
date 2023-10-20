@@ -6,6 +6,8 @@ import edu.carroll.cs389.service.UserServiceInterface;
 import edu.carroll.cs389.web.form.LoginForm;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,6 +22,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
  */
 @Controller
 public class LoginController {
+    private static final Logger logInfo = LoggerFactory.getLogger((LoginController.class));
 
     private final UserServiceInterface userService;
 
@@ -58,10 +61,16 @@ public class LoginController {
     @PostMapping("/login")
     public String loginPost(@Valid @ModelAttribute LoginForm loginForm, BindingResult result, HttpSession session) {
         if (result.hasErrors()) {
+            //logging debug
+            logInfo.debug("result.hasErrors() == true | User attempted and failed to login");
+
             return "Login";
         }
         User loggedUser = userService.loginValidation(loginForm.getUsername(), loginForm.getRawPassword());
         if (loggedUser == null) {
+            //logging debug
+            logInfo.debug("This user did not exist");
+
             result.addError(new ObjectError("globalError", "No users with your provided credentials exist"));
             return "Login";
         }
