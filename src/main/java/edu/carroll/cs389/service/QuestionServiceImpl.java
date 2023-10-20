@@ -64,6 +64,16 @@ public class QuestionServiceImpl implements QuestionServiceInterface {
     }
 
     @Override
+    public Question questionIdLookup(Long questionID) {
+        for (Question a : getAllQuestions()) {
+            if (Objects.equals(a.getId(), questionID)) {
+                return a;
+            }
+        }
+        return null;
+    }
+
+    @Override
     public void markQuestionAsSeen(User user, Question question) {
         user.getSeenQuestions().add(question);
         userRepository.save(user);

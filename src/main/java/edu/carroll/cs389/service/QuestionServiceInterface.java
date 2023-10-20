@@ -40,6 +40,8 @@ public interface QuestionServiceInterface {
      */
     Question randomUnseenQuestion(User currentUser);
 
+    Question questionIdLookup (Long questionID);
+
     /**
      * Marks a question as seen for a user.
      *

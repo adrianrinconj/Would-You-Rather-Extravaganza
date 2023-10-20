@@ -4,6 +4,7 @@ import edu.carroll.cs389.jpa.model.User;
 import edu.carroll.cs389.service.UserServiceImpl;
 import edu.carroll.cs389.service.UserServiceInterface;
 import edu.carroll.cs389.web.form.LoginForm;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -55,7 +56,7 @@ public class LoginController {
      * @return The name of the next view or a redirect instruction.
      */
     @PostMapping("/login")
-    public String RegisterPost(@Valid @ModelAttribute LoginForm loginForm, BindingResult result, RedirectAttributes attrs) {
+    public String loginPost(@Valid @ModelAttribute LoginForm loginForm, BindingResult result, HttpSession session) {
         if (result.hasErrors()) {
             return "Login";
         }
@@ -64,6 +65,7 @@ public class LoginController {
             result.addError(new ObjectError("globalError", "No users with your provided credentials exist"));
             return "Login";
         }
+        session.setAttribute("loggedUserID", loggedUser.getId());
         return "redirect:/";
     }
 }

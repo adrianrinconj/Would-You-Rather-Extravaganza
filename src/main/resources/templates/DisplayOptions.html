@@ -8,14 +8,16 @@
 <body>
 <h1>What Would you Rather?</h1>
 <div class="mainContentDiv" style="flex-flow: column">
-    <div class="optionsDivider">
-        <a th:href="@{/voteA}">
-            <p th:text="'Option A: ' + ${optionA}"/>
-        </a>
-        <a th:href="@{/voteB}">
-            <p th:text="'Option B: ' + ${optionB}"/>
-        </a>
-    </div>
+    <form action="#" th:action="@{/DisplayOptions}" th:object="${currentQuestion}" method="post">
+        <div class="optionsDivider">
+
+            <input type="hidden" th:field="*{id}"/>
+
+            <button type="submit" name="vote" value="optionA" th:text="'Option A:' + ${optionA}"></button>
+            <button type="submit" name="vote" value="optionB" th:text="'Option B:' + ${optionB}"></button>
+
+        </div>
+    </form>
     <a th:href="@{/DisplayOptions}">Refresh Question</a>
     <a th:href="@{/}">Go to Entry</a>
 </div>
