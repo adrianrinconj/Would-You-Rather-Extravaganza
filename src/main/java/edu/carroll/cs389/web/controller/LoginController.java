@@ -61,7 +61,7 @@ public class LoginController {
     public String RegisterPost(@Valid @ModelAttribute LoginForm loginForm, BindingResult result, RedirectAttributes attrs) {
         if (result.hasErrors()) {
             //logging debug
-            logInfo.debug("result.hasErrors() == true");
+            logInfo.debug("result.hasErrors() == true | User attempted and failed to login");
 
             return "Login";
         }
