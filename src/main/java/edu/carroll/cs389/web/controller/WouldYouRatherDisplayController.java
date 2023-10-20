@@ -102,8 +102,8 @@ public class WouldYouRatherDisplayController {
         if (currentUser == null) {
             return "redirect:/login";
         }
-        Question votedQuestion = (Question) model.getAttribute("currentQuestion");
-        System.out.println(votedQuestion.getOptionB());
+//        Question votedQuestion = (Question) model.getAttribute("currentQuestion");
+        Question votedQuestion = questionService.questionIdLookup();
         if (votedQuestion != null) {
             attrs.addFlashAttribute("currentQuestion",votedQuestion);
             votedQuestion.voteForOptionB(currentUser);
