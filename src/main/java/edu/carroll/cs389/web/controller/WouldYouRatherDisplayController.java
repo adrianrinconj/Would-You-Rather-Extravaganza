@@ -4,6 +4,8 @@ import edu.carroll.cs389.jpa.model.Question;
 import edu.carroll.cs389.jpa.model.User;
 import edu.carroll.cs389.service.QuestionServiceImpl;
 import edu.carroll.cs389.service.UserServiceImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
  */
 @Controller
 public class WouldYouRatherDisplayController {
-
+    private static final Logger logInfo = LoggerFactory.getLogger((WouldYouRatherDisplayController.class));
     private final QuestionServiceImpl questionService;
     private final UserServiceImpl userServiceImpl;
 
@@ -48,10 +50,12 @@ public class WouldYouRatherDisplayController {
         questionService.markQuestionAsSeen(currentUser, randomQuestion);
 
         if (randomQuestion != null) {
+            logInfo.info("randomQuestion is not null; both optionA and optionB have options inputted into them");
             model.addAttribute("optionA", randomQuestion.getOptionA());
             model.addAttribute("optionB", randomQuestion.getOptionB());
             currentQuestion = randomQuestion;
         } else {
+            logInfo.info("one of the questions has no options");
             model.addAttribute("optionA", "no option");
             model.addAttribute("optionB", "no option");
         }

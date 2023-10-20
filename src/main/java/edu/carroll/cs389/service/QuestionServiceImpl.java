@@ -22,30 +22,10 @@ public class QuestionServiceImpl implements QuestionServiceInterface {
     private final QuestionRepository repository;
     private final UserRepository userRepository;
 
-//    public boolean validateUser(String username, String password) {
-//        log.debug("validateUser: user '{}' attempted login", username);
-//
-//        // Always do the lookup in a case-insensitive manner (lower-casing the data).
-//        List<Question> questions = repository.findByUsernameIgnoreCase(username);
-//
-//        // We expect 0 or 1, so if we get more than 1, bail out as this is an error we don't deal with properly.
-//        if (questions.size() != 1) {
-//            log.debug("validateUser: found {} users", users.size());
-//            return false;
-//        }
-//        Question u = questions.get(0);
-//        // XXX - Using Java's hashCode is wrong on SO many levels, but is good enough for demonstration purposes.
-//        // NEVER EVER do this in production code!
-//        final String questionProvidedId = Integer.toString(password.hashCode());
-//        if (!u.getHashedPassword().equals(userProvidedHash)) {
-//            log.debug("validateUser: password !match");
-//            return false;
-//        }
-//
-//        // User exists, and the provided password matches the hashed password in the database.
-//        log.info("validateUser: successful login for {}", username);
-//        return true;
-//    }
+
+    //Have nate check this!!!!
+    //Do I do two of these for each question, if so, did I do it right???
+
 
     public QuestionServiceImpl(QuestionRepository repository, UserRepository userRepository) {
         this.repository = repository;
@@ -63,6 +43,38 @@ public class QuestionServiceImpl implements QuestionServiceInterface {
             repository.save(question);
         }
     }
+
+
+    //Have nate check this!!!!
+    //Do I do two of these for each question, if so, did I do it right???
+//    @Override
+//    public boolean uniqueQuestion(Question newQuestion) {
+//        log.debug("validateQuestion: question '{}' was an attempted submit", newQuestion);
+//
+//        // Always do the lookup in a case-insensitive manner (lower-casing the data).
+//
+//        //Ask about String.valueOf()
+//        List<Question> questions = repository.findByQuestionIgnoreCase(String.valueOf(newQuestion));
+//
+//        // We expect 0 or 1, so if we get more than 1, bail out as this is an error we don't deal with properly.
+//        if (questions.size() != 1) {
+//            log.debug("uniqueQuestion: found {} questions", questions.size());
+//            return false;
+//        }
+////            Question u = questions.get(0);
+//
+//
+//
+//        for (Question currentQuestion : getAllQuestions()) {
+//            if (Objects.equals(newQuestion.getOptionA(), currentQuestion.getOptionA()) || Objects.equals(newQuestion.getOptionB(), currentQuestion.getOptionB())) {
+//                return false;
+//            }
+//        }
+//        // Question exists, and matches a question within the database. Compares to see if there is a duplicate (this should be impossible)
+//        //This block of code may be redundant
+//        log.info("uniqueQuestion: this is not a unique question {}", newQuestion);
+//        return true;
+//    }
 
     @Override
     public boolean uniqueQuestion(Question newQuestion) {

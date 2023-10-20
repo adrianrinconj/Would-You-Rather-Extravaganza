@@ -1,0 +1,7 @@
+logging:
+  level:
+    edu:
+      carroll:
+        cs389:
+          web:
+            controller: DEBUG
