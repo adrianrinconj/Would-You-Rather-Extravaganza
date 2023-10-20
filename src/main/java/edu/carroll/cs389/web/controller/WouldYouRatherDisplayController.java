@@ -50,12 +50,16 @@ public class WouldYouRatherDisplayController {
         questionService.markQuestionAsSeen(currentUser, randomQuestion);
 
         if (randomQuestion != null) {
-            logInfo.info("randomQuestion is not null; both optionA and optionB have options inputted into them");
+            //logging
+            logInfo.info("randomQuestion is not null; both optionA and optionB are filled");
+
             model.addAttribute("optionA", randomQuestion.getOptionA());
             model.addAttribute("optionB", randomQuestion.getOptionB());
             currentQuestion = randomQuestion;
         } else {
-            logInfo.info("one of the questions has no options");
+            //logging
+            logInfo.debug("one of the questions has no options");
+
             model.addAttribute("optionA", "no option");
             model.addAttribute("optionB", "no option");
         }

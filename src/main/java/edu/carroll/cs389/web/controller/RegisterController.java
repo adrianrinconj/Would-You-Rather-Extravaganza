@@ -5,6 +5,8 @@ import edu.carroll.cs389.jpa.model.User;
 import edu.carroll.cs389.service.UserServiceImpl;
 import edu.carroll.cs389.web.form.RegisterLoginForm;
 import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,6 +22,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class RegisterController {
+    private static final Logger logInfo = LoggerFactory.getLogger((RegisterController.class));
 
     private final UserServiceImpl userServiceImpl;
 
@@ -38,6 +41,9 @@ public class RegisterController {
     public String RegisterPost(@Valid @ModelAttribute RegisterLoginForm registerLoginForm, BindingResult result, RedirectAttributes attrs) {
 
         if (!result.hasErrors()) {
+            //logging
+            logInfo.info("result.hasErrors() == false");
+
             boolean success = userServiceImpl.addUser(new User(registerLoginForm.getUsername(), registerLoginForm.getRawPassword()));
             if (success) {
                 // something to add success popup or welcome
@@ -45,6 +51,9 @@ public class RegisterController {
             }
             else {
                 // something to add pop up or "username exists message"
+                //logging debug
+                logInfo.debug("result.hasErrors() == true");
+
             }
         }
 
