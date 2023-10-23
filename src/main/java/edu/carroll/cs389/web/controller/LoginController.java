@@ -61,14 +61,14 @@ public class LoginController {
     public String RegisterPost(@Valid @ModelAttribute LoginForm loginForm, BindingResult result, RedirectAttributes attrs) {
         if (result.hasErrors()) {
             //logging debug
-            logInfo.debug("result.hasErrors() == true | User attempted and failed to login");
+            logInfo.debug("User did not provide a valid input", loginForm.getUsername());
 
             return "Login";
         }
         User loggedUser = userService.loginValidation(loginForm.getUsername(), loginForm.getRawPassword());
         if (loggedUser == null) {
             //logging debug
-            logInfo.debug("This user did not exist");
+            logInfo.debug("The user {} did not exist", loginForm.getUsername());
 
             result.addError(new ObjectError("globalError", "No users with your provided credentials exist"));
             return "Login";
