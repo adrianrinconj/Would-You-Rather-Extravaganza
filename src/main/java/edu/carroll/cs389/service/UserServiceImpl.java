@@ -85,4 +85,9 @@ public class UserServiceImpl implements UserServiceInterface {
         }
         return null;
     }
+
+    @Override
+    public void resetSeenQuestions(User user) {
+        ;
+    }
 }

@@ -47,5 +47,7 @@ public interface UserServiceInterface {
      * @return The user if found, null otherwise.
      */
     User userLookupUsername(String Username);
+
+    void resetSeenQuestions(User user);
 }
 
