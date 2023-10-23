@@ -31,6 +31,8 @@ public class User implements Serializable {
     private byte[] password;
 
     private transient SecureRandom random = new SecureRandom();
+
+    @Column (nullable = false)
     public byte[] salt = new byte[16];
 
     // ManyToMany relationship with Question entity

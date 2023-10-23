@@ -3,38 +3,43 @@ package edu.carroll.cs389.web.controller;
 import edu.carroll.cs389.jpa.model.Question;
 import edu.carroll.cs389.jpa.model.User;
 import edu.carroll.cs389.service.QuestionServiceImpl;
+import edu.carroll.cs389.service.QuestionServiceInterface;
 import edu.carroll.cs389.service.UserServiceImpl;
+import edu.carroll.cs389.service.UserServiceInterface;
+import jakarta.servlet.http.HttpSession;
+import org.springframework.data.repository.query.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.Objects;
 
 /**
  * Controller responsible for displaying the "Would You Rather" game options and handling user votes.
  */
 @Controller
 public class WouldYouRatherDisplayController {
+    private final QuestionServiceInterface questionService;
+    private final UserServiceInterface userService;
     private static final Logger logInfo = LoggerFactory.getLogger((WouldYouRatherDisplayController.class));
-    private final QuestionServiceImpl questionService;
-    private final UserServiceImpl userServiceImpl;
-
-    private User currentUser;
-    private Question currentQuestion;
 
     /**
      * Constructs the WouldYouRatherDisplayController with the provided question and user service implementations.
      *
      * @param questionService The question service implementation.
-     * @param userServiceImpl The user service implementation.
+     * @param userService The user service implementation.
      */
-    public WouldYouRatherDisplayController(QuestionServiceImpl questionService, UserServiceImpl userServiceImpl) {
+    public WouldYouRatherDisplayController(QuestionServiceInterface questionService, UserServiceInterface userService) {
         this.questionService = questionService;
-        this.userServiceImpl = userServiceImpl;
-        if (userServiceImpl.userLookupUsername("Guest") == null) {
-            userServiceImpl.addUser(new User("Guest", "Password"));
+        this.userService = userService;
+        if (userService.userLookupUsername("Guest") == null) {
+            userService.addUser(new User("Guest", "Password"));
         }
-        currentUser = userServiceImpl.userLookupUsername("Guest");
     }
 
 
@@ -45,17 +50,20 @@ public class WouldYouRatherDisplayController {
      * @return The name of the options display view.
      */
     @GetMapping("/DisplayOptions")
-    public String optionsGet(Model model) {
+    public String optionsGet(Model model, HttpSession session) {
+        User currentUser = ensureLoggedIn(session);
+        if (currentUser == null) {
+            return "redirect:/login";
+        }
         Question randomQuestion = questionService.randomUnseenQuestion(currentUser);
         questionService.markQuestionAsSeen(currentUser, randomQuestion);
 
         if (randomQuestion != null) {
-            //logging
+            model.addAttribute("currentQuestion",randomQuestion);
             logInfo.info("randomQuestion is not null; both optionA and optionB are filled");
 
             model.addAttribute("optionA", randomQuestion.getOptionA());
             model.addAttribute("optionB", randomQuestion.getOptionB());
-            currentQuestion = randomQuestion;
         } else {
             //logging
             logInfo.debug("one of the questions has no options");
@@ -67,28 +75,40 @@ public class WouldYouRatherDisplayController {
         return "/DisplayOptions";
     }
 
-    /**
-     * Handles the GET request for voting for option A.
-     *
-     * @param model The model to be populated for the view.
-     * @return A redirect instruction to the results page.
-     */
-    @GetMapping("/voteA")
-    public String voteForOptionA(Model model) {
-        currentQuestion.voteForOptionA(currentUser);
-        return "redirect:/results";
-    }
 
     /**
      * Handles the GET request for voting for option B.
      *
-     * @param model The model to be populated for the view.
+     * @param session The current session of the user accessing the page
      * @return A redirect instruction to the results page.
      */
-    @GetMapping("/voteB")
-    public String voteForOptionB(Model model) {
-        currentQuestion.voteForOptionB(currentUser);
+    @PostMapping(value = "/DisplayOptions", params="vote=optionA")
+    public String voteForOptionA(Model model, HttpSession session, @RequestParam Long id, String name, String value) {
+        User currentUser = ensureLoggedIn(session);
+        if (currentUser == null) {
+            return "redirect:/login";
+        }
+        Question votedQuestion = (Question) model.getAttribute("currentQuestion");
+        if (votedQuestion != null) {
+            votedQuestion.voteForOptionA(currentUser);
+        }
+
         return "redirect:/results";
+    }
+
+    @PostMapping(value = "/DisplayOptions", params="vote=optionB")
+    public String voteForOptionB(Model model, HttpSession session, RedirectAttributes attrs, @RequestParam Long id, String name, String value) {
+        User currentUser = ensureLoggedIn(session);
+        if (currentUser == null) {
+            return "redirect:/login";
+        }
+        Question votedQuestion = (Question) model.getAttribute("currentQuestion");
+        if (votedQuestion != null) {
+            attrs.addFlashAttribute("currentQuestion",votedQuestion);
+            votedQuestion.voteForOptionB(currentUser);
+            return "redirect:/results";
+        }
+        return "/DisplayOptions";
     }
 
     /**
@@ -98,9 +118,22 @@ public class WouldYouRatherDisplayController {
      * @return The name of the results view.
      */
     @GetMapping("/results")
-    public String showResults(Model model) {
-        model.addAttribute("AVotes", currentQuestion.getVotesForOptionA().size());
-        model.addAttribute("BVotes", currentQuestion.getVotesForOptionB().size());
+    public String showResults(Model model, RedirectAttributes attrs) {
+        Question votedQuestion = (Question) attrs.getAttribute("currentQuestion");
+        model.addAttribute("AVotes", votedQuestion.getVotesForOptionA().size());
+        model.addAttribute("BVotes", votedQuestion.getVotesForOptionB().size());
         return "Results";
+    }
+
+    private User ensureLoggedIn (HttpSession session) {
+        Long currentUserID = (Long) session.getAttribute("loggedUserID");
+        if (currentUserID == null) {
+            return null;
+        }
+        User currentUser = userService.userLookupID(currentUserID);
+        if (currentUser == null) {
+            return null;
+        }
+        return currentUser;
     }
 }

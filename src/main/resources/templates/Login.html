@@ -12,11 +12,11 @@
     <input type="text" th:field="*{username}" placeholder="Username"/>
     <td th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username Error</td>
 
-    <input type="text" th:field="*{rawPassword}" placeholder="Password"/>
+    <input type="password" th:field="*{rawPassword}" placeholder="Password"/>
     <td th:if="${#fields.hasErrors('rawPassword')}" th:errors="*{rawPassword}">Password Error</td>
 
     <button type="submit">Submit</button>
-    <a th:href="@{/DisplayOptions}"> Vote on what others are wondering!</a>
+    <a th:href="@{/register}"> Register a new account </a>
 </form>
 </body>
 </html>
