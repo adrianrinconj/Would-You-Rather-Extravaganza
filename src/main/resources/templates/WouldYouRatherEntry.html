@@ -6,8 +6,9 @@
     <title>Would You Rather Question Entry</title>
 </head>
 <body>
+<a th:href="@{/logout}"> logout </a>
 <h1 class="coolheader">What Would You Rather?</h1>
-<form action="#" th:action="@{/}" th:object="${wouldYouRatherForm}" method="post">
+<form action="#" th:action="@{/wouldYouRatherEntry}" th:object="${wouldYouRatherForm}" method="post">
     <input type="text" th:field="*{optionA}" placeholder="optionA"/>
     <td th:if="${#fields.hasErrors('optionA')}" th:errors="*{optionA}">Option A Error</td>
     <input type="text" th:field="*{optionB}" placeholder="optionB"/>

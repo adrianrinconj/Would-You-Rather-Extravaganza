@@ -6,6 +6,7 @@
     <title>What Would You Rather?</title>
 </head>
 <body>
+<a th:href="@{/logout}"> logout </a>
 <h1>What Would you Rather?</h1>
 <div class="mainContentDiv" style="flex-flow: column">
     <form action="#" th:action="@{/DisplayOptions}" th:object="${currentQuestion}" method="post">

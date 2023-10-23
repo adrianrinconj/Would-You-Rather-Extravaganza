@@ -95,14 +95,17 @@ public class QuestionServiceImpl implements QuestionServiceInterface {
 
         // If the user has seen all the questions, handle accordingly.
         if (allQ.isEmpty()) {
-            //XXX HOW SHOULD THIS BE HANDLED?
-            return null;
+            for (Question q : currentUser.getSeenQuestions()) {
+                currentUser.getSeenQuestions().remove(q);
+            }
         }
 
         // Randomly select a question from the remaining questions
         int idx = (int) (Math.random() * allQ.size());
         return allQ.get(idx);
     }
+
+
 
     @Override
     public Question questionIdLookup(Long questionID) {

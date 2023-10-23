@@ -83,29 +83,31 @@ public class WouldYouRatherDisplayController {
      * @return A redirect instruction to the results page.
      */
     @PostMapping(value = "/DisplayOptions", params="vote=optionA")
-    public String voteForOptionA(Model model, HttpSession session, @RequestParam Long id, String name, String value) {
+    public String voteForOptionA(HttpSession session, @RequestParam Long id) {
         User currentUser = ensureLoggedIn(session);
         if (currentUser == null) {
             return "redirect:/login";
         }
-        Question votedQuestion = (Question) model.getAttribute("currentQuestion");
+        Question votedQuestion = questionService.questionIdLookup(id);
         if (votedQuestion != null) {
+            session.setAttribute("lastQuestionID", id );
             votedQuestion.voteForOptionA(currentUser);
+            return "redirect:/results";
         }
-
-        return "redirect:/results";
+        return "/DisplayOptions";
     }
 
     @PostMapping(value = "/DisplayOptions", params="vote=optionB")
-    public String voteForOptionB(Model model, HttpSession session, RedirectAttributes attrs, @RequestParam Long id, String name, String value) {
+    public String voteForOptionB(HttpSession session, @RequestParam Long id) {
         User currentUser = ensureLoggedIn(session);
         if (currentUser == null) {
             return "redirect:/login";
         }
-//        Question votedQuestion = (Question) model.getAttribute("currentQuestion");
-        Question votedQuestion = questionService.questionIdLookup();
+
+        Question votedQuestion = questionService.questionIdLookup(id);
+        
         if (votedQuestion != null) {
-            attrs.addFlashAttribute("currentQuestion",votedQuestion);
+            session.setAttribute("lastQuestionID", id );
             votedQuestion.voteForOptionB(currentUser);
             return "redirect:/results";
         }
@@ -119,8 +121,8 @@ public class WouldYouRatherDisplayController {
      * @return The name of the results view.
      */
     @GetMapping("/results")
-    public String showResults(Model model, RedirectAttributes attrs) {
-        Question votedQuestion = (Question) attrs.getAttribute("currentQuestion");
+    public String showResults(Model model, HttpSession session) {
+        Question votedQuestion = questionService.questionIdLookup((Long) session.getAttribute("lastQuestionID"));
         model.addAttribute("AVotes", votedQuestion.getVotesForOptionA().size());
         model.addAttribute("BVotes", votedQuestion.getVotesForOptionB().size());
         return "Results";
