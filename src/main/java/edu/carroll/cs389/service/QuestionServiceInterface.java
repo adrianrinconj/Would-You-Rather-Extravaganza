@@ -40,7 +40,13 @@ public interface QuestionServiceInterface {
      */
     Question randomUnseenQuestion(User currentUser);
 
+    Question getSeenQuestion(User currentUser, Question lastQuestion, Boolean gettingNext);
+
     Question questionIdLookup (Long questionID);
+
+    void voteForOptionA(User user, Question question);
+
+    void voteForOptionB(User user, Question question);
 
     /**
      * Marks a question as seen for a user.

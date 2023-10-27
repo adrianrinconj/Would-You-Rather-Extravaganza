@@ -100,7 +100,8 @@ public class Question implements Serializable {
      * @param votingUser The user who is voting.
      */
     public void voteForOptionA(User votingUser) {
-        votesForOptionA.add(votingUser);
+        this.votesForOptionA.add(votingUser);
+
     }
 
     /**
@@ -116,7 +117,7 @@ public class Question implements Serializable {
      * @param votingUser The user who is voting.
      */
     public void voteForOptionB(User votingUser) {
-        votesForOptionB.add(votingUser);
+        this.votesForOptionB.add(votingUser);
     }
 
     /**
@@ -133,5 +134,18 @@ public class Question implements Serializable {
      */
     public void setId(Long id) {
         this.id = id;
+    }
+
+    @Override
+    public  boolean equals(Object o) {
+        if (o == this) {
+            return  true;
+        }
+        else if (o instanceof Question) {
+            if (((Question) o).getId() == this.id){
+                return true;
+            }
+        }
+            return false;
     }
 }

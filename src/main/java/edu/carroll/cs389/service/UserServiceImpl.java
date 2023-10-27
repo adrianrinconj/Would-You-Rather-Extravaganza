@@ -1,4 +1,5 @@
 package edu.carroll.cs389.service;
+import edu.carroll.cs389.jpa.model.Question;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import edu.carroll.cs389.jpa.model.User;
@@ -88,6 +89,8 @@ public class UserServiceImpl implements UserServiceInterface {
 
     @Override
     public void resetSeenQuestions(User user) {
-        ;
+        for (Question seenQuestion : user.getSeenQuestions()) {
+            user.getSeenQuestions().remove(seenQuestion);
+        }
     }
 }

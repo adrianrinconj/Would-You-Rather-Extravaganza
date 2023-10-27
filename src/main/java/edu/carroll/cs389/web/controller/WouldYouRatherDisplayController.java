@@ -53,21 +53,20 @@ public class WouldYouRatherDisplayController {
     public String optionsGet(Model model, HttpSession session) {
         User currentUser = ensureLoggedIn(session);
         if (currentUser == null) {
-            return "redirect:/login";
+            return "redirect:/";
         }
         Question randomQuestion = questionService.randomUnseenQuestion(currentUser);
         questionService.markQuestionAsSeen(currentUser, randomQuestion);
 
         if (randomQuestion != null) {
-            model.addAttribute("currentQuestion",randomQuestion);
             logInfo.info("randomQuestion is not null; both optionA and optionB are filled");
-
+            model.addAttribute("currentQuestion",randomQuestion);
             model.addAttribute("optionA", randomQuestion.getOptionA());
             model.addAttribute("optionB", randomQuestion.getOptionB());
         } else {
             //logging
-            logInfo.debug("one of the questions has no options");
-
+            logInfo.debug("out of questions");
+            model.addAttribute("currentQuestion",null);
             model.addAttribute("optionA", "no option");
             model.addAttribute("optionB", "no option");
         }
@@ -83,35 +82,36 @@ public class WouldYouRatherDisplayController {
      * @return A redirect instruction to the results page.
      */
     @PostMapping(value = "/DisplayOptions", params="vote=optionA")
-    public String voteForOptionA(HttpSession session, @RequestParam Long id) {
+    public String voteForOptionA(HttpSession session, @RequestParam(value = "id", required = false) Long id) {
         User currentUser = ensureLoggedIn(session);
         if (currentUser == null) {
-            return "redirect:/login";
+            return "redirect:/";
         }
+
         Question votedQuestion = questionService.questionIdLookup(id);
         if (votedQuestion != null) {
             session.setAttribute("lastQuestionID", id );
-            votedQuestion.voteForOptionA(currentUser);
+            questionService.voteForOptionA(currentUser, votedQuestion);
             return "redirect:/results";
         }
         return "/DisplayOptions";
     }
 
     @PostMapping(value = "/DisplayOptions", params="vote=optionB")
-    public String voteForOptionB(HttpSession session, @RequestParam Long id) {
+    public String voteForOptionB(HttpSession session, @RequestParam(value = "id", required = false) Long id) {
         User currentUser = ensureLoggedIn(session);
         if (currentUser == null) {
-            return "redirect:/login";
+            return "redirect:/";
         }
 
         Question votedQuestion = questionService.questionIdLookup(id);
         
         if (votedQuestion != null) {
             session.setAttribute("lastQuestionID", id );
-            votedQuestion.voteForOptionB(currentUser);
+            questionService.voteForOptionB(currentUser, votedQuestion);
             return "redirect:/results";
         }
-        return "/DisplayOptions";
+        return "redirect:/DisplayOptions";
     }
 
     /**
