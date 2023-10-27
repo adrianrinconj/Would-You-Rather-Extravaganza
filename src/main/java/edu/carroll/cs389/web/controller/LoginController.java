@@ -79,6 +79,6 @@ public class LoginController {
         }
 
         session.setAttribute("loggedUserID", loggedUser.getId());
-        return "redirect:/wouldYouRatherEntry";
+        return "redirect:/entry";
     }
 }

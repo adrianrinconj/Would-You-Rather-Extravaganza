@@ -39,7 +39,7 @@ public class WouldYouRatherController {
      * @param model The {@link Model} object used to pass data to the view.
      * @return The name of the game's entry view.
      */
-    @GetMapping("/wouldYouRatherEntry")
+    @GetMapping("/entry")
     public String optionsGet(Model model) {
         model.addAttribute("wouldYouRatherForm", new WouldYouRatherForm());
         return "WouldYouRatherEntry";
@@ -57,7 +57,7 @@ public class WouldYouRatherController {
      * @param attrs              The {@link RedirectAttributes} object used to pass attributes on redirect.
      * @return The name of the next view or a redirect instruction.
      */
-    @PostMapping("/wouldYouRatherEntry")
+    @PostMapping("/entry")
     public String optionsPost(@Valid @ModelAttribute WouldYouRatherForm wouldYouRatherForm, BindingResult result, RedirectAttributes attrs) {
 
         if (result.hasErrors()) {
@@ -67,6 +67,6 @@ public class WouldYouRatherController {
         Question newEntry = new Question(wouldYouRatherForm.getOptionA(), wouldYouRatherForm.getOptionB());
         questionService.addQuestion(newEntry);
 
-        return "redirect:/wouldYouRatherEntry";
+        return "redirect:/entry";
     }
 }
