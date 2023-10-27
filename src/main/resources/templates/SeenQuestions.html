@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link th:href="@{/styles/WYR.css}" rel="stylesheet" />
+    <title>What Would You Rather?</title>
+</head>
+<body>
+<a th:href="@{/logout}"> logout </a>
+<h1>What Would you Rather?</h1>
+<h1> previously seen questions</h1>
+<div class="mainContentDiv" style="flex-flow: column">
+    <div class="optionsDivider">
+        <p th:text="'Option A:' + ${optionA}"></p>
+        <p th:text="'Option B:' + ${optionB}"></p>
+    </div>
+    <form action="#" th:action="@{/seenQuestions}"  method="post">
+        <button type="submit" name="direction" value="next" th:text="'next'"></button>
+        <button type="submit" name="direction" value="previous" th:text="'previous'"></button>
+    </form>
+    <a th:href="@{/DisplayOptions}"> Back to New Questions</a>
+    <a th:href="@{/}">Go to Entry</a>
+</div>
+</body>
+</html>

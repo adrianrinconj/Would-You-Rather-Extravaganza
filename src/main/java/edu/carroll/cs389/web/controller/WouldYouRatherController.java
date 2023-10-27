@@ -59,6 +59,6 @@ public class WouldYouRatherController {
         Question newEntry = new Question(wouldYouRatherForm.getOptionA(), wouldYouRatherForm.getOptionB());
         questionService.addQuestion(newEntry);
 
-        return "redirect:/WouldYouRatherEntry";
+        return "redirect:/wouldYouRatherEntry";
     }
 }
