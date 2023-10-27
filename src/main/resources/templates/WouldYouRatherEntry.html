@@ -7,7 +7,7 @@
 </head>
 <body>
 <h1 class="coolheader">What Would You Rather?</h1>
-<form action="#" th:action="@{/}" th:object="${wouldYouRatherForm}" method="post">
+<form action="#" th:action="@{/Entry}" th:object="${wouldYouRatherForm}" method="post">
     <input type="text" th:field="*{optionA}" placeholder="optionA"/>
     <td th:if="${#fields.hasErrors('optionA')}" th:errors="*{optionA}">Option A Error</td>
     <input type="text" th:field="*{optionB}" placeholder="optionB"/>

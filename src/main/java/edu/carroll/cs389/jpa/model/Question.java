@@ -1,6 +1,7 @@
 package edu.carroll.cs389.jpa.model;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -9,6 +10,7 @@ import java.util.List;
 /**
  * Represents a question entity with two options for voting.
  */
+//@Builder
 @Entity
 public class Question implements Serializable {
 

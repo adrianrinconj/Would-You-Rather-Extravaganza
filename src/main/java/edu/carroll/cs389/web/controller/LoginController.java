@@ -44,7 +44,7 @@ public class LoginController {
      * @param model The model to be populated for the view.
      * @return The name of the login view.
      */
-    @GetMapping("/login")
+    @GetMapping("/")
     public String LoginGet(Model model) {
         model.addAttribute("loginForm", new LoginForm());
         return "Login";
@@ -58,7 +58,7 @@ public class LoginController {
      * @param attrs       The redirect attributes.
      * @return The name of the next view or a redirect instruction.
      */
-    @PostMapping("/login")
+    @PostMapping("/")
     public String loginPost(@Valid @ModelAttribute LoginForm loginForm, BindingResult result, HttpSession session) {
         if (result.hasErrors()) {
             //logging debug
@@ -75,6 +75,6 @@ public class LoginController {
             return "Login";
         }
         session.setAttribute("loggedUserID", loggedUser.getId());
-        return "redirect:/";
+        return "redirect:/Entry";
     }
 }

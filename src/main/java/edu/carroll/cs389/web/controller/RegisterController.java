@@ -52,6 +52,6 @@ public class RegisterController {
             return "Register";
         }
         userService.addUser(new User(registerLoginForm.getUsername(),registerLoginForm.getRawPassword()));
-        return "redirect:/login";
+        return "redirect:/";
     }
 }
