@@ -2,12 +2,9 @@ package edu.carroll.cs389.web.controller;
 
 import edu.carroll.cs389.jpa.model.Question;
 import edu.carroll.cs389.jpa.model.User;
-import edu.carroll.cs389.service.QuestionServiceImpl;
 import edu.carroll.cs389.service.QuestionServiceInterface;
-import edu.carroll.cs389.service.UserServiceImpl;
 import edu.carroll.cs389.service.UserServiceInterface;
 import jakarta.servlet.http.HttpSession;
-import org.springframework.data.repository.query.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -15,9 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import java.util.Objects;
 
 /**
  * Controller responsible for displaying the "Would You Rather" game options and handling user votes.
@@ -26,13 +20,13 @@ import java.util.Objects;
 public class WouldYouRatherDisplayController {
     private final QuestionServiceInterface questionService;
     private final UserServiceInterface userService;
-    private static final Logger logInfo = LoggerFactory.getLogger((WouldYouRatherDisplayController.class));
+    private static final Logger logInfo = LoggerFactory.getLogger(WouldYouRatherDisplayController.class);
 
     /**
-     * Constructs the WouldYouRatherDisplayController with the provided question and user service implementations.
+     * Constructs a {@link WouldYouRatherDisplayController} with the provided question and user service implementations.
      *
      * @param questionService The question service implementation.
-     * @param userService The user service implementation.
+     * @param userService     The user service implementation.
      */
     public WouldYouRatherDisplayController(QuestionServiceInterface questionService, UserServiceInterface userService) {
         this.questionService = questionService;
@@ -42,11 +36,14 @@ public class WouldYouRatherDisplayController {
         }
     }
 
-
     /**
-     * Handles the GET request for displaying game options.
+     * Handles GET requests to the options display page.
      *
-     * @param model The model to be populated for the view.
+     * Displays a random, unseen "Would You Rather" question to the user.
+     * If the user is not logged in, they are redirected to the login page.
+     *
+     * @param model   The {@link Model} object to pass data to the view.
+     * @param session The {@link HttpSession} object to get the logged-in user's information.
      * @return The name of the options display view.
      */
     @GetMapping("/DisplayOptions")
@@ -59,14 +56,13 @@ public class WouldYouRatherDisplayController {
         questionService.markQuestionAsSeen(currentUser, randomQuestion);
 
         if (randomQuestion != null) {
-            logInfo.info("randomQuestion is not null; both optionA and optionB are filled");
-            model.addAttribute("currentQuestion",randomQuestion);
+            logInfo.info("Random question is not null; both optionA and optionB are filled");
+            model.addAttribute("currentQuestion", randomQuestion);
             model.addAttribute("optionA", randomQuestion.getOptionA());
             model.addAttribute("optionB", randomQuestion.getOptionB());
         } else {
-            //logging
-            logInfo.debug("out of questions");
-            model.addAttribute("currentQuestion",null);
+            logInfo.debug("Out of questions");
+            model.addAttribute("currentQuestion", null);
             model.addAttribute("optionA", "no option");
             model.addAttribute("optionB", "no option");
         }
@@ -74,14 +70,14 @@ public class WouldYouRatherDisplayController {
         return "/DisplayOptions";
     }
 
-
     /**
-     * Handles the GET request for voting for option B.
+     * Handles POST requests for voting for option A.
      *
-     * @param session The current session of the user accessing the page
+     * @param session The {@link HttpSession} object to get the logged-in user's information.
+     * @param id      The id of the question being voted on.
      * @return A redirect instruction to the results page.
      */
-    @PostMapping(value = "/DisplayOptions", params="vote=optionA")
+    @PostMapping(value = "/DisplayOptions", params = "vote=optionA")
     public String voteForOptionA(HttpSession session, @RequestParam(value = "id", required = false) Long id) {
         User currentUser = ensureLoggedIn(session);
         if (currentUser == null) {
@@ -90,14 +86,21 @@ public class WouldYouRatherDisplayController {
 
         Question votedQuestion = questionService.questionIdLookup(id);
         if (votedQuestion != null) {
-            session.setAttribute("lastQuestionID", id );
+            session.setAttribute("lastQuestionID", id);
             questionService.voteForOptionA(currentUser, votedQuestion);
             return "redirect:/results";
         }
         return "/DisplayOptions";
     }
 
-    @PostMapping(value = "/DisplayOptions", params="vote=optionB")
+    /**
+     * Handles POST requests for voting for option B.
+     *
+     * @param session The {@link HttpSession} object to get the logged-in user's information.
+     * @param id      The id of the question being voted on.
+     * @return A redirect instruction to the results page.
+     */
+    @PostMapping(value = "/DisplayOptions", params = "vote=optionB")
     public String voteForOptionB(HttpSession session, @RequestParam(value = "id", required = false) Long id) {
         User currentUser = ensureLoggedIn(session);
         if (currentUser == null) {
@@ -105,9 +108,8 @@ public class WouldYouRatherDisplayController {
         }
 
         Question votedQuestion = questionService.questionIdLookup(id);
-        
         if (votedQuestion != null) {
-            session.setAttribute("lastQuestionID", id );
+            session.setAttribute("lastQuestionID", id);
             questionService.voteForOptionB(currentUser, votedQuestion);
             return "redirect:/results";
         }
@@ -115,9 +117,10 @@ public class WouldYouRatherDisplayController {
     }
 
     /**
-     * Handles the GET request for displaying the voting results.
+     * Handles GET requests to the results page, showing the voting results of the last voted question.
      *
-     * @param model The model to be populated for the view.
+     * @param model   The {@link Model} object to pass data to the view.
+     * @param session The {@link HttpSession} object to get the id of the last voted question.
      * @return The name of the results view.
      */
     @GetMapping("/results")
@@ -128,7 +131,16 @@ public class WouldYouRatherDisplayController {
         return "Results";
     }
 
-    private User ensureLoggedIn (HttpSession session) {
+    /**
+     * Ensures that a user is logged in by checking the user's session.
+     * If a user is logged in, their user information is retrieved and returned.
+     * If no user is logged in, this method returns null.
+     *
+     * @param session The {@link HttpSession} object to get the logged-in user's information.
+     * @return The {@link User} object representing the currently logged-in user,
+     *         or null if no user is logged in.
+     */
+    private User ensureLoggedIn(HttpSession session) {
         Long currentUserID = (Long) session.getAttribute("loggedUserID");
         if (currentUserID == null) {
             return null;

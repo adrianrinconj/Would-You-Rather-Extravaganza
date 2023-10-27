@@ -18,18 +18,20 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
- * Controller responsible for handling user login operations.
+ * This {@code LoginController} class handles user login operations for a web application.
+ * It interacts with the {@code UserServiceInterface} to perform operations related to user authentication.
  */
 @Controller
 public class LoginController {
-    private static final Logger logInfo = LoggerFactory.getLogger((LoginController.class));
+    private static final Logger logInfo = LoggerFactory.getLogger(LoginController.class);
 
     private final UserServiceInterface userService;
 
     /**
-     * Constructs the LoginController with the provided user service implementation.
+     * Creates a new instance of {@code LoginController}.
+     * During the initialization, it checks if the "Guest1" user exists, and if not, adds a new user with that username.
      *
-     * @param userService The user service implementation.
+     * @param userService The {@code UserServiceInterface} implementation to be used for user-related operations.
      */
     public LoginController(UserServiceInterface userService) {
         this.userService = userService;
@@ -39,9 +41,10 @@ public class LoginController {
     }
 
     /**
-     * Handles the GET request for the login page.
+     * Displays the login page to the user.
+     * This method handles GET requests to the root endpoint.
      *
-     * @param model The model to be populated for the view.
+     * @param model The {@code Model} object used to pass data to the view.
      * @return The name of the login view.
      */
     @GetMapping("/")
@@ -51,29 +54,30 @@ public class LoginController {
     }
 
     /**
-     * Handles the POST request for user registration.
+     * Processes the user's login form submission.
+     * This method handles POST requests to the root endpoint, validating the user's input and attempting to log them in.
+     * If validation fails or the login is unsuccessful, the user is shown the login page again with appropriate error messages.
+     * On successful login, the user's ID is stored in the session and they are redirected to the next part of the application.
      *
-     * @param loginForm   The form containing login details.
-     * @param result      The binding result containing validation errors.
-     * @param attrs       The redirect attributes.
+     * @param loginForm The {@code @Valid} annotated {@code LoginForm} object containing the user's login details.
+     * @param result    The {@code BindingResult} object containing any validation errors.
+     * @param session   The {@code HttpSession} object used to store the logged user's ID on successful login.
      * @return The name of the next view or a redirect instruction.
      */
     @PostMapping("/")
     public String loginPost(@Valid @ModelAttribute LoginForm loginForm, BindingResult result, HttpSession session) {
         if (result.hasErrors()) {
-            //logging debug
-            logInfo.debug("User did not provide a valid input", loginForm.getUsername());
-
+            logInfo.debug("User did not provide a valid input: {}", loginForm.getUsername());
             return "Login";
         }
+
         User loggedUser = userService.loginValidation(loginForm.getUsername(), loginForm.getRawPassword());
         if (loggedUser == null) {
-            //logging debug
             logInfo.debug("The user {} did not exist", loginForm.getUsername());
-
             result.addError(new ObjectError("globalError", "No users with your provided credentials exist"));
             return "Login";
         }
+
         session.setAttribute("loggedUserID", loggedUser.getId());
         return "redirect:/wouldYouRatherEntry";
     }
