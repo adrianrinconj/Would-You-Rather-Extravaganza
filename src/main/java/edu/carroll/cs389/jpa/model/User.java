@@ -43,7 +43,6 @@ public class User implements Serializable {
     private List<Question> seenQuestions;
 
 
-    // creates the User; constructor
     /**
      * Constructs a user with the given username and raw password.
      *

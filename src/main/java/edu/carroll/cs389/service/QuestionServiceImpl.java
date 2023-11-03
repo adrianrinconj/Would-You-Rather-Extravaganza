@@ -52,9 +52,13 @@ public class QuestionServiceImpl implements QuestionServiceInterface {
      * @param question the question to be added.
      */
     @Override
-    public void addQuestion(Question question) {
+    public boolean addQuestion(Question question) {
         if (uniqueQuestion(question)) {
             repository.save(question);
+            return true;
+        }
+        else {
+            return false;
         }
     }
 

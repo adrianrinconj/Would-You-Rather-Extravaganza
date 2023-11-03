@@ -1,7 +1,6 @@
 package edu.carroll.cs389.web.controller;
 
 import edu.carroll.cs389.jpa.model.User;
-import edu.carroll.cs389.service.UserServiceImpl;
 import edu.carroll.cs389.service.UserServiceInterface;
 import edu.carroll.cs389.web.form.LoginForm;
 import jakarta.servlet.http.HttpSession;
@@ -15,7 +14,6 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  * This {@code LoginController} class handles user login operations for a web application.
@@ -34,6 +32,7 @@ public class LoginController {
      * @param userService The {@code UserServiceInterface} implementation to be used for user-related operations.
      */
     public LoginController(UserServiceInterface userService) {
+        //
         this.userService = userService;
         if (userService.userLookupUsername("Guest1") == null) {
             userService.addUser(new User("Guest1", "Password"));

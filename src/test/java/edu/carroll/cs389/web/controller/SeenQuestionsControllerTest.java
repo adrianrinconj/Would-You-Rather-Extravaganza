@@ -1,4 +1,4 @@
-package edu.carroll.cs389.api.repository;//package edu.carroll.cs389.api.repository;//package edu.carroll.cs389.api.repository;
+package edu.carroll.cs389.web.controller;//package edu.carroll.cs389.api.repository;//package edu.carroll.cs389.api.repository;
 //////
 //////
 //////import edu.carroll.cs389.jpa.model.Question;
@@ -34,14 +34,12 @@ package edu.carroll.cs389.api.repository;//package edu.carroll.cs389.api.reposit
 //////
 //////}
 ////
-//import org.junit.jupiter.api.Test;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-//import edu.carroll.cs389.jpa.model.Question;
-//import edu.carroll.cs389.jpa.repo.QuestionRepository;
-//
-//import static org.assertj.core.api.Assertions.assertThat;
-//
+import edu.carroll.cs389.web.controller.SeenQuestionsController;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
 //@DataJpaTest
 //public class QuestionTests {
 //
@@ -64,7 +62,32 @@ package edu.carroll.cs389.api.repository;//package edu.carroll.cs389.api.reposit
 //        assertThat(foundQuestion.getOptionA()).isEqualTo("Option A");
 //        assertThat(foundQuestion.getOptionB()).isEqualTo("Option B");
 //    }
+//
 //}
+
+
+//package edu.carroll.cs389;
+
+        import static org.hamcrest.Matchers.equalTo;
+        import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+        import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+        import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+        import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+        import org.springframework.test.web.servlet.MockMvc;
+
+@WebMvcTest(SeenQuestionsController.class)
+public class SeenQuestionsControllerTest {
+    @Autowired
+    private MockMvc mockMvc;
+
+    @Test
+    public void indexTest() throws Exception {
+        mockMvc.perform(get("/seenQuestions")).andDo(print())
+                .andExpect(status().isOk());
+    }
+}
 
 //import edu.carroll.cs389.jpa.model.Question;
 //import edu.carroll.cs389.jpa.repo.QuestionRepository;

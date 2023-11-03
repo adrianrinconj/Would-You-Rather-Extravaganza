@@ -1,5 +1,3 @@
-
-
 package edu.carroll.cs389.service;
 
 import edu.carroll.cs389.jpa.model.Question;
@@ -22,7 +20,9 @@ public interface QuestionServiceInterface {
      *
      * @param question The question to be added.
      */
-    void addQuestion(Question question);
+
+    // make this a boolean
+    boolean addQuestion(Question question);
 
     /**
      * Checks if a question is unique.
