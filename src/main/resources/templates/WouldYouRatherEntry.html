@@ -8,14 +8,17 @@
 <body>
 <a th:href="@{/logout}"> logout </a>
 <h1 class="coolheader">What Would You Rather?</h1>
-<form action="#" th:action="@{/entry}" th:object="${wouldYouRatherForm}" method="post">
-    <input type="text" th:field="*{optionA}" placeholder="optionA"/>
-    <td th:if="${#fields.hasErrors('optionA')}" th:errors="*{optionA}">Option A Error</td>
-    <input type="text" th:field="*{optionB}" placeholder="optionB"/>
-    <td th:if="${#fields.hasErrors('optionB')}" th:errors="*{optionB}">Option A Error</td>
-
-    <button type="submit">Submit</button>
-    <a th:href="@{/DisplayOptions}"> Vote on what others are wondering!</a>
+<form class="questionEntryForm" action="#" th:action="@{/entry}" th:object="${wouldYouRatherForm}" method="post">
+<!--    class="questionEntryForm"-->
+    <div class="optionsDivider">
+        <input type="text" th:field="*{optionA}" placeholder="optionA"/>
+        <td th:if="${#fields.hasErrors('optionA')}" th:errors="*{optionA}">Option A Error</td>
+        <input type="text" th:field="*{optionB}" placeholder="optionB"/>
+        <td th:if="${#fields.hasErrors('optionB')}" th:errors="*{optionB}">Option A Error</td>
+<!--    <div class="break"></div>-->
+    </div>
+    <button class="questionSubmit" type="submit">Submit</button>
 </form>
+<a th:href="@{/DisplayOptions}"> Vote on what others are wondering!</a>
 </body>
 </html>

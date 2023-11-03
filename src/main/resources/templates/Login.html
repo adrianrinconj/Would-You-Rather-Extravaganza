@@ -2,21 +2,23 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link th:href="@{/styles/WYR.css}" rel="stylesheet" />
     <title>Title</title>
 </head>
 <body>
 <h1 class="coolheader">Please log in</h1>
-<form action="#" th:action="@{/}" th:object="${loginForm}" method="post">
+<form class="loginBox" action="#" th:action="@{/}" th:object="${loginForm}" method="post">
 
     <span th:if="${#fields.hasGlobalErrors()}" th:errors="*{global}">Global error</span><br/>
-    <input type="text" th:field="*{username}" placeholder="Username"/>
+    <input class="loginInput" type="text" th:field="*{username}" placeholder="Username"/>
     <td th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username Error</td>
 
-    <input type="password" th:field="*{rawPassword}" placeholder="Password"/>
+    <input class="loginInput" type="password" th:field="*{rawPassword}" placeholder="Password"/>
     <td th:if="${#fields.hasErrors('rawPassword')}" th:errors="*{rawPassword}">Password Error</td>
 
     <button type="submit">Submit</button>
-    <a th:href="@{/register}"> Register a new account </a>
+
 </form>
+<a th:href="@{/register}"> Register a new account </a>
 </body>
 </html>

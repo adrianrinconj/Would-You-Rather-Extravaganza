@@ -7,16 +7,18 @@
 </head>
 <body>
 <a th:href="@{/logout}"> logout </a>
-<h1>What Would you Rather?</h1>
-<h1> previously seen questions</h1>
+<h1 class="coolheader">What Would you Rather?</h1>
+<h1 class="coolheader"> previously seen questions</h1>
 <div class="mainContentDiv" style="flex-flow: column">
-    <div class="optionsDivider">
+    <div class="optionsDivider" style="background-color: transparent">
         <p th:text="'Option A:' + ${optionA}"></p>
         <p th:text="'Option B:' + ${optionB}"></p>
     </div>
-    <form action="#" th:action="@{/seenQuestions}"  method="post">
-        <button type="submit" name="direction" value="next" th:text="'next'"></button>
-        <button type="submit" name="direction" value="previous" th:text="'previous'"></button>
+    <form action="#" th:action="@{/seenQuestions}"  method="post" style="background-color: transparent">
+        <div class="seenQuestionButtonDivider">
+            <button class="seenQuestionButton" type="submit" name="direction" value="previous" th:text="'previous'"></button>
+            <button class="seenQuestionButton" type="submit" name="direction" value="next" th:text="'next'"></button>
+        </div>
     </form>
     <a th:href="@{/DisplayOptions}"> Back to New Questions</a>
     <a th:href="@{/}">Go to Entry</a>

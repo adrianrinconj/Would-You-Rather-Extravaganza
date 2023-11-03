@@ -7,24 +7,21 @@
 </head>
 <body>
 <a th:href="@{/logout}"> logout </a>
-<h1>What Would you Rather?</h1>
+<h1 class="coolheader">What Would you Rather?</h1>
 <div class="mainContentDiv" style="flex-flow: column">
-    <form action="#" th:if="${currentQuestion != null}" th:action="@{/DisplayOptions}" th:object="${currentQuestion}" method="post">
-        <div class="optionsDivider">
-
-            <input type="hidden" th:field="*{id}" name="id"/>
-
-            <button type="submit" name="vote" value="optionA" th:text="'Option A:' + ${optionA}"></button>
-            <button type="submit" name="vote" value="optionB" th:text="'Option B:' + ${optionB}"></button>
-
+    <form action="#" th:if="${currentQuestion != null}" th:action="@{/DisplayOptions}" th:object="${currentQuestion}" method="post" style="background-color: transparent">
+        <input type="hidden" th:field="*{id}" name="id"/>
+        <div class="optionsDivider" style="background-color: transparent">
+            <button class="optionButton" type="submit" name="vote" value="optionA" th:text="'Option A:' + ${optionA}"></button>
+            <button class="optionButton" type="submit" name="vote" value="optionB" th:text="'Option B:' + ${optionB}"></button>
         </div>
     </form>
-    <div th:if="${currentQuestion == null}" class="optionsDivider">
+    <div th:if="${currentQuestion == null}" class="optionsDivider" style="background-color: transparent">
         <p>You have already seen all the questions </p>
     </div>
     <a th:href="@{/DisplayOptions}">Refresh Question</a>
     <a th:href="@{/seenQuestions}"> Previously Seen Questions</a>
-    <a th:href="@{/wouldYouRatherEntry}">Go to Question Entry</a>
+    <a th:href="@{/entry}">Go to Question Entry</a>
 </div>
 </body>
 </html>
