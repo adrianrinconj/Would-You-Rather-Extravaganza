@@ -13,9 +13,16 @@ import java.util.List;
 
 import static org.springframework.test.util.AssertionErrors.*;
 
+
+/**
+ * Tests for QuestionServiceInterface.
+ * Checks if methods within QuestionServiceInterface
+ */
+
 @Transactional
 @SpringBootTest
 public class QuestionServiceTest {
+
 
     private static final String optionA = "blue";
     private static final String optionB = "red";
@@ -33,18 +40,24 @@ public class QuestionServiceTest {
     @Autowired
     private QuestionRepository questionRepository;
 
+    /**
+     * Checks to see if question was added.
+     */
+
     @Test
-    public void addQuestionTest(){
+    public void addQuestionTest() {
         assertTrue("addQuestionTest: should succeed if question was added", questionServiceInterface.addQuestion(question));
 
         assertNotNull("addQuestionTest: will fail if optionA is null", question.getOptionA());
 
         assertNotNull("addQuestionTest: will fail if optionB is null", question.getOptionB());
+    }
 
+    @Test
+    public void checkForNullOptions(){
         questionServiceInterface.addQuestion(question);
         assertFalse("addQuestionTest: will fail if optionA is null and optionB is not null", question.getOptionA() == null &&
                 question.getOptionB() != null);
-
         assertFalse("addQuestionTest: will fail if optionA is not null and optionB is null", question.getOptionA() != null &&
                 question.getOptionB() == null);
 
@@ -54,12 +67,8 @@ public class QuestionServiceTest {
     @Test
     public void uniqueQuestionTest(){
         assertTrue("uniqueQuestionTest: should succeed if question is unique", questionServiceInterface.uniqueQuestion(question));
-
         assertFalse("uniqueQuestionTest: makes sure that different questions aren't the same with the options switched",
                 question.getOptionA() == nextQuestion.getOptionB() && question.getOptionB() == nextQuestion.getOptionA());
-
-
-
     }
 
 //    @Test
@@ -76,23 +85,22 @@ public class QuestionServiceTest {
 
 
     @Test
-    public void getSeenQuestionTest(){
-
+    public void getSeenQuestionTest() {
         questionServiceInterface.markQuestionAsSeen(user, question);
         questionServiceInterface.markQuestionAsSeen(user, nextQuestion);
-        List<Question> seenQuestions = user.getSeenQuestions();
-        int oldSeenQuestionIdx = seenQuestions.indexOf(question);
 
 //        Question newSeenQuestion = questionServiceInterface.getSeenQuestion(user, question,false);
 //        Question oldSeenQuestion = questionServiceInterface.getSeenQuestion(user, null, false);
-
         assertNotNull("getSeenQuestionTest: will fail if seen question is not added to the seen questions list",
                 questionServiceInterface.getSeenQuestion(user, question, false));
+    }
 
+    @Test
+    public void questionsDontMatch(){
+        List<Question> seenQuestions = user.getSeenQuestions();
+        int oldSeenQuestionIdx = seenQuestions.indexOf(question);
         assertFalse("getSeenQuestionTest: will fail if previous seen question is the same as the next question",
                 seenQuestions.get(oldSeenQuestionIdx) == seenQuestions.get(oldSeenQuestionIdx + 1));
-
-
     }
 
     @Test
