@@ -8,6 +8,7 @@ import java.security.MessageDigest;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 
 /**
  * Represents a user entity with associated authentication and relationship details.

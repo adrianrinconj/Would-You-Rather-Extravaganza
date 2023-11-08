@@ -99,9 +99,8 @@ public class Question implements Serializable {
      *
      * @param votingUser The user who is voting.
      */
-    public void voteForOptionA(User votingUser) {
+    public void addVoteForOptionA(User votingUser) {
         this.votesForOptionA.add(votingUser);
-
     }
 
     /**
@@ -148,4 +147,5 @@ public class Question implements Serializable {
         }
             return false;
     }
+
 }

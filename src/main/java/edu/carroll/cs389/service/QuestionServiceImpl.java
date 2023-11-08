@@ -22,7 +22,6 @@ public class QuestionServiceImpl implements QuestionServiceInterface {
     private final UserServiceInterface userService;
     private final UserRepository userRepo;
 
-
     /**
      * Constructor for the QuestionServiceImpl.
      *
@@ -51,6 +50,7 @@ public class QuestionServiceImpl implements QuestionServiceInterface {
      *
      * @param question the question to be added.
      */
+    //make happy code unindented
     @Override
     public boolean addQuestion(Question question) {
         if (uniqueQuestion(question)) {
@@ -71,7 +71,8 @@ public class QuestionServiceImpl implements QuestionServiceInterface {
     @Override
     public boolean uniqueQuestion(Question newQuestion) {
         for (Question currentQuestion : getAllQuestions()) {
-            if (Objects.equals(newQuestion.getOptionA(), currentQuestion.getOptionA()) || Objects.equals(newQuestion.getOptionB(), currentQuestion.getOptionB())) {
+            // make this line symetrical
+            if (newQuestion.getOptionA().equals( currentQuestion.getOptionA()) || Objects.equals(newQuestion.getOptionB(), currentQuestion.getOptionB())) {
                 return false;
             }
         }
@@ -93,6 +94,7 @@ public class QuestionServiceImpl implements QuestionServiceInterface {
             return null;
         }
 
+        // gen at start
         int idx = (int) (Math.random() * allQ.size());
         return allQ.get(idx);
     }
@@ -106,6 +108,7 @@ public class QuestionServiceImpl implements QuestionServiceInterface {
      * @return a seen question or null if no questions are seen or input parameters are invalid.
      */
     @Override
+    //clean up and comment this method
     public Question getSeenQuestion(User currentUser, Question lastQuestion, Boolean gettingNext) {
         List<Question> seenQuestions = currentUser.getSeenQuestions();
 
@@ -174,6 +177,7 @@ public class QuestionServiceImpl implements QuestionServiceInterface {
      * @param question the question being marked as seen.
      */
     @Override
+    //boolean return
     public void markQuestionAsSeen(User user, Question question) {
         if (question != null) {
             user.getSeenQuestions().add(question);
