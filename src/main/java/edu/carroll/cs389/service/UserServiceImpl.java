@@ -36,7 +36,8 @@ public class UserServiceImpl implements UserServiceInterface {
     /**
      * Attempts to add a new user to the system.
      *
-     * @param newUser The User object representing the new user.
+     * @param newUsername The String representing the new users desired username.
+     *                    This must be unique from the usernames of existing users.
      * @return true if the user is successfully added, false if a user with the same username already exists.
      */
     @Override
@@ -75,16 +76,19 @@ public class UserServiceImpl implements UserServiceInterface {
      */
     @Override
     public User loginValidation(String Username, String rawPassword) {
+        // log information about the login attempt
         log.debug("loginValidation: user '{}' attempted login", Username);
 
+        //ensure only one user with the given username exists (should always be true)
         List<User> users = userRepository.findByUsernameIgnoreCase(Username);
         if (users.size() != 1) {
             log.debug("loginValidation: found {} users", users.size());
             return null;
         }
-
+        //check the single users username and password for validity
         for (User a : userRepository.findAll()) {
             if (Objects.equals(a.getUsername(), Username) && BCrypt.checkpw(rawPassword, a.getPassword())) {
+                // return the user object if the login is successful
                 return a;
             }
         }

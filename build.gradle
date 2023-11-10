@@ -34,6 +34,14 @@ dependencies {
 
 }
 
+jar {
+	manifest {
+		attributes(
+				'Main-Class': 'edu.carroll.cs389.Cs389Application'
+		)
+	}
+}
+
 tasks.named('test') {
 	useJUnitPlatform()
 }
