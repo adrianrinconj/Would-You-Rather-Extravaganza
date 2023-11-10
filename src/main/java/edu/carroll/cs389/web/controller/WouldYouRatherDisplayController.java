@@ -32,7 +32,7 @@ public class WouldYouRatherDisplayController {
         this.questionService = questionService;
         this.userService = userService;
         if (userService.userLookupUsername("Guest") == null) {
-            userService.addUser(new User("Guest", "Password"));
+            userService.addUser("Guest", "Password");
         }
     }
 

@@ -8,7 +8,6 @@ import java.security.MessageDigest;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
-//import org.springframework.security.crypto.bcrypt.BCrypt;
 
 /**
  * Represents a user entity with associated authentication and relationship details.
@@ -29,12 +28,8 @@ public class User implements Serializable {
 
     // Using Byte allows larger numbers of users to be stored
     @Column(nullable = false)
-    private byte[] password;
+    private String password;
 
-    private transient SecureRandom random = new SecureRandom();
-
-    @Column (nullable = false)
-    public byte[] salt = new byte[16];
 
     // ManyToMany relationship with Question entity
     @ManyToMany(fetch = FetchType.EAGER)
@@ -44,24 +39,25 @@ public class User implements Serializable {
     private List<Question> seenQuestions;
 
 
-    /**
-     * Constructs a user with the given username and raw password.
-     *
-     * @param username    The username of the user.
-     * @param rawPassword The raw password which will be encrypted.
-     */
-    public User(String username, String rawPassword) {
-        this.username = username;
-        random.nextBytes(salt);
-        this.password = encryptPassword(rawPassword);  // Ensuring the password is encoded
-        this.seenQuestions = new ArrayList<>();
-    }
+
 
     //empty constructor needed
     /**
      * Default constructor.
      */
     public User() {
+    }
+
+    /**
+     * Constructs a user with the given username and raw password.
+     *
+     * @param username    The username of the user.
+    //     * @param rawPassword The raw password which will be encrypted.
+     */
+    public User(String username, String password) {
+        this.username = username;
+        setPassword(password);
+        this.seenQuestions = new ArrayList<>();
     }
 
     /**
@@ -99,28 +95,32 @@ public class User implements Serializable {
     /**
      * @return The encrypted password of the user.
      */
-    public byte[] getPassword() {
+    public String getPassword() {
         return password;
     }
 
     // hashing algorithm that stores 'salt' and compares it to other passwords 'salt'
-    /**
-     * Encrypts the given raw password using SHA-512 and a salt.
-     *
-     * @param rawPassword The raw password to be encrypted.
-     * @return The encrypted password.
-     */
-    public byte[] encryptPassword(String rawPassword) {
-        try {
-            byte[] tempSalt = salt.clone();
-            // This portion uses SHA-512 encryption to hash the password and store it
-            MessageDigest md = MessageDigest.getInstance("SHA-512");
-            md.update(tempSalt);
-            return md.digest(rawPassword.getBytes(StandardCharsets.UTF_8));
-        } catch (java.security.NoSuchAlgorithmException e) {
-            System.out.println("SHA-512 does not exist");
-        }
-        return salt;
+//    /**
+//     * Encrypts the given raw password using SHA-512 and a salt.
+//     *
+//     * @param rawPassword The raw password to be encrypted.
+//     * @return The encrypted password.
+//     */
+//    public byte[] encryptPassword(String rawPassword) {
+//        try {
+//            byte[] tempSalt = salt.clone();
+//            // This portion uses SHA-512 encryption to hash the password and store it
+//            MessageDigest md = MessageDigest.getInstance("SHA-512");
+//            md.update(tempSalt);
+//            return md.digest(rawPassword.getBytes(StandardCharsets.UTF_8));
+//        } catch (java.security.NoSuchAlgorithmException e) {
+//            System.out.println("SHA-512 does not exist");
+//        }
+//        return salt;
+//    }
+
+    public void setPassword(String newPassword) {
+        this.password = newPassword;
     }
 
     /**

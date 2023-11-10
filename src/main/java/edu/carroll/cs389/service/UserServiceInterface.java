@@ -13,7 +13,8 @@ public interface UserServiceInterface {
      * @param newUser The user to be added.
      * @return True if the user was added successfully, false otherwise.
      */
-    boolean addUser(User newUser);
+
+    boolean addUser(String newUsername, String newPassword);
 
     /**
      * Checks if a user is unique based on the username.

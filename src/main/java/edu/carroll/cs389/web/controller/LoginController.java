@@ -25,6 +25,8 @@ public class LoginController {
 
     private final UserServiceInterface userService;
 
+
+
     /**
      * Creates a new instance of {@code LoginController}.
      * During the initialization, it checks if the "Guest1" user exists, and if not, adds a new user with that username.
@@ -35,7 +37,7 @@ public class LoginController {
         //
         this.userService = userService;
         if (userService.userLookupUsername("Guest1") == null) {
-            userService.addUser(new User("Guest1", "Password"));
+            userService.addUser("Guest1", "Password");
         }
     }
 
@@ -56,7 +58,7 @@ public class LoginController {
      * Processes the user's login form submission.
      * This method handles POST requests to the root endpoint, validating the user's input and attempting to log them in.
      * If validation fails or the login is unsuccessful, the user is shown the login page again with appropriate error messages.
-     * On successful login, the user's ID is stored in the session and they are redirected to the next part of the application.
+     * On successful login, the user's ID is stored in the session, and they are redirected to the next part of the application.
      *
      * @param loginForm The {@code @Valid} annotated {@code LoginForm} object containing the user's login details.
      * @param result    The {@code BindingResult} object containing any validation errors.

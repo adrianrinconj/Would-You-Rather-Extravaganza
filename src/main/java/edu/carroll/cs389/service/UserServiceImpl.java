@@ -1,11 +1,12 @@
 package edu.carroll.cs389.service;
 
-import edu.carroll.cs389.jpa.model.Question;
 import edu.carroll.cs389.jpa.model.User;
 import edu.carroll.cs389.jpa.repo.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.security.crypto.bcrypt.BCrypt;
+
 
 import java.util.Arrays;
 import java.util.List;
@@ -20,6 +21,8 @@ public class UserServiceImpl implements UserServiceInterface {
 
     private static final Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
     private final UserRepository userRepository;
+
+    private final BCrypt userCrypto = new BCrypt();
 
     /**
      * Constructs a new instance of UserServiceImpl.
@@ -37,8 +40,9 @@ public class UserServiceImpl implements UserServiceInterface {
      * @return true if the user is successfully added, false if a user with the same username already exists.
      */
     @Override
-    public boolean addUser(User newUser) {
-        if (uniqueUser(newUser.getUsername())) {
+    public boolean addUser(String newUsername, String newPassword) {
+        if (uniqueUser(newUsername)) {
+            User newUser = new User(newUsername,BCrypt.hashpw(newPassword, BCrypt.gensalt()));
             userRepository.save(newUser);
             return true;
         } else {
@@ -80,7 +84,7 @@ public class UserServiceImpl implements UserServiceInterface {
         }
 
         for (User a : userRepository.findAll()) {
-            if (Objects.equals(a.getUsername(), Username) && Arrays.equals(a.getPassword(), a.encryptPassword(rawPassword))) {
+            if (Objects.equals(a.getUsername(), Username) && BCrypt.checkpw(rawPassword, a.getPassword())) {
                 return a;
             }
         }
@@ -112,7 +116,7 @@ public class UserServiceImpl implements UserServiceInterface {
     @Override
     public User userLookupUsername(String Username) {
         for (User a : userRepository.findAll()) {
-            if (Objects.equals(a.getUsername(), Username)) {
+            if (a != null && Objects.equals(a.getUsername(), Username)) {
                 return a;
             }
         }

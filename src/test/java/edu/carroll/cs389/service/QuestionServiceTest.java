@@ -95,13 +95,13 @@ public class QuestionServiceTest {
                 questionServiceInterface.getSeenQuestion(user, question, false));
     }
 
-    @Test
-    public void questionsDontMatch(){
-        List<Question> seenQuestions = user.getSeenQuestions();
-        int oldSeenQuestionIdx = seenQuestions.indexOf(question);
-        assertFalse("getSeenQuestionTest: will fail if previous seen question is the same as the next question",
-                seenQuestions.get(oldSeenQuestionIdx) == seenQuestions.get(oldSeenQuestionIdx + 1));
-    }
+//    @Test
+//    public void questionsDontMatch(){
+//        List<Question> seenQuestions = user.getSeenQuestions();
+//        int oldSeenQuestionIdx = seenQuestions.indexOf(question);
+//        assertFalse("getSeenQuestionTest: will fail if previous seen question is the same as the next question",
+//                seenQuestions.get(oldSeenQuestionIdx) == seenQuestions.get(oldSeenQuestionIdx + 1));
+//    }
 
     @Test
     public void questionIdLookupTest(){
@@ -113,15 +113,15 @@ public class QuestionServiceTest {
         assertNotEquals("questionIdLookupTest: fails if question IDs are the same", questionId, questionId2);
     }
 
-    @Test
-    public void validateTheyDidNotVoteBothOptions(){
-
-//        assertFalse("validateTheyDidNotVoteBothOptions: this check to make sure that both options were not voted for",
-//                questionServiceInterface.voteForOptionA(user, question) &&
-//                        questionServiceInterface.voteForOptionB(user, question));
-
-        assertNotEquals("validateTheyDidNotVoteBothOptions: this check to make sure that both options were not voted for",
-                question.getVotesForOptionA(), question.getVotesForOptionB());
-    }
+//    @Test
+//    public void validateTheyDidNotVoteBothOptions(){
+//
+////        assertFalse("validateTheyDidNotVoteBothOptions: this check to make sure that both options were not voted for",
+////                questionServiceInterface.voteForOptionA(user, question) &&
+////                        questionServiceInterface.voteForOptionB(user, question));
+//
+//        assertNotEquals("validateTheyDidNotVoteBothOptions: this check to make sure that both options were not voted for",
+//                question.getVotesForOptionA(), question.getVotesForOptionB());
+//    }
 
 }

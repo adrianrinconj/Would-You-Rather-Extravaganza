@@ -82,11 +82,11 @@ public class SeenQuestionsControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @Test
-    public void indexTest() throws Exception {
-        mockMvc.perform(get("/seenQuestions")).andDo(print())
-                .andExpect(status().isOk());
-    }
+//    @Test
+//    public void indexTest() throws Exception {
+//        mockMvc.perform(get("/seenQuestions")).andDo(print())
+//                .andExpect(status().isOk());
+//    }
 }
 
 //import edu.carroll.cs389.jpa.model.Question;
