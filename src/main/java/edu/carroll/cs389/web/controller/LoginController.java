@@ -36,6 +36,7 @@ public class LoginController {
     public LoginController(UserServiceInterface userService) {
         //
         this.userService = userService;
+        //creates the guest user if it does not already exist.
         if (userService.userLookupUsername("Guest1") == null) {
             userService.addUser("Guest1", "Password");
         }
