@@ -37,10 +37,6 @@ public class QuestionServiceTest {
     @Autowired
     private UserServiceInterface userServiceInterface;
 
-    /**
-     * Checks to see if question was added.
-     */
-
     @Test
     public void addQuestionTest() {
         Question question = new Question();
@@ -84,33 +80,6 @@ public class QuestionServiceTest {
         assertNotEquals("checkForNullQuestions: there should be no questions at all",
                 questionServiceInterface.getAllQuestions(), question);
     }
-//    @Test
-//    public void checkForNullOptionA(){
-//        Question q = new Question();
-//        q.setOptionA(null);
-//        q.setOptionB(optionB);
-////        questionServiceInterface.addQuestion(q);
-//        Long qId = q.getId();
-////        Integer qIdInt = (Integer)qId;
-////        assertTrue("checkForNullOptionA: optionA is null and should not allow question to be added",
-////                questionRepository.existsById(Math.toIntExact(qId)));
-//        assertTrue("checkForNullOptionA: optionA is null and should not allow question to be added",
-//                q.getOptionA() == null);
-//
-////        assertFalse("addQuestionTest: will fail if optionA is added and optionB is not added", questionServiceInterface
-//    }
-//
-//
-//    @Test
-//    public void checkForNullOptionB(){
-//        Question q = new Question();
-//        q.setOptionA(optionA);
-//        q.setOptionB(null);
-//        assertFalse("checkForNullOptionB: optionB is null and should not allow question to be added",
-//                q.getOptionB() == null);
-//
-////        assertFalse("addQuestionTest: will fail if optionA is added and optionB is not added", questionServiceInterface
-//    }
 
     @Test
     public void checkForNullOptionA(){
@@ -128,18 +97,6 @@ public class QuestionServiceTest {
         assertTrue("uniqueQuestionTest: should succeed if question is unique",
                 questionServiceInterface.uniqueQuestion(question));
     }
-
-//    @Test
-//    public void duplicateUniqueQuestionTest(){
-//        questionServiceInterface.addQuestion(question);
-//        Question exactQ = new Question(optionA, optionB);
-//        questionServiceInterface.addQuestion(exactQ);
-//        questionServiceInterface.addQuestion(nextQuestion);
-//        questionServiceInterface.getAllQuestions();
-//        List<Question> allQuestions = questionServiceInterface.getAllQuestions();
-//        assertTrue("duplicateUniqueQuestionTest: question should be unique since exactQ wasn't able" +
-//                " to be added",  questionServiceInterface.uniqueQuestion(question));
-//    }
 
     @Test
     public void uniqueOptionsTest(){
@@ -210,7 +167,6 @@ public class QuestionServiceTest {
         questionServiceInterface.addQuestion(question);
         questionServiceInterface.markQuestionAsSeen(newUser, question);
         List<Question> newUserSeenQ = newUser.getSeenQuestions();
-//        newUser.
         assertEquals("onlyOneSeenQuestionTest: there should only be one question within the seenQuestions" +
                 " list for inputted user", newUserSeenQ.size(), 1);
     }
@@ -246,9 +202,6 @@ public class QuestionServiceTest {
                         " return null",
                 questionServiceInterface.getSeenQuestion(user, null, true));
     }
-
-//    @Test
-//    public void
 
     @Test
     public void randomUnseenQuestionTest(){
@@ -296,96 +249,6 @@ public class QuestionServiceTest {
                 unseenQ.size() > 1);
     }
 
-//    @Test
-//    public void randomUnseenQuestionTest(){
-//        questionServiceInterface.addQuestion(question);
-//        assertNotEquals("randomUnseenQuestionTest: should succeed if the new question if question is different and random", );
-//    }
-
-//    @Test
-//    public void getSeenQuestionTest(){
-//        assertNotNull("");
-
-
-
-//package edu.carroll.cs389.service;
-//
-//import edu.carroll.cs389.jpa.model.User;
-//import edu.carroll.cs389.jpa.repo.UserRepository;
-//import edu.carroll.cs389.jpa.model.Question;
-//import edu.carroll.cs389.jpa.repo.QuestionRepository;
-//import jakarta.transaction.Transactional;
-//import org.junit.jupiter.api.Test;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.boot.test.context.SpringBootTest;
-//
-//import java.util.List;
-//
-//import static org.springframework.test.util.AssertionErrors.*;
-//
-//
-///**
-// * Tests for QuestionServiceInterface.
-// * Checks if methods within QuestionServiceInterface
-// */
-//
-//@Transactional
-//@SpringBootTest
-//public class QuestionServiceTest {
-//
-//
-//    private static final String optionA = "blue";
-//    private static final String optionB = "red";
-//    Question question = new Question(optionA, optionB);
-//
-//    Question nextQuestion = new Question("diamonds", "rhinestones");
-//    private static final String username = "testuser";
-//    private static final String password = "testpass";
-//    User user = new User(username, password);
-//
-//
-//    @Autowired
-//    private QuestionServiceInterface questionServiceInterface;
-//
-//    @Autowired
-//    private QuestionRepository questionRepository;
-//
-//    /**
-//     * Checks to see if question was added.
-//     */
-//
-//    @Test
-//    public void addQuestionTest() {
-//        assertTrue("addQuestionTest: should succeed if question was added", questionServiceInterface.addQuestion(question));
-//
-//        assertNotNull("addQuestionTest: will fail if optionA is null", question.getOptionA());
-//
-//        assertNotNull("addQuestionTest: will fail if optionB is null", question.getOptionB());
-//    }
-
-
-//    @Test
-//    public void getSeenQuestionTest() {
-//        questionServiceInterface.markQuestionAsSeen(user, question);
-//        questionServiceInterface.markQuestionAsSeen(user, nextQuestion);
-//
-////        Question newSeenQuestion = questionServiceInterface.getSeenQuestion(user, question,false);
-////        Question oldSeenQuestion = questionServiceInterface.getSeenQuestion(user, null, false);
-//        assertNotNull("getSeenQuestionTest: will fail if seen question is not added to the seen questions list",
-//                questionServiceInterface.getSeenQuestion(user, question, false));
-//    }
-
-//    @Test
-//    public void questionsDontMatch(){
-//        questionServiceInterface.addQuestion(question);
-//        questionServiceInterface.addQuestion(nextQuestion);
-//        List<Question> seenQuestions = user.getSeenQuestions();
-//        int oldSeenQuestionIdx = seenQuestions.indexOf(question);
-//        int newSeenQuestion
-//        assertFalse("getSeenQuestionTest: will fail if previous seen question is the same as the next question",
-//                seenQuestions.get(oldSeenQuestionIdx) == seenQuestions.get(oldSeenQuestionIdx + 1));
-//    }
-
     @Test
     public void questionsDontMatch(){
         questionServiceInterface.addQuestion(question);
@@ -403,10 +266,8 @@ public class QuestionServiceTest {
         questionServiceInterface.addQuestion(nextQuestion);
         Long questionId = question.getId();
         Long questionId2 = nextQuestion.getId();
-//        assertNotNull("questionIdLookupTest: fails if question has no ID", questionServiceInterface.questionIdLookup(questionId));
         assertNotEquals("questionIdLookupTest: fails if question IDs are the same", questionId, questionId2);
     }
-
 
     @Test
     public void voteForOptionATest(){
@@ -426,7 +287,7 @@ public class QuestionServiceTest {
         List<User> userVote = question.getVotesForOptionB();
         assertEquals("voteForOptionBTest: this should return only one item ",
                  userVote.size(), 1);
-}
+    }
 
     @Test
     public void checkOptionAVoteIsEmpty(){

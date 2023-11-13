@@ -57,7 +57,6 @@ public class UserServiceTest{
         User user2 = new User(username, password);
         userServiceInterface.addUser(user.getUsername(), user.getPassword());
         userServiceInterface.addUser(user2.getUsername(), user2.getPassword());
-        User user2ish = userServiceInterface.userLookupUsername(user2.getUsername());
         assertFalse("dontAddDuplicateUsernames: two users should not be able to have the same username",
                 userServiceInterface.addUser(user2.getUsername(), user2.getPassword()));
     }
@@ -138,7 +137,6 @@ public class UserServiceTest{
         Long userId = newUser.getId();
         assertEquals("userSetIdTest: user's long Id should have been set to '007L' ",
                 userId, 007L);
-
     }
 
     @Test
@@ -169,6 +167,7 @@ public class UserServiceTest{
                 userServiceInterface.userLookupID(userId));
 
     }
+
     @Test
     public void loginValidationTest(){
         User user = new User(username, password);
@@ -184,14 +183,6 @@ public class UserServiceTest{
         assertNull("loginValidationUsernameNullTest: username should be null",
                 userServiceInterface.loginValidation(null, user.getPassword()));
     }
-
-//    @Test
-//    public void loginValidationPasswordNullTest(){
-//        User user = new User(username, password);
-//        userServiceInterface.addUser(user.getUsername(), user.getPassword());
-//        assertNull("loginValidationPasswordNullTest: password should be null",
-//                userServiceInterface.loginValidation(user.getUsername(), null));
-//    }
 
     @Test
     public void resetSeenQuestionsTest(){
@@ -224,210 +215,3 @@ public class UserServiceTest{
                 questionServiceInterface.getSeenQuestion(newUser, question, false));
     }
 }
-
-
-
-
-//    @Test
-//    public void userLookupIDTest() {
-//        User user = new User(username, password);
-//        userServiceInterface.addUser(user);
-//        Long userIDCheck = user.getId();
-//    }
-//package edu.carroll.cs389.service;
-//
-//import java.util.List;
-//
-//import edu.carroll.cs389.jpa.model.User;
-//import edu.carroll.cs389.jpa.repo.UserRepository;
-//import jakarta.transaction.Transactional;
-//import org.junit.jupiter.api.BeforeEach;
-//import org.junit.jupiter.api.Test;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.boot.test.context.SpringBootTest;
-//
-//import static org.springframework.test.util.AssertionErrors.*;
-//
-//@Transactional
-//@SpringBootTest
-//public class UserServiceTest{
-//    private static final String username = "testuser";
-//    private static final String password = "testpass";
-//    @Autowired
-//    private UserServiceInterface userServiceInterface;
-//
-//    @Autowired
-//    private UserRepository userRepository;
-//
-//    @Test
-//    public void addUserTest(){
-//       User user = new User(username, password);
-//       assertTrue("addUserTest: should succeed in having a user added", userServiceInterface.addUser(user));
-//       User bob = userServiceInterface.userLookupUsername(username);
-//       assertNotNull("addUserTest: a new user is not within the database", bob);
-//       assertEquals("addUserTest: newly added user name does not match fetched user", username, bob.getUsername());
-////       assertTrue("addUserTest: user should have an ID added", )
-//
-//        //I have a question about this for Nate
-//       assertNotNull("addUserTest: a password was not added", user.getPassword());
-//
-//    }
-//
-//    @Test
-//    public void uniqueUserTest(){
-//        User user = new User(username, password);
-////        String newUser = userServiceInterface.userLookupUsername(username);
-////        assertFalse("uniqueUserTest: new user should not have same username as another user", userServiceInterface.uniqueUser((user.getUsername())));
-//        assertTrue("uniqueUserTest: new user should not have same username as another user", userServiceInterface.uniqueUser((username)));
-//
-//    }
-//
-//    @Test
-//    public void userLookupIDTest(){
-//        User user = new User(username, password);
-//        userServiceInterface.addUser(user);
-//        Long userIDCheck = user.getId();
-////        assertNotNull("userLookupIDTest: new user ID was not added", userServiceInterface.userLookupID(userIDCheck));
-//        assertNotNull("userLookupIDTest: new user ID was not added", userServiceInterface.userLookupID(userIDCheck));
-//
-//
-////        assertFalse("userLookupIDTest: new user ID shouldn't match existing user ID", userIDCheck == userRepository.findAll() );
-////        assertTrue("userLookupID")
-//    }
-//
-//    @Test
-//    public void loginValidationTest(){
-//        User user = new User(username, password);
-////        String usernameCheck = user.getUsername();
-//
-//        //ask nate about how I would implement this since password returns byte[] datatype now
-////        String passwordCheck = user.getPassword();
-////        assertNotNull("loginValidationTest: fails if username or password is null", userServiceInterface.loginValidation(user.getUsername(), user.getPassword()));
-//
-//        assertNotNull("loginValidationTest: fails if username for new user is null", user.getUsername());
-//        assertNotNull("loginValidationTest: fails if password for new user is null", user.getPassword());
-//
-////        @Test
-////        public void validateUserInvalidUserValidPasswordTest() {
-////            assertFalse("validateUserInvalidUserValidPasswordTest: should fail using an invalid user, valid pass", loginService.validateUser(username + "not", password));
-////        }
-////
-////        @Test
-////        public void validateUserInvalidUserInvalidPasswordTest() {
-////            assertFalse("validateUserInvalidUserInvalidPasswordTest: should fail using an invalid user, valid pass", loginService.validateUser(username + "not", password + "extra"));
-//        }
-//
-//        @Test
-//        public void validateUserInvalidUserInvalidPasswordTest() {
-//            assertFalse("validateUserInvalidUserInvalidPasswordTest: should fail using an invalid user, valid pass", loginService.validateUser(username + "not", password + "extra"));
-//        }
-
-
-//        @Test
-//        public void userLookupUsernameTest(){
-//            User user = new User(username, password);
-//            assertNotNull("userLookupUsernameTest: fails if user is not found", userServiceInterface.userLookupUsername(user.getUsername()));
-//
-//
-//        }
-
-
-
-
-//
-////        @Test
-////        public void userLookupUsernameTest(){
-////            User user = new User(username, password);
-////            assertNotNull("userLookupUsernameTest: fails if user is not found", userServiceInterface.userLookupUsername(user.getUsername()));
-////
-////
-////        }
-//    }
-//
-//
-//
-
-
-
-//    @Test
-//    public void loginValidationTest(){
-//        User user = new User(username, password);
-////        String usernameCheck = user.getUsername();
-//
-//        //ask nate about how I would implement this since password returns byte[] datatype now
-////        String passwordCheck = user.getPassword();
-////        assertNotNull("loginValidationTest: fails if username or password is null", userServiceInterface.loginValidation(user.getUsername(), user.getPassword()));
-//
-//        assertNotNull("loginValidationTest: fails if username for new user is null", user.getUsername());
-//        assertNotNull("loginValidationTest: fails if password for new user is null", user.getPassword());
-//
-////        @Test
-////        public void validateUserInvalidUserValidPasswordTest() {
-////            assertFalse("validateUserInvalidUserValidPasswordTest: should fail using an invalid user, valid pass", loginService.validateUser(username + "not", password));
-////        }
-////
-////        @Test
-////        public void validateUserInvalidUserInvalidPasswordTest() {
-////            assertFalse("validateUserInvalidUserInvalidPasswordTest: should fail using an invalid user, valid pass", loginService.validateUser(username + "not", password + "extra"));
-//    }
-
-
-//    @Test
-//    public void allReadyAddedUniqueness(){
-//        User user = new User(username, password);
-//        assertFalse("allReadyAddedUniqueness: if this fails, then the user was already added",
-//                userServiceInterface.uniqueUser(user.getUsername()));
-//    }
-
-//    @Test
-//    public void userLookupIDTest(){
-//        User user = new User(username, password);
-//        userServiceInterface.addUser(user.getUsername(), user.getPassword());
-//        Long userIDCheck = user.getId();
-////        assertNotNull("userLookupIDTest: new user ID was not added", userServiceInterface.userLookupID(userIDCheck));
-//        assertNotNull("userLookupIDTest: new user ID was not added", userServiceInterface.userLookupID(userIDCheck));
-//
-//
-////        assertFalse("userLookupIDTest: new user ID shouldn't match existing user ID", userIDCheck == userRepository.findAll() );
-////        assertTrue("userLookupID")
-//    }
-
-//    @Test
-//    public void userLookupIDTest(){
-//        User user = new User(username, password);
-//        userServiceInterface.addUser(user.getUsername(), user.getPassword());
-//        Long userIDCheck = user.getId();
-//        assertNotNull("userLookupIDTest: new user ID was not added",
-//                userServiceInterface.userLookupID(user.getId()));
-//    }
-
-
-//    @Test
-//    public void checkForNullUser(){
-////        User user = new User(username, password);
-//        User bob = userServiceInterface.userLookupUsername(username);
-//        assertNotNull("checkForNullUser: a new user is not within the database", bob);
-//        assertEquals("checkForNullUser: newly added user name does not match fetched user", username, bob.getUsername());
-////       assertTrue("addUserTest: user should have an ID added", )
-//        //I have a question about this for Nate
-////            assertNotNull("addUserTest: a password was not added", user.getPassword());
-//    }
-
-
-
-
-//    @Test
-//    public void uniqueUserTest(){
-////        User user = new User(username, password);
-//        userServiceInterface.addUser("joshual", password);
-//
-////        userServiceInterface.addUser(username, password);
-//        userServiceInterface.addUser(username, "this is it");
-////        String users = userRepository.toString();
-////        System.out.println(users.toString());
-////        String newUser = userServiceInterface.userLookupUsername(username);
-////        assertFalse("uniqueUserTest: new user should not have same username as another user", userServiceInterface.uniqueUser((user.getUsername())));
-//        assertTrue("uniqueUserTest: new user should not have same username as another user",
-//                userServiceInterface.uniqueUser("joshual"));
-//
-//    }
