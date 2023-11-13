@@ -4,7 +4,7 @@ services:
   app:
     image: would-you-rather-web-app
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://localhost:3306/wouldyouratheroptions
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/wouldyouratheroptions
       SPRING_DATASOURCE_USERNAME: Admin
       SPRING_DATASOURCE_PASSWORD: Knight!5179
     ports:
@@ -15,7 +15,6 @@ services:
   db:
     image: mysql:5.7
     environment:
-      MYSQL_ROOT_PASSWORD: rootpassword
       MYSQL_DATABASE: wouldyouratheroptions
       MYSQL_USER: Admin
       MYSQL_PASSWORD: Knight!5179

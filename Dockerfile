@@ -1,6 +1,8 @@
 # Start with a base image containing Java runtime
 FROM openjdk:11-jdk-slim as build
 
+COPY src\main\resources\static
+
 # Add Maintainer Info
 LABEL maintainer="RWhite@carroll.edu"
 
