@@ -17,25 +17,41 @@ import static org.springframework.test.util.AssertionErrors.*;
 public class UserServiceTest{
     private static final String username = "testuser";
     private static final String password = "testpass";
+
+    private static final User userModel = new User();
+
     @Autowired
     private UserServiceInterface userServiceInterface;
 
     @Autowired
     private UserRepository userRepository;
 
+
     @Test
-    public void addUserTest(){
-       User user = new User(username, password);
-       assertTrue("addUserTest: should succeed in having a user added", userServiceInterface.addUser(user));
-       User bob = userServiceInterface.userLookupUsername(username);
-       assertNotNull("addUserTest: a new user is not within the database", bob);
-       assertEquals("addUserTest: newly added user name does not match fetched user", username, bob.getUsername());
-//       assertTrue("addUserTest: user should have an ID added", )
-
-        //I have a question about this for Nate
-       assertNotNull("addUserTest: a password was not added", user.getPassword());
-
+    public void addUserTest() {
+        User user = new User(username, password);
+        assertTrue("addUserTest: should succeed in having a user added", userServiceInterface.addUser(user));
+        User bob = userServiceInterface.userLookupUsername(username);
     }
+
+
+    @Test
+    public void checkForNullUser(){
+        User user = new User(username, password);
+        User bob = userServiceInterface.userLookupUsername(username);
+        assertNotNull("checkForNullUser: a new user is not within the database", bob);
+        assertEquals("checkForNullUser: newly added user name does not match fetched user", username, bob.getUsername());
+//       assertTrue("addUserTest: user should have an ID added", )
+            //I have a question about this for Nate
+//            assertNotNull("addUserTest: a password was not added", user.getPassword());
+        }
+
+    @Test
+    public void checkForNullPassword(){
+        assertNotNull("checkForNullPassword: a new password was not input", userModel.getPassword());
+    }
+
+
 
     @Test
     public void uniqueUserTest(){

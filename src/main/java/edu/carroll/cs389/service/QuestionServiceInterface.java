@@ -3,6 +3,8 @@ package edu.carroll.cs389.service;
 import edu.carroll.cs389.jpa.model.Question;
 import edu.carroll.cs389.jpa.model.User;
 
+import java.util.List;
+
 /**
  * Defines the contract for the Question Service.
  */
@@ -13,7 +15,7 @@ public interface QuestionServiceInterface {
      *
      * @return An iterable of all questions.
      */
-    Iterable<Question> getAllQuestions();
+    List<Question> getAllQuestions();
 
     /**
      * Adds a new question.

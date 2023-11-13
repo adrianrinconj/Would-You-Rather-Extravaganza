@@ -41,8 +41,9 @@ public class QuestionServiceImpl implements QuestionServiceInterface {
      *
      * @return an Iterable of all questions.
      */
+    ///switch to return actual collection
     @Override
-    public Iterable<Question> getAllQuestions() {
+    public List<Question> getAllQuestions() {
         return repository.findAll();
     }
 
