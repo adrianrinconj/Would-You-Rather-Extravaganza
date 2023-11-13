@@ -34,7 +34,8 @@ public class QuestionServiceTest {
     @Autowired
     private QuestionServiceInterface questionServiceInterface;
 
-
+    @Autowired
+    private UserServiceInterface userServiceInterface;
 
     /**
      * Checks to see if question was added.
@@ -102,6 +103,14 @@ public class QuestionServiceTest {
         assertTrue("uniqueQuestionTest: should succeed if question is unique", questionServiceInterface.uniqueQuestion(question));
         assertFalse("uniqueQuestionTest: makes sure that different questions aren't the same with the options switched",
                 Objects.equals(question.getOptionA(), nextQuestion.getOptionB()) && Objects.equals(question.getOptionB(), nextQuestion.getOptionA()));
+    }
+
+    @Test
+    public void markQuestionAsSeenTest(){
+        User user = new User(username, password);
+        userServiceInterface.addUser(username, password);
+        User newUser = userServiceInterface.userLookupUsername(username);
+        assertTrue("markQuestionAsSeenTest: ", questionServiceInterface.markQuestionAsSeen(newUser, question));
     }
 
 //    @Test

@@ -51,6 +51,12 @@ public class User implements Serializable {
         this.seenQuestions = new ArrayList<>();
     }
 
+
+    @Override
+    public String toString() {
+        return username + " " + password;
+    }
+
     /**
      * Gets the unique identifier of the user.
      *
@@ -137,4 +143,6 @@ public class User implements Serializable {
     public int hashCode() {
         return Objects.hash(id, username, password);
     }
+
+
 }
