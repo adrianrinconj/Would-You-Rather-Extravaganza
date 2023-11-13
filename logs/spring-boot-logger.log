@@ -10683,3 +10683,291 @@ HikariPool-1 - Shutdown initiated...
 2023-11-12 18:44:00,820 - [INFO] - from com.zaxxer.hikari.HikariDataSource in SpringApplicationShutdownHook 
 HikariPool-1 - Shutdown completed.
 
+2023-11-13 09:20:46,036 - [INFO] - from org.hibernate.validator.internal.util.Version in background-preinit 
+HV000001: Hibernate Validator 8.0.1.Final
+
+2023-11-13 09:20:46,072 - [INFO] - from edu.carroll.cs389.Cs389Application in restartedMain 
+Starting Cs389Application using Java 17.0.8 with PID 10920 (C:\Users\Evilr\Documents\CS389Projects\cs389-demo\build\classes\java\main started by Evilr in C:\Users\Evilr\Documents\CS389Projects\cs389-demo)
+
+2023-11-13 09:20:46,072 - [INFO] - from edu.carroll.cs389.Cs389Application in restartedMain 
+No active profile set, falling back to 1 default profile: "default"
+
+2023-11-13 09:20:46,114 - [INFO] - from org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor in restartedMain 
+Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+
+2023-11-13 09:20:46,115 - [INFO] - from org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor in restartedMain 
+For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+
+2023-11-13 09:20:46,883 - [INFO] - from org.springframework.data.repository.config.RepositoryConfigurationDelegate in restartedMain 
+Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+
+2023-11-13 09:20:46,958 - [INFO] - from org.springframework.data.repository.config.RepositoryConfigurationDelegate in restartedMain 
+Finished Spring Data repository scanning in 65 ms. Found 2 JPA repository interfaces.
+
+2023-11-13 09:20:47,488 - [INFO] - from org.springframework.boot.web.embedded.tomcat.TomcatWebServer in restartedMain 
+Tomcat initialized with port(s): 8080 (http)
+
+2023-11-13 09:20:47,497 - [INFO] - from org.apache.coyote.http11.Http11NioProtocol in restartedMain 
+Initializing ProtocolHandler ["http-nio-8080"]
+
+2023-11-13 09:20:47,501 - [INFO] - from org.apache.catalina.core.StandardService in restartedMain 
+Starting service [Tomcat]
+
+2023-11-13 09:20:47,501 - [INFO] - from org.apache.catalina.core.StandardEngine in restartedMain 
+Starting Servlet engine: [Apache Tomcat/10.1.12]
+
+2023-11-13 09:20:47,571 - [INFO] - from org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] in restartedMain 
+Initializing Spring embedded WebApplicationContext
+
+2023-11-13 09:20:47,572 - [INFO] - from org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext in restartedMain 
+Root WebApplicationContext: initialization completed in 1456 ms
+
+2023-11-13 09:20:47,595 - [INFO] - from com.zaxxer.hikari.HikariDataSource in restartedMain 
+HikariPool-1 - Starting...
+
+2023-11-13 09:20:48,012 - [INFO] - from com.zaxxer.hikari.pool.HikariPool in restartedMain 
+HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1d7e3d1f
+
+2023-11-13 09:20:48,013 - [INFO] - from com.zaxxer.hikari.HikariDataSource in restartedMain 
+HikariPool-1 - Start completed.
+
+2023-11-13 09:20:48,021 - [INFO] - from org.springframework.boot.autoconfigure.h2.H2ConsoleAutoConfiguration in restartedMain 
+H2 console available at '/h2-console'. Database available at 'jdbc:mysql://localhost:3306/wouldyouratheroptions'
+
+2023-11-13 09:20:48,114 - [INFO] - from org.hibernate.jpa.internal.util.LogHelper in restartedMain 
+HHH000204: Processing PersistenceUnitInfo [name: default]
+
+2023-11-13 09:20:48,157 - [INFO] - from org.hibernate.Version in restartedMain 
+HHH000412: Hibernate ORM core version 6.1.7.Final
+
+2023-11-13 09:20:48,481 - [INFO] - from SQL dialect in restartedMain 
+HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+
+2023-11-13 09:20:49,207 - [INFO] - from org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator in restartedMain 
+HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+
+2023-11-13 09:20:49,215 - [INFO] - from org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean in restartedMain 
+Initialized JPA EntityManagerFactory for persistence unit 'default'
+
+2023-11-13 09:20:49,670 - [WARN] - from org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration in restartedMain 
+spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+
+2023-11-13 09:20:49,916 - [INFO] - from org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer in restartedMain 
+LiveReload server is running on port 35729
+
+2023-11-13 09:20:49,930 - [INFO] - from org.apache.coyote.http11.Http11NioProtocol in restartedMain 
+Starting ProtocolHandler ["http-nio-8080"]
+
+2023-11-13 09:20:49,947 - [INFO] - from org.springframework.boot.web.embedded.tomcat.TomcatWebServer in restartedMain 
+Tomcat started on port(s): 8080 (http) with context path ''
+
+2023-11-13 09:20:49,957 - [INFO] - from edu.carroll.cs389.Cs389Application in restartedMain 
+Started Cs389Application in 4.302 seconds (process running for 4.623)
+
+2023-11-13 09:22:47,558 - [INFO] - from org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] in http-nio-8080-exec-3 
+Initializing Spring DispatcherServlet 'dispatcherServlet'
+
+2023-11-13 09:22:47,558 - [INFO] - from org.springframework.web.servlet.DispatcherServlet in http-nio-8080-exec-3 
+Initializing Servlet 'dispatcherServlet'
+
+2023-11-13 09:22:47,559 - [INFO] - from org.springframework.web.servlet.DispatcherServlet in http-nio-8080-exec-3 
+Completed initialization in 1 ms
+
+2023-11-13 09:27:36,131 - [INFO] - from org.hibernate.validator.internal.util.Version in background-preinit 
+HV000001: Hibernate Validator 8.0.1.Final
+
+2023-11-13 09:27:36,174 - [INFO] - from edu.carroll.cs389.Cs389Application in restartedMain 
+Starting Cs389Application using Java 17.0.8 with PID 1132 (C:\Users\Evilr\Documents\CS389Projects\cs389-demo\build\classes\java\main started by Evilr in C:\Users\Evilr\Documents\CS389Projects\cs389-demo)
+
+2023-11-13 09:27:36,175 - [INFO] - from edu.carroll.cs389.Cs389Application in restartedMain 
+No active profile set, falling back to 1 default profile: "default"
+
+2023-11-13 09:27:36,231 - [INFO] - from org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor in restartedMain 
+Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+
+2023-11-13 09:27:36,231 - [INFO] - from org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor in restartedMain 
+For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+
+2023-11-13 09:27:36,880 - [INFO] - from org.springframework.data.repository.config.RepositoryConfigurationDelegate in restartedMain 
+Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+
+2023-11-13 09:27:36,949 - [INFO] - from org.springframework.data.repository.config.RepositoryConfigurationDelegate in restartedMain 
+Finished Spring Data repository scanning in 63 ms. Found 2 JPA repository interfaces.
+
+2023-11-13 09:27:37,600 - [INFO] - from org.springframework.boot.web.embedded.tomcat.TomcatWebServer in restartedMain 
+Tomcat initialized with port(s): 8080 (http)
+
+2023-11-13 09:27:37,607 - [INFO] - from org.apache.coyote.http11.Http11NioProtocol in restartedMain 
+Initializing ProtocolHandler ["http-nio-8080"]
+
+2023-11-13 09:27:37,609 - [INFO] - from org.apache.catalina.core.StandardService in restartedMain 
+Starting service [Tomcat]
+
+2023-11-13 09:27:37,609 - [INFO] - from org.apache.catalina.core.StandardEngine in restartedMain 
+Starting Servlet engine: [Apache Tomcat/10.1.12]
+
+2023-11-13 09:27:37,674 - [INFO] - from org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] in restartedMain 
+Initializing Spring embedded WebApplicationContext
+
+2023-11-13 09:27:37,676 - [INFO] - from org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext in restartedMain 
+Root WebApplicationContext: initialization completed in 1443 ms
+
+2023-11-13 09:27:37,707 - [INFO] - from com.zaxxer.hikari.HikariDataSource in restartedMain 
+HikariPool-1 - Starting...
+
+2023-11-13 09:27:38,022 - [INFO] - from com.zaxxer.hikari.pool.HikariPool in restartedMain 
+HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@756b0fe6
+
+2023-11-13 09:27:38,025 - [INFO] - from com.zaxxer.hikari.HikariDataSource in restartedMain 
+HikariPool-1 - Start completed.
+
+2023-11-13 09:27:38,034 - [INFO] - from org.springframework.boot.autoconfigure.h2.H2ConsoleAutoConfiguration in restartedMain 
+H2 console available at '/h2-console'. Database available at 'jdbc:mysql://localhost:3306/wouldyouratheroptions'
+
+2023-11-13 09:27:38,144 - [INFO] - from org.hibernate.jpa.internal.util.LogHelper in restartedMain 
+HHH000204: Processing PersistenceUnitInfo [name: default]
+
+2023-11-13 09:27:38,200 - [INFO] - from org.hibernate.Version in restartedMain 
+HHH000412: Hibernate ORM core version 6.1.7.Final
+
+2023-11-13 09:27:38,547 - [INFO] - from SQL dialect in restartedMain 
+HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+
+2023-11-13 09:27:39,351 - [INFO] - from org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator in restartedMain 
+HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+
+2023-11-13 09:27:39,359 - [INFO] - from org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean in restartedMain 
+Initialized JPA EntityManagerFactory for persistence unit 'default'
+
+2023-11-13 09:27:39,843 - [WARN] - from org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration in restartedMain 
+spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+
+2023-11-13 09:27:40,126 - [INFO] - from org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer in restartedMain 
+LiveReload server is running on port 35729
+
+2023-11-13 09:27:40,139 - [INFO] - from org.apache.coyote.http11.Http11NioProtocol in restartedMain 
+Starting ProtocolHandler ["http-nio-8080"]
+
+2023-11-13 09:27:40,157 - [INFO] - from org.springframework.boot.web.embedded.tomcat.TomcatWebServer in restartedMain 
+Tomcat started on port(s): 8080 (http) with context path ''
+
+2023-11-13 09:27:40,165 - [INFO] - from edu.carroll.cs389.Cs389Application in restartedMain 
+Started Cs389Application in 4.554 seconds (process running for 5.106)
+
+2023-11-13 09:27:47,098 - [INFO] - from org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] in http-nio-8080-exec-3 
+Initializing Spring DispatcherServlet 'dispatcherServlet'
+
+2023-11-13 09:27:47,098 - [INFO] - from org.springframework.web.servlet.DispatcherServlet in http-nio-8080-exec-3 
+Initializing Servlet 'dispatcherServlet'
+
+2023-11-13 09:27:47,099 - [INFO] - from org.springframework.web.servlet.DispatcherServlet in http-nio-8080-exec-3 
+Completed initialization in 1 ms
+
+2023-11-13 09:32:05,083 - [INFO] - from org.hibernate.validator.internal.util.Version in background-preinit 
+HV000001: Hibernate Validator 8.0.1.Final
+
+2023-11-13 09:32:05,131 - [INFO] - from edu.carroll.cs389.Cs389Application in restartedMain 
+Starting Cs389Application using Java 17.0.8 with PID 24884 (C:\Users\Evilr\Documents\CS389Projects\cs389-demo\build\classes\java\main started by Evilr in C:\Users\Evilr\Documents\CS389Projects\cs389-demo)
+
+2023-11-13 09:32:05,131 - [INFO] - from edu.carroll.cs389.Cs389Application in restartedMain 
+No active profile set, falling back to 1 default profile: "default"
+
+2023-11-13 09:32:05,185 - [INFO] - from org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor in restartedMain 
+Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+
+2023-11-13 09:32:05,185 - [INFO] - from org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor in restartedMain 
+For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+
+2023-11-13 09:32:05,826 - [INFO] - from org.springframework.data.repository.config.RepositoryConfigurationDelegate in restartedMain 
+Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+
+2023-11-13 09:32:05,884 - [INFO] - from org.springframework.data.repository.config.RepositoryConfigurationDelegate in restartedMain 
+Finished Spring Data repository scanning in 51 ms. Found 2 JPA repository interfaces.
+
+2023-11-13 09:32:06,471 - [INFO] - from org.springframework.boot.web.embedded.tomcat.TomcatWebServer in restartedMain 
+Tomcat initialized with port(s): 8080 (http)
+
+2023-11-13 09:32:06,479 - [INFO] - from org.apache.coyote.http11.Http11NioProtocol in restartedMain 
+Initializing ProtocolHandler ["http-nio-8080"]
+
+2023-11-13 09:32:06,481 - [INFO] - from org.apache.catalina.core.StandardService in restartedMain 
+Starting service [Tomcat]
+
+2023-11-13 09:32:06,481 - [INFO] - from org.apache.catalina.core.StandardEngine in restartedMain 
+Starting Servlet engine: [Apache Tomcat/10.1.12]
+
+2023-11-13 09:32:06,558 - [INFO] - from org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] in restartedMain 
+Initializing Spring embedded WebApplicationContext
+
+2023-11-13 09:32:06,559 - [INFO] - from org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext in restartedMain 
+Root WebApplicationContext: initialization completed in 1372 ms
+
+2023-11-13 09:32:06,592 - [INFO] - from com.zaxxer.hikari.HikariDataSource in restartedMain 
+HikariPool-1 - Starting...
+
+2023-11-13 09:32:06,922 - [INFO] - from com.zaxxer.hikari.pool.HikariPool in restartedMain 
+HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@30ab3636
+
+2023-11-13 09:32:06,924 - [INFO] - from com.zaxxer.hikari.HikariDataSource in restartedMain 
+HikariPool-1 - Start completed.
+
+2023-11-13 09:32:06,932 - [INFO] - from org.springframework.boot.autoconfigure.h2.H2ConsoleAutoConfiguration in restartedMain 
+H2 console available at '/h2-console'. Database available at 'jdbc:mysql://localhost:3306/wouldyouratheroptions'
+
+2023-11-13 09:32:07,030 - [INFO] - from org.hibernate.jpa.internal.util.LogHelper in restartedMain 
+HHH000204: Processing PersistenceUnitInfo [name: default]
+
+2023-11-13 09:32:07,079 - [INFO] - from org.hibernate.Version in restartedMain 
+HHH000412: Hibernate ORM core version 6.1.7.Final
+
+2023-11-13 09:32:07,416 - [INFO] - from SQL dialect in restartedMain 
+HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+
+2023-11-13 09:32:08,210 - [INFO] - from org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator in restartedMain 
+HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+
+2023-11-13 09:32:08,218 - [INFO] - from org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean in restartedMain 
+Initialized JPA EntityManagerFactory for persistence unit 'default'
+
+2023-11-13 09:32:08,744 - [WARN] - from org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration in restartedMain 
+spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+
+2023-11-13 09:32:09,002 - [INFO] - from org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer in restartedMain 
+LiveReload server is running on port 35729
+
+2023-11-13 09:32:09,015 - [INFO] - from org.apache.coyote.http11.Http11NioProtocol in restartedMain 
+Starting ProtocolHandler ["http-nio-8080"]
+
+2023-11-13 09:32:09,036 - [INFO] - from org.springframework.boot.web.embedded.tomcat.TomcatWebServer in restartedMain 
+Tomcat started on port(s): 8080 (http) with context path ''
+
+2023-11-13 09:32:09,045 - [INFO] - from edu.carroll.cs389.Cs389Application in restartedMain 
+Started Cs389Application in 4.425 seconds (process running for 4.822)
+
+2023-11-13 09:32:36,927 - [INFO] - from org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] in http-nio-8080-exec-1 
+Initializing Spring DispatcherServlet 'dispatcherServlet'
+
+2023-11-13 09:32:36,928 - [INFO] - from org.springframework.web.servlet.DispatcherServlet in http-nio-8080-exec-1 
+Initializing Servlet 'dispatcherServlet'
+
+2023-11-13 09:32:36,930 - [INFO] - from org.springframework.web.servlet.DispatcherServlet in http-nio-8080-exec-1 
+Completed initialization in 2 ms
+
+2023-11-13 09:32:36,988 - [INFO] - from edu.carroll.cs389.web.controller.LogoutController in http-nio-8080-exec-1 
+Logging out user with session id: 59CDCDADB7BE0A81451C26179ED23B04
+
+2023-11-13 09:32:45,990 - [INFO] - from edu.carroll.cs389.service.UserServiceImpl in http-nio-8080-exec-2 
+loginValidation: user 'Guest1' attempted login
+
+2023-11-13 09:32:46,276 - [INFO] - from edu.carroll.cs389.service.UserServiceImpl in http-nio-8080-exec-2 
+login successful
+
+2023-11-13 09:33:47,951 - [DEBUG] - from edu.carroll.cs389.web.controller.WouldYouRatherDisplayController in http-nio-8080-exec-8 
+Out of questions
+
+2023-11-13 09:38:16,063 - [DEBUG] - from edu.carroll.cs389.web.controller.WouldYouRatherDisplayController in http-nio-8080-exec-8 
+Out of questions
+
+2023-11-13 09:38:18,252 - [DEBUG] - from edu.carroll.cs389.web.controller.WouldYouRatherDisplayController in http-nio-8080-exec-3 
+Out of questions
+

@@ -35,6 +35,7 @@
     <!-- Reduce DB startup chatter -->
     <logger name="org.hibernate" level="INFO" />
     <logger name="com.zaxxer.hikari" level="INFO" />
+    <logger name="edu.caroll.cs389.UserServiceImpl" level="INFO"/>
 
     <!-- Default level is INFO -->
     <root level="INFO">
