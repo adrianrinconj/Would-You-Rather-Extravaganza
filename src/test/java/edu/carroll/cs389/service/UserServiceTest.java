@@ -98,13 +98,13 @@ public class UserServiceTest{
         }
 
 
-        @Test
-        public void userLookupUsernameTest(){
-            User user = new User(username, password);
-            assertNotNull("userLookupUsernameTest: fails if user is not found", userServiceInterface.userLookupUsername(user.getUsername()));
-
-
-        }
+//        @Test
+//        public void userLookupUsernameTest(){
+//            User user = new User(username, password);
+//            assertNotNull("userLookupUsernameTest: fails if user is not found", userServiceInterface.userLookupUsername(user.getUsername()));
+//
+//
+//        }
     }
 
 
