@@ -93,7 +93,7 @@ public class QuestionServiceTest {
 
     @Test
     public void checkForNullOptionB(){
-        assertFalse("checkForNullOptionA: optionA is null and should not be.",  question.getOptionA() == null);
+        assertFalse("checkForNullOptionA: optionA is null and should not be.",  question.getOptionB() == null);
     }
 
 

@@ -14,7 +14,7 @@ import static org.springframework.test.util.AssertionErrors.*;
 
 @Transactional
 @SpringBootTest
-public class UserServiceTest {
+public class UserServiceTest{
     private static final String username = "testuser";
     private static final String password = "testpass";
 
@@ -27,16 +27,16 @@ public class UserServiceTest {
     private UserRepository userRepository;
 
 
-//    @Test
-//    public void addUserTest() {
-//        User user = new User(username, password);
-//        assertTrue("addUserTest: should succeed in having a user added", userServiceInterface.addUser(user));
-//        User bob = userServiceInterface.userLookupUsername(username);
-//    }
+    @Test
+    public void addUserTest() {
+        User user = new User(username, password);
+        assertTrue("addUserTest: should succeed in having a user added", userServiceInterface.addUser(username, password));
+        User bob = userServiceInterface.userLookupUsername(username);
+    }
 
 
     @Test
-    public void checkForNullUser() {
+    public void checkForNullUser(){
         User user = new User(username, password);
         User bob = userServiceInterface.userLookupUsername(username);
         assertNotNull("checkForNullUser: a new user is not within the database", bob);
@@ -47,20 +47,69 @@ public class UserServiceTest {
     }
 
     @Test
-    public void checkForNullPassword() {
+    public void checkForNullPassword(){
         assertNotNull("checkForNullPassword: a new password was not input", userModel.getPassword());
     }
 
 
+
     @Test
-    public void uniqueUserTest() {
+    public void uniqueUserTest(){
         User user = new User(username, password);
 //        String newUser = userServiceInterface.userLookupUsername(username);
 //        assertFalse("uniqueUserTest: new user should not have same username as another user", userServiceInterface.uniqueUser((user.getUsername())));
         assertTrue("uniqueUserTest: new user should not have same username as another user", userServiceInterface.uniqueUser((username)));
 
     }
+
+    @Test
+    public void userLookupIDTest(){
+        User user = new User(username, password);
+        userServiceInterface.addUser(user.getUsername(), user.getPassword());
+        Long userIDCheck = user.getId();
+//        assertNotNull("userLookupIDTest: new user ID was not added", userServiceInterface.userLookupID(userIDCheck));
+        assertNotNull("userLookupIDTest: new user ID was not added", userServiceInterface.userLookupID(userIDCheck));
+
+
+//        assertFalse("userLookupIDTest: new user ID shouldn't match existing user ID", userIDCheck == userRepository.findAll() );
+//        assertTrue("userLookupID")
+    }
+
+    @Test
+    public void loginValidationTest(){
+        User user = new User(username, password);
+//        String usernameCheck = user.getUsername();
+
+        //ask nate about how I would implement this since password returns byte[] datatype now
+//        String passwordCheck = user.getPassword();
+//        assertNotNull("loginValidationTest: fails if username or password is null", userServiceInterface.loginValidation(user.getUsername(), user.getPassword()));
+
+        assertNotNull("loginValidationTest: fails if username for new user is null", user.getUsername());
+        assertNotNull("loginValidationTest: fails if password for new user is null", user.getPassword());
+
+//        @Test
+//        public void validateUserInvalidUserValidPasswordTest() {
+//            assertFalse("validateUserInvalidUserValidPasswordTest: should fail using an invalid user, valid pass", loginService.validateUser(username + "not", password));
+//        }
+//
+//        @Test
+//        public void validateUserInvalidUserInvalidPasswordTest() {
+//            assertFalse("validateUserInvalidUserInvalidPasswordTest: should fail using an invalid user, valid pass", loginService.validateUser(username + "not", password + "extra"));
+    }
+
+
+    @Test
+    public void userLookupUsernameTest(){
+        User user = new User(username, password);
+        assertNotNull("userLookupUsernameTest: fails if user is not found", userServiceInterface.userLookupUsername(user.getUsername()));
+
+
+    }
 }
+
+
+
+
 //    @Test
 //    public void userLookupIDTest() {
 //        User user = new User(username, password);
