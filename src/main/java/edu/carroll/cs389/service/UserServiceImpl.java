@@ -1,11 +1,12 @@
 package edu.carroll.cs389.service;
 
-import edu.carroll.cs389.jpa.model.Question;
 import edu.carroll.cs389.jpa.model.User;
 import edu.carroll.cs389.jpa.repo.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.security.crypto.bcrypt.BCrypt;
+
 
 import java.util.Arrays;
 import java.util.List;
@@ -21,6 +22,8 @@ public class UserServiceImpl implements UserServiceInterface {
     private static final Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
     private final UserRepository userRepository;
 
+    private final BCrypt userCrypto = new BCrypt();
+
     /**
      * Constructs a new instance of UserServiceImpl.
      *
@@ -33,12 +36,14 @@ public class UserServiceImpl implements UserServiceInterface {
     /**
      * Attempts to add a new user to the system.
      *
-     * @param newUser The User object representing the new user.
+     * @param newUsername The String representing the new users desired username.
+     *                    This must be unique from the usernames of existing users.
      * @return true if the user is successfully added, false if a user with the same username already exists.
      */
     @Override
-    public boolean addUser(User newUser) {
-        if (uniqueUser(newUser.getUsername())) {
+    public boolean addUser(String newUsername, String newPassword) {
+        if (uniqueUser(newUsername)) {
+            User newUser = new User(newUsername,BCrypt.hashpw(newPassword, BCrypt.gensalt()));
             userRepository.save(newUser);
             return true;
         } else {
@@ -71,16 +76,19 @@ public class UserServiceImpl implements UserServiceInterface {
      */
     @Override
     public User loginValidation(String Username, String rawPassword) {
+        // log information about the login attempt
         log.debug("loginValidation: user '{}' attempted login", Username);
 
+        //ensure only one user with the given username exists (should always be true)
         List<User> users = userRepository.findByUsernameIgnoreCase(Username);
         if (users.size() != 1) {
             log.debug("loginValidation: found {} users", users.size());
             return null;
         }
-
+        //check the single users username and password for validity
         for (User a : userRepository.findAll()) {
-            if (Objects.equals(a.getUsername(), Username) && Arrays.equals(a.getPassword(), a.encryptPassword(rawPassword))) {
+            if (Objects.equals(a.getUsername(), Username) && BCrypt.checkpw(rawPassword, a.getPassword())) {
+                // return the user object if the login is successful
                 return a;
             }
         }
@@ -112,7 +120,7 @@ public class UserServiceImpl implements UserServiceInterface {
     @Override
     public User userLookupUsername(String Username) {
         for (User a : userRepository.findAll()) {
-            if (Objects.equals(a.getUsername(), Username)) {
+            if (a != null && Objects.equals(a.getUsername(), Username)) {
                 return a;
             }
         }

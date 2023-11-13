@@ -4,50 +4,56 @@ import edu.carroll.cs389.jpa.model.User;
 
 /**
  * Defines the contract for the User Service.
+ * This interface provides methods for managing user-related operations such as user creation, authentication, and lookup.
  */
 public interface UserServiceInterface {
 
     /**
-     * Adds a new user.
+     * Adds a new user to the system.
      *
-     * @param newUser The user to be added.
-     * @return True if the user was added successfully, false otherwise.
+     * @param newUsername The username of the new user.
+     * @param newPassword The password of the new user.
+     * @return True if the user is successfully added, false if the username already exists.
      */
-    boolean addUser(User newUser);
+    boolean addUser(String newUsername, String newPassword);
 
     /**
-     * Checks if a user is unique based on the username.
+     * Checks if a given username is unique across all users.
      *
-     * @param Username The username to be checked.
+     * @param Username The username to check for uniqueness.
      * @return True if the username is unique, false otherwise.
      */
     boolean uniqueUser(String Username);
 
     /**
-     * Validates the login credentials.
+     * Validates the user's login credentials.
      *
-     * @param Username   The username.
-     * @param rawPassword The raw password.
-     * @return The user if the credentials are valid, null otherwise.
+     * @param Username   The username for login.
+     * @param rawPassword The raw password for login.
+     * @return The User object if credentials are valid, null otherwise.
      */
     User loginValidation(String Username, String rawPassword);
 
     /**
-     * Looks up a user based on the user ID.
+     * Retrieves a user by their unique ID.
      *
-     * @param UserID The user ID.
-     * @return The user if found, null otherwise.
+     * @param UserID The unique ID of the user.
+     * @return The User object if found, null otherwise.
      */
     User userLookupID(Long UserID);
 
     /**
-     * Looks up a user based on the username.
+     * Retrieves a user by their username.
      *
-     * @param Username The username.
-     * @return The user if found, null otherwise.
+     * @param Username The username of the user.
+     * @return The User object if found, null otherwise.
      */
     User userLookupUsername(String Username);
 
+    /**
+     * Resets the list of questions seen by the specified user.
+     *
+     * @param user The user whose seen questions list will be reset.
+     */
     void resetSeenQuestions(User user);
 }
-

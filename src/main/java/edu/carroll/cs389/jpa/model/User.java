@@ -1,16 +1,13 @@
 package edu.carroll.cs389.jpa.model;
 
 import jakarta.persistence.*;
-
 import java.io.Serializable;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
- * Represents a user entity with associated authentication and relationship details.
+ * Represents a user entity within the application, including authentication and relationship details.
  */
 @Entity
 @Table(name = "users")
@@ -22,48 +19,41 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // @Column makes the tables. In this case this is the user table; not nullable
     @Column(unique = true, nullable = false)
     private String username;
 
-    // Using Byte allows larger numbers of users to be stored
     @Column(nullable = false)
-    private byte[] password;
+    private String password;
 
-    private transient SecureRandom random = new SecureRandom();
-
-    @Column (nullable = false)
-    public byte[] salt = new byte[16];
-
-    // ManyToMany relationship with Question entity
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "user_seen_questions",
+    @JoinTable(
+            name = "user_seen_questions",
             joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "question_id"))
+            inverseJoinColumns = @JoinColumn(name = "question_id")
+    )
     private List<Question> seenQuestions;
 
-
     /**
-     * Constructs a user with the given username and raw password.
-     *
-     * @param username    The username of the user.
-     * @param rawPassword The raw password which will be encrypted.
-     */
-    public User(String username, String rawPassword) {
-        this.username = username;
-        random.nextBytes(salt);
-        this.password = encryptPassword(rawPassword);  // Ensuring the password is encoded
-        this.seenQuestions = new ArrayList<>();
-    }
-
-    //empty constructor needed
-    /**
-     * Default constructor.
+     * Default constructor for JPA.
      */
     public User() {
     }
 
     /**
+     * Constructs a user with the specified username and password.
+     *
+     * @param username The username of the user.
+     * @param password The password of the user.
+     */
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+        this.seenQuestions = new ArrayList<>();
+    }
+
+    /**
+     * Gets the unique identifier of the user.
+     *
      * @return The unique identifier of the user.
      */
     public Long getId() {
@@ -73,13 +63,15 @@ public class User implements Serializable {
     /**
      * Sets the unique identifier of the user.
      *
-     * @param id The unique identifier.
+     * @param id The unique identifier to set.
      */
     public void setId(Long id) {
         this.id = id;
     }
 
     /**
+     * Gets the username of the user.
+     *
      * @return The username of the user.
      */
     public String getUsername() {
@@ -89,43 +81,60 @@ public class User implements Serializable {
     /**
      * Sets the username of the user.
      *
-     * @param username The username.
+     * @param username The new username of the user.
      */
     public void setUsername(String username) {
         this.username = username;
     }
 
     /**
-     * @return The encrypted password of the user.
+     * Gets the password of the user.
+     *
+     * @return The password of the user.
      */
-    public byte[] getPassword() {
+    public String getPassword() {
         return password;
     }
 
-    // hashing algorithm that stores 'salt' and compares it to other passwords 'salt'
     /**
-     * Encrypts the given raw password using SHA-512 and a salt.
+     * Sets the password of the user.
      *
-     * @param rawPassword The raw password to be encrypted.
-     * @return The encrypted password.
+     * @param password The new password of the user.
      */
-    public byte[] encryptPassword(String rawPassword) {
-        try {
-            byte[] tempSalt = salt.clone();
-            // This portion uses SHA-512 encryption to hash the password and store it
-            MessageDigest md = MessageDigest.getInstance("SHA-512");
-            md.update(tempSalt);
-            return md.digest(rawPassword.getBytes(StandardCharsets.UTF_8));
-        } catch (java.security.NoSuchAlgorithmException e) {
-            System.out.println("SHA-512 does not exist");
-        }
-        return salt;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     /**
+     * Gets the list of questions seen by the user.
+     *
      * @return The list of questions seen by the user.
      */
     public List<Question> getSeenQuestions() {
         return seenQuestions;
+    }
+
+    /**
+     * Sets the list of questions seen by the user.
+     *
+     * @param seenQuestions The new list of questions seen by the user.
+     */
+    public void setSeenQuestions(List<Question> seenQuestions) {
+        this.seenQuestions = seenQuestions;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+        User user = (User) o;
+        return Objects.equals(id, user.id) &&
+                Objects.equals(username, user.username) &&
+                Objects.equals(password, user.password);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, username, password);
     }
 }

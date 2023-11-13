@@ -31,9 +31,6 @@ public class WouldYouRatherDisplayController {
     public WouldYouRatherDisplayController(QuestionServiceInterface questionService, UserServiceInterface userService) {
         this.questionService = questionService;
         this.userService = userService;
-        if (userService.userLookupUsername("Guest") == null) {
-            userService.addUser(new User("Guest", "Password"));
-        }
     }
 
     /**

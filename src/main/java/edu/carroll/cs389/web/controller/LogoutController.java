@@ -16,8 +16,8 @@ public class LogoutController {
 
     /**
      * Constructs an instance of {@code LogoutController}.
-     * This constructor initializes the controller. If there are any initial setup operations required for
-     * the logout process, they should be added here.
+     * This constructor initializes the controller. This empty constructor
+     * is necessary for spring instantiation.
      */
     public LogoutController() {
         // Initialization code, if any, should go here

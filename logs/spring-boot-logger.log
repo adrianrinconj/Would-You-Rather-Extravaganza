@@ -10593,3 +10593,93 @@ Caused by: org.springframework.data.mapping.PropertyReferenceException: No prope
 	at org.springframework.data.jpa.repository.query.PartTreeJpaQuery.<init>(PartTreeJpaQuery.java:89)
 	... 51 common frames omitted
 
+2023-11-12 18:43:52,895 - [INFO] - from org.hibernate.validator.internal.util.Version in background-preinit 
+HV000001: Hibernate Validator 8.0.1.Final
+
+2023-11-12 18:43:52,954 - [INFO] - from edu.carroll.cs389.Cs389Application in restartedMain 
+Starting Cs389Application using Java 17.0.8.1 with PID 9360 (C:\Users\adria\Carroll Fall 2023\CS389\Would-You-Rather-Extravaganza-main\build\classes\java\main started by adria in C:\Users\adria\Carroll Fall 2023\CS389\Would-You-Rather-Extravaganza-main)
+
+2023-11-12 18:43:52,955 - [INFO] - from edu.carroll.cs389.Cs389Application in restartedMain 
+No active profile set, falling back to 1 default profile: "default"
+
+2023-11-12 18:43:53,012 - [INFO] - from org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor in restartedMain 
+Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+
+2023-11-12 18:43:53,012 - [INFO] - from org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor in restartedMain 
+For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+
+2023-11-12 18:43:53,792 - [INFO] - from org.springframework.data.repository.config.RepositoryConfigurationDelegate in restartedMain 
+Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+
+2023-11-12 18:43:53,859 - [INFO] - from org.springframework.data.repository.config.RepositoryConfigurationDelegate in restartedMain 
+Finished Spring Data repository scanning in 58 ms. Found 2 JPA repository interfaces.
+
+2023-11-12 18:43:54,446 - [INFO] - from org.springframework.boot.web.embedded.tomcat.TomcatWebServer in restartedMain 
+Tomcat initialized with port(s): 8080 (http)
+
+2023-11-12 18:43:54,454 - [INFO] - from org.apache.coyote.http11.Http11NioProtocol in restartedMain 
+Initializing ProtocolHandler ["http-nio-8080"]
+
+2023-11-12 18:43:54,455 - [INFO] - from org.apache.catalina.core.StandardService in restartedMain 
+Starting service [Tomcat]
+
+2023-11-12 18:43:54,456 - [INFO] - from org.apache.catalina.core.StandardEngine in restartedMain 
+Starting Servlet engine: [Apache Tomcat/10.1.12]
+
+2023-11-12 18:43:54,527 - [INFO] - from org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] in restartedMain 
+Initializing Spring embedded WebApplicationContext
+
+2023-11-12 18:43:54,528 - [INFO] - from org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext in restartedMain 
+Root WebApplicationContext: initialization completed in 1515 ms
+
+2023-11-12 18:43:54,558 - [INFO] - from com.zaxxer.hikari.HikariDataSource in restartedMain 
+HikariPool-1 - Starting...
+
+2023-11-12 18:43:54,908 - [INFO] - from com.zaxxer.hikari.pool.HikariPool in restartedMain 
+HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@781ef1a5
+
+2023-11-12 18:43:54,910 - [INFO] - from com.zaxxer.hikari.HikariDataSource in restartedMain 
+HikariPool-1 - Start completed.
+
+2023-11-12 18:43:54,919 - [INFO] - from org.springframework.boot.autoconfigure.h2.H2ConsoleAutoConfiguration in restartedMain 
+H2 console available at '/h2-console'. Database available at 'jdbc:mysql://localhost:3306/wouldyouratheroptions'
+
+2023-11-12 18:43:55,050 - [INFO] - from org.hibernate.jpa.internal.util.LogHelper in restartedMain 
+HHH000204: Processing PersistenceUnitInfo [name: default]
+
+2023-11-12 18:43:55,129 - [INFO] - from org.hibernate.Version in restartedMain 
+HHH000412: Hibernate ORM core version 6.1.7.Final
+
+2023-11-12 18:43:55,553 - [INFO] - from SQL dialect in restartedMain 
+HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+
+2023-11-12 18:43:56,555 - [INFO] - from org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator in restartedMain 
+HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+
+2023-11-12 18:43:56,566 - [INFO] - from org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean in restartedMain 
+Initialized JPA EntityManagerFactory for persistence unit 'default'
+
+2023-11-12 18:43:57,182 - [WARN] - from org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration in restartedMain 
+spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+
+2023-11-12 18:43:57,507 - [INFO] - from org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer in restartedMain 
+LiveReload server is running on port 35729
+
+2023-11-12 18:43:57,523 - [INFO] - from org.apache.coyote.http11.Http11NioProtocol in restartedMain 
+Starting ProtocolHandler ["http-nio-8080"]
+
+2023-11-12 18:43:57,541 - [INFO] - from org.springframework.boot.web.embedded.tomcat.TomcatWebServer in restartedMain 
+Tomcat started on port(s): 8080 (http) with context path ''
+
+2023-11-12 18:43:57,550 - [INFO] - from edu.carroll.cs389.Cs389Application in restartedMain 
+Started Cs389Application in 5.266 seconds (process running for 6.033)
+
+2023-11-12 18:44:00,810 - [INFO] - from org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean in SpringApplicationShutdownHook 
+Closing JPA EntityManagerFactory for persistence unit 'default'
+
+2023-11-12 18:44:00,813 - [INFO] - from com.zaxxer.hikari.HikariDataSource in SpringApplicationShutdownHook 
+HikariPool-1 - Shutdown initiated...
+
+2023-11-12 18:44:00,820 - [INFO] - from com.zaxxer.hikari.HikariDataSource in SpringApplicationShutdownHook 
+HikariPool-1 - Shutdown completed.
+
