@@ -205,6 +205,9 @@ public class QuestionServiceTest {
                 newUserSeenQ.contains(nextQuestion));
     }
 
+    /**
+     * Test to verify correct behavior when getSeenQuestion is used when no questions have been  marked seen.
+     */
     @Test
     public void checkForNullGetSeenQuestionTest() {
         assertNull("checkForNullGetSeenQuestionTest: no questions were marked as seen so this should" +
@@ -212,6 +215,9 @@ public class QuestionServiceTest {
                 questionServiceInterface.getSeenQuestion(user, null, true));
     }
 
+    /**
+     * Test confirming that randomUnseenQuestionTest does not return a seen question
+     */
     @Test
     public void randomUnseenQuestionTest() {
         userServiceInterface.addUser(username, password);
@@ -228,6 +234,9 @@ public class QuestionServiceTest {
                 newUserSeenQ.contains(randomQ));
     }
 
+    /**
+     * Test certifying that randomUnseenQuestion does not return a question when all questions are seen
+     */
     @Test
     public void checkToSeeRandomQuestionReturnNull() {
         userServiceInterface.addUser(username, password);
@@ -239,6 +248,9 @@ public class QuestionServiceTest {
                 questionServiceInterface.randomUnseenQuestion(newUser));
     }
 
+    /**
+     * Test certifying when there are multiple questions a user has not seen, that the users unseen question list is greater than 1
+     */
     @Test
     public void checkRandomUnseenQuestionForMoreThanOneElement() {
         userServiceInterface.addUser(username, password);
@@ -256,6 +268,9 @@ public class QuestionServiceTest {
                 unseenQ.size() > 1);
     }
 
+    /**
+     * Test certifying that questions are not duplicate in the service
+     */
     @Test
     public void questionsDontMatch() {
         questionServiceInterface.addQuestion(question);
@@ -267,6 +282,9 @@ public class QuestionServiceTest {
                 oldQuestionIdx == newQuestionIdx);
     }
 
+    /**
+     * Test certifying that questions do not have duplicate ID's
+     */
     @Test
     public void questionIdLookupTest() {
         questionServiceInterface.addQuestion(question);
@@ -276,6 +294,9 @@ public class QuestionServiceTest {
         assertNotEquals("questionIdLookupTest: fails if question IDs are the same", questionId, questionId2);
     }
 
+    /**
+     * Test certifying that the questionIdLookup returns null when searching for a bad ID
+     */
     @Test
     public void questionIdLookupNullTest() {
         Long questionId = question.getId();
@@ -283,6 +304,9 @@ public class QuestionServiceTest {
                 questionServiceInterface.questionIdLookup(questionId));
     }
 
+    /**
+     * Test certifying that question voting for option A counts properly
+     */
     @Test
     public void voteForOptionATest() {
         User user = new User(username, password);
@@ -293,6 +317,9 @@ public class QuestionServiceTest {
                 userVote.size(), 1);
     }
 
+    /**
+     * Test certifying that question voting for option B counts properly
+     */
     @Test
     public void voteForOptionBTest() {
         User user = new User(username, password);
@@ -303,6 +330,9 @@ public class QuestionServiceTest {
                 userVote.size(), 1);
     }
 
+    /**
+     * Test certifying that votes for option A are not falsely counted
+     */
     @Test
     public void checkOptionAVoteIsEmpty() {
         questionServiceInterface.addQuestion(question);
@@ -311,6 +341,9 @@ public class QuestionServiceTest {
                 userVote.size(), 0);
     }
 
+    /**
+     * Test certifying that votes for option B are not falsely counted.
+     */
     @Test
     public void checkOptionBVoteIsEmpty() {
         questionServiceInterface.addQuestion(question);
@@ -319,6 +352,9 @@ public class QuestionServiceTest {
                 userVote.size(), 0);
     }
 
+    /**
+     * Combination Test certifying that when multiple votes happen for various options they are counted properly
+     */
     @Test
     public void compareVotingTest() {
         User user2 = new User("john", "putz");

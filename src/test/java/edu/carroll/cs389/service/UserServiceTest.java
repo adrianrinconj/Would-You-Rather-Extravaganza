@@ -30,11 +30,17 @@ public class UserServiceTest{
     @Autowired
     private QuestionServiceInterface questionServiceInterface;
 
+    /**
+     * Test certifying that adding a user is successful
+     */
     @Test
     public void addUserTest() {
         assertTrue("addUserTest: should succeed in having a user added", userServiceInterface.addUser(username, password));
     }
 
+    /**
+     * Test certifying that username lookup returns a user when used with a username that is within the database
+     */
     @Test
     public void checkAddUsernameNotNullTest() {
         User user = new User(username, password);
@@ -43,6 +49,9 @@ public class UserServiceTest{
                 userServiceInterface.userLookupUsername(user.getUsername()));
     }
 
+    /**
+     * Test certifying that passwords are stored
+     */
     @Test
     public void addedUsersHavePasswords(){
         userServiceInterface.addUser(username, password);
@@ -51,6 +60,9 @@ public class UserServiceTest{
                 user.getPassword());
     }
 
+    /**
+     * Test certifying that users with duplicate usernames cannot be added
+     */
     @Test
     public void dontAddDuplicateUsernames(){
         User user = new User(username, password);
@@ -61,6 +73,9 @@ public class UserServiceTest{
                 userServiceInterface.addUser(user2.getUsername(), user2.getPassword()));
     }
 
+    /**
+     * Test certifying that users added to the database have passwords
+     */
     @Test
     public void checkAddPasswordNotNullTest() {
         User user = new User(username, password);
@@ -68,6 +83,9 @@ public class UserServiceTest{
         assertNotNull("checkAddPasswordNotNullTest: the addUser() method should not return a null password", user.getPassword());
     }
 
+    /**
+     * Test certifying that neither the username nor the password of a user can be null
+     */
     @Test
     public void checkNullFieldsUser() {
         User user = new User(username, password);
@@ -78,6 +96,9 @@ public class UserServiceTest{
                 user.getPassword());
     }
 
+    /**
+     * Test certifying that a username tests as unique if it is not already registered
+     */
     @Test
     public void uniqueUserTest(){
         assertTrue("uniqueUserTest: new user should not be added yet, or username is already taken",
@@ -85,6 +106,9 @@ public class UserServiceTest{
 
     }
 
+    /**
+     * Test certifying that a user is not added if adding two users with the same username is impossible
+     */
     @Test
     public void checkDuplicateUniqueUsernames(){
         User user = new User(username, password);
@@ -96,6 +120,9 @@ public class UserServiceTest{
 
     }
 
+    /**
+     * Test certifying that username lookup correctly finds user by name
+     */
     @Test
     public void userLookupUsernameTest() {
         userServiceInterface.addUser(username, password);
@@ -104,12 +131,18 @@ public class UserServiceTest{
                 userServiceInterface.userLookupUsername(user.getUsername()));
     }
 
+    /**
+     * Test certifying that no user is returned if the username is not registered
+     */
     @Test
     public void lookupNonexistentUsernameTest() {
         assertNull("lookupNonexistentUsernameTest: is null but should return a username",
                 userServiceInterface.userLookupUsername("sdalkfjads;lf"));
     }
 
+    /**
+     * Test certifying that no user is returned on username lookup if the user should not have been added (bad registration)
+     */
     @Test
     public void nonAddedUserReturnsNullUsername(){
         User user = new User(username, password);
@@ -117,6 +150,9 @@ public class UserServiceTest{
                 userServiceInterface.userLookupUsername(user.getUsername()));
     }
 
+    /**
+     * Test certifying that userLookupID behaves properly for an existing user and its ID
+     */
     @Test
     public void userLookupIDTest(){
         User user = new User(username, password);
@@ -128,6 +164,9 @@ public class UserServiceTest{
                 userServiceInterface.userLookupID(userId));
     }
 
+    /**
+     * Test certifying that setting a users ID works properly and can be retrieved by new ID
+     */
     @Test
     public void userSetIdTest(){
         User user = new User(username, password);
@@ -139,6 +178,9 @@ public class UserServiceTest{
                 userId, 007L);
     }
 
+    /**
+     * Test certifying that user's IDs are always unique
+     */
     @Test
     public void uniqueUserId(){
         User user = new User(username, password);
@@ -153,12 +195,18 @@ public class UserServiceTest{
                 userId, userId2);
     }
 
+    /**
+     * Test certifying that user ID lookup fails when no such ID exists
+     */
     @Test
     public void userIdLookupReturnNullTest(){
         assertNull("userIdLookupReturnNullTest: put in a random Long, there should be no users"
                 , userServiceInterface.userLookupID(481L));
     }
 
+    /**
+     * Test certifying that a user that is created but not saved cannot be searched by ID
+     */
     @Test
     public void nonAddedUserEqualsNull(){
         User user = new User(username, password);
@@ -168,6 +216,9 @@ public class UserServiceTest{
 
     }
 
+    /**
+     * Test certifying that users can log in with correct credentials
+     */
     @Test
     public void loginValidationTest(){
         User user = new User(username, password);
@@ -176,6 +227,9 @@ public class UserServiceTest{
                 userServiceInterface.loginValidation(user.getUsername(), user.getPassword()));
     }
 
+    /**
+     * Test certifying that users cannot log in without a username
+     */
     @Test
     public void loginValidationUsernameNullTest(){
         User user = new User(username, password);
@@ -184,6 +238,9 @@ public class UserServiceTest{
                 userServiceInterface.loginValidation(null, user.getPassword()));
     }
 
+    /**
+     * Test certifying that resetting a users seen questions is successful
+     */
     @Test
     public void resetSeenQuestionsTest(){
         User user = new User(username, password);
@@ -204,6 +261,9 @@ public class UserServiceTest{
                 questionServiceInterface.getSeenQuestion(newUser, question, false));
     }
 
+    /**
+     * Test certifying that getting a seen question after reset returns null
+     */
     @Test
     public void resetSeenQuestionsEmptyTest(){
         User user = new User(username, password);
