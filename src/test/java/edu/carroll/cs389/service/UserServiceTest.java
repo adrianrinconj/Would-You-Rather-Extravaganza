@@ -38,7 +38,8 @@ public class UserServiceTest{
     @Test
     public void checkAddUsernameNotNullTest() {
         User user = new User(username, password);
-        userServiceInterface.addUser(user.getUsername(), user.getPassword());
+        assertTrue("checkAddUsernameNotNullTest: this runs if user was added",
+                userServiceInterface.addUser(user.getUsername(), user.getPassword()));
         assertNotNull("checkAddUsernameNotNullTest: the addUser() method should not return a null username",
                 userServiceInterface.userLookupUsername(user.getUsername()));
     }

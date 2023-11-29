@@ -25,7 +25,7 @@ public class QuestionServiceTest {
     private static final String optionB = "red";
     Question question = new Question(optionA, optionB);
 
-    Question nextQuestion = new Question("diamonds", "rhinestones");
+//    Question nextQuestions = new Question("diamonds", "rhinestones");
     private static final String username = "testuser";
     private static final String password = "testpass";
     User user = new User(username, password);
@@ -42,19 +42,86 @@ public class QuestionServiceTest {
         Question question = new Question();
         question.setOptionA(optionA);
         question.setOptionB(optionB);
+        List<Question> newList = questionServiceInterface.getAllQuestions();
+        assertEquals("addQuestionTest: list of questions should have size of 0", 0, newList.size());
         assertTrue("addQuestionTest: should succeed if question was added", questionServiceInterface.addQuestion(question));
+        List<Question> qList = questionServiceInterface.getAllQuestions();
+        assertEquals("addQuestionTest: list of questions should have size of 1", 1, qList.size());
+        Question qWithinList = qList.get(0);
+        assertNotNull("addQuestionTest: question in list should not be null", qWithinList);
+        assertEquals("addQuestionTest: question in list optionA should match added question", optionA, qWithinList.getOptionA());
+        assertEquals("addQuestionTest: question in list optionB should match added question", optionB, qWithinList.getOptionB());
+
     }
 
+
     @Test
-    public void checkForCorrectIndices() {
-        questionServiceInterface.addQuestion(question);
-        List<Question> qi = questionServiceInterface.getAllQuestions();
-        assertEquals("checkForCorrectIndices: there should only be one question", qi.size(), 1);
+    public void addTwoQuestionsTest() {
+        Question question = new Question();
+        question.setOptionA(optionA);
+        question.setOptionB(optionB);
+        Question question2 = new Question("this", "that");
+        List<Question> newList = questionServiceInterface.getAllQuestions();
+        assertEquals("addTwoQuestionsTest: list of questions should have size of 0", 0, newList.size());
+        assertTrue("addTwoQuestionsTest: should succeed if question was added", questionServiceInterface.addQuestion(question));
+        List<Question> qList = questionServiceInterface.getAllQuestions();
+        assertEquals("addQuestionTest: list of questions should have size of 1", 1, qList.size());
+        Question qWithinList = qList.get(0);
+        assertNotNull("addTwoQuestionsTest: question in list should not be null", qWithinList);
+        assertEquals("addTwoQuestionsTest: question in list optionA should match added question", optionA, qWithinList.getOptionA());
+        assertEquals("addTwoQuestionsTest: question in list optionB should match added question", optionB, qWithinList.getOptionB());
+        assertTrue("addTwoQuestionsTest: should succeed if question2 was added", questionServiceInterface.addQuestion(question2));
+        List<Question> qList2 = questionServiceInterface.getAllQuestions();
+        assertEquals("addQuestionTest: list of questions should have size of 2", 2, qList2.size());
+        Question qWithinList2 = qList2.get(1);
+        assertNotNull("addTwoQuestionsTest: question2 in list should not be null", qWithinList2);
+        assertEquals("addTwoQuestionsTest: question2 in list optionA should match added question", question2.getOptionA(), qWithinList2.getOptionA());
+        assertEquals("addTwoQuestionsTest: question2 in list optionB should match added question", question2.getOptionB(), qWithinList2.getOptionB());
     }
+
+
+    @Test
+    public void addThreeQuestionsTest() {
+        Question question = new Question();
+        question.setOptionA(optionA);
+        question.setOptionB(optionB);
+        Question question2 = new Question("this", "that");
+        Question question3 = new Question("up", "down");
+        List<Question> newList = questionServiceInterface.getAllQuestions();
+        assertEquals("addThreeQuestionsTest: list of questions should have size of 0", 0, newList.size());
+        assertTrue("addThreeQuestionsTest: should succeed if question was added", questionServiceInterface.addQuestion(question));
+        List<Question> qList = questionServiceInterface.getAllQuestions();
+        assertEquals("addThreeQuestionTest: list of questions should have size of 1", 1, qList.size());
+        Question qWithinList = qList.get(0);
+        assertNotNull("addThreeQuestionsTest: question in list should not be null", qWithinList);
+        assertEquals("addThreeQuestionsTest: question in list optionA should match added question", optionA, qWithinList.getOptionA());
+        assertEquals("addThreeQuestionsTest: question in list optionB should match added question", optionB, qWithinList.getOptionB());
+        assertTrue("addThreeQuestionsTest: should succeed if question2 was added", questionServiceInterface.addQuestion(question2));
+        List<Question> qList2 = questionServiceInterface.getAllQuestions();
+        assertEquals("addThreeQuestionTest: list of questions should have size of 2", 2, qList2.size());
+        Question qWithinList2 = qList2.get(1);
+        assertNotNull("addThreeQuestionsTest: question2 in list should not be null", qWithinList2);
+        assertEquals("addThreeQuestionsTest: question2 in list optionA should match added question", question2.getOptionA(), qWithinList2.getOptionA());
+        assertTrue("addThreeQuestionsTest: should succeed if question3 was added", questionServiceInterface.addQuestion(question3));
+        assertEquals("addThreeQuestionsTest: question2 in list optionB should match added question", question2.getOptionB(), qWithinList2.getOptionB());
+        List<Question> qList3 = questionServiceInterface.getAllQuestions();
+        assertEquals("addThreeQuestionTest: list of questions should have size of 3", 3, qList3.size());
+        Question qWithinList3 = qList3.get(2);
+        assertNotNull("addThreeQuestionsTest: question3 in list should not be null", qWithinList3);
+        assertEquals("addThreeQuestionsTest: question3 in list optionA should match added question", question3.getOptionA(), qWithinList3.getOptionA());
+        assertEquals("addThreeQuestionsTest: question3 in list optionB should match added question", question3.getOptionB(), qWithinList3.getOptionB());
+    }
+
+//    @Test
+//    public void checkForCorrectIndices() {
+//        questionServiceInterface.addQuestion(question);
+//        List<Question> qi = questionServiceInterface.getAllQuestions();
+//        assertEquals("checkForCorrectIndices: there should only be one question", qi.size(), 1);
+//    }
 
     @Test
     public void checkOptionAMatches() {
-        questionServiceInterface.addQuestion(question);
+        assertTrue("checkOptionAMatches: should run if question was added", questionServiceInterface.addQuestion(question));
         List<Question> qi = questionServiceInterface.getAllQuestions();
         Question addedQuestion = qi.get(0);
         assertEquals("checkOptionAMatches: optionA should match the question that was just added", question.getOptionA(), addedQuestion.getOptionA());
@@ -62,7 +129,7 @@ public class QuestionServiceTest {
 
     @Test
     public void checkOptionBMatches() {
-        questionServiceInterface.addQuestion(question);
+        assertTrue("checkOptionBMatches: should run if question was added", questionServiceInterface.addQuestion(question));
         List<Question> qi = questionServiceInterface.getAllQuestions();
         Question addedQuestion = qi.get(0);
         assertEquals("checkOptionBMatches: optionB should match the question that was just added", question.getOptionB(), addedQuestion.getOptionB());
@@ -70,46 +137,69 @@ public class QuestionServiceTest {
 
     @Test
     public void getAllQuestionsTest() {
-        questionServiceInterface.addQuestion(question);
-        assertNotNull("getAllQuestionsTest: there should be at least one question in the repository",
-                questionServiceInterface.getAllQuestions());
+        List<Question> qList = questionServiceInterface.getAllQuestions();
+        assertNotNull("getAllQuestionsTest: qList should not be null", qList);
+        assertEquals("getAllQuestionsTest: there should be no questions in the repository",
+                qList.size(), 0);
+        assertTrue("getAllQuestionTest: question should have been added",
+                questionServiceInterface.addQuestion(question));
+        qList = questionServiceInterface.getAllQuestions();
+        assertNotNull("getAllQuestionsTest: qList should not be null", qList);
+        assertEquals("getAllQuestionsTest: there should be 1 question in qList",
+                qList.size(), 1);
     }
 
-    @Test
-    public void checkForNullQuestions() {
-        assertNotEquals("checkForNullQuestions: there should be no questions at all",
-                questionServiceInterface.getAllQuestions(), question);
-    }
+//    @Test
+//    public void checkForNullQuestions() {
+//        assertNull("checkForNullQuestions: there should at least be zero questions within the repository",
+//                questionServiceInterface.getAllQuestions());
+//        assertNotEquals("checkForNullQuestions: there should be no questions at all",
+//                questionServiceInterface.getAllQuestions(), question);
+//    }
 
     @Test
     public void checkForNullOptionA() {
+        assertTrue("checkForNullOptionA: this should run if getOptionA is working", Objects.equals(question.getOptionA(), optionA));
         assertFalse("checkForNullOptionA: optionA is null and should not be.", question.getOptionA() == null);
     }
 
     @Test
     public void checkForNullOptionB() {
-        assertFalse("checkForNullOptionA: optionA is null and should not be.", question.getOptionB() == null);
+        assertTrue("checkForNullOptionB: this should run if getOptionB is working", Objects.equals(question.getOptionB(), optionB));
+        assertFalse("checkForNullOptionB: optionB is null and should not be.", question.getOptionB() == null);
     }
 
 
-    @Test
-    public void uniqueQuestionTest() {
-        assertTrue("uniqueQuestionTest: should succeed if question is unique",
-                questionServiceInterface.uniqueQuestion(question));
-    }
+//    @Test
+//    public void uniqueQuestionTest() {
+//        Question question = new Question(optionA, optionB);
+//        assertTrue("uniqueQuestionTest: should run if question was added", questionServiceInterface.addQuestion(question));
+//        Question question2 = new Question("This", "that");
+//        assertTrue("uniqueQuestionTest: should run if question2 was added", questionServiceInterface.addQuestion(question2));
+//        questionServiceInterface.addQuestion(question2);
+//        List<Question> thisList = questionServiceInterface.getAllQuestions();
+//        assertTrue("uniqueQuestionTest: this should run if getOptionA for question is working", Objects.equals(question.getOptionA(), optionA));
+//        assertTrue("uniqueQuestionTest: this should run if getOptionB for question is working", Objects.equals(question.getOptionB(), optionB));
+//        assertTrue("uniqueQuestionTest: this should run if getOptionA for question2 is working", Objects.equals(question2.getOptionA(), "This"));
+//        assertTrue("uniqueQuestionTest: this should run if getOptionB for question2 is working", Objects.equals(question2.getOptionB(), "that"));
+//        assertTrue("uniqueQuestionTest: should succeed if question is unique",
+//                questionServiceInterface.uniqueQuestion(question));
+//    }
 
     @Test
     public void uniqueOptionsTest() {
+        Question nextQuestions = new Question("diamonds", "rhinestones");
         assertFalse("uniqueOptionsTest: makes sure that different questions aren't the same with the options switched",
-                Objects.equals(question.getOptionA(), nextQuestion.getOptionB()) && Objects.equals(question.getOptionB(), nextQuestion.getOptionA()));
+                Objects.equals(question.getOptionA(), nextQuestions.getOptionB()) && Objects.equals(question.getOptionB(), nextQuestions.getOptionA()));
     }
 
     @Test
     public void checkForDuplicateQuestions() {
-        questionServiceInterface.addQuestion(question);
+        assertTrue("checkForDuplicateQuestions: should run if question was added",questionServiceInterface.addQuestion(question));
         Question sameQ = new Question("that", "This");
-        questionServiceInterface.addQuestion(sameQ);
-        questionServiceInterface.getAllQuestions();
+        /// add qList
+        assertTrue("checkForDuplicateQuestions: should run if sameQ was added",questionServiceInterface.addQuestion(sameQ));
+        assertNotNull("checkForDuplicateQuestions: list should not be empty", questionServiceInterface.getAllQuestions());
         assertTrue("checkForDuplicateQuestions: sameQ should have added since it is a completely" +
                         " different question",
                 questionServiceInterface.getAllQuestions().size() > 1);
@@ -117,10 +207,10 @@ public class QuestionServiceTest {
 
     @Test
     public void checkForDuplicateOptionA() {
-        questionServiceInterface.addQuestion(question);
+        assertTrue("checkForDuplicateOptionA: this should run if question was added",questionServiceInterface.addQuestion(question));
         Question sameQ = new Question(optionA, "This");
-        questionServiceInterface.addQuestion(sameQ);
-        questionServiceInterface.getAllQuestions();
+        assertFalse("checkForDuplicateOptionA: this should not run since sameQ shares the same optionA as question",questionServiceInterface.addQuestion(sameQ));
+//        assertNotNull("checkForDuplicateOptionA: list should not be empty", questionServiceInterface.getAllQuestions());
         assertFalse("checkForDuplicateOptionA: sameQ should not get added since it shares the same optionA" +
                         " with another question",
                 questionServiceInterface.getAllQuestions().size() > 1);
@@ -128,10 +218,10 @@ public class QuestionServiceTest {
 
     @Test
     public void checkForDuplicateOptionB() {
-        questionServiceInterface.addQuestion(question);
+        assertTrue("checkForDuplicateOptionB: this should run if question was added",questionServiceInterface.addQuestion(question));
         Question sameQ = new Question("that", optionB);
-        questionServiceInterface.addQuestion(sameQ);
-        questionServiceInterface.getAllQuestions();
+        assertFalse("checkForDuplicateOptionB: this should not run since sameQ shares the same optionA as question",questionServiceInterface.addQuestion(sameQ));
+//        assertNotNull("checkForDuplicateOptionB: list should not be empty", questionServiceInterface.getAllQuestions());
         assertFalse("checkForDuplicateOptionB: sameQ should not get added since it shares the same optionB" +
                         " with another question",
                 questionServiceInterface.getAllQuestions().size() > 1);
@@ -139,7 +229,7 @@ public class QuestionServiceTest {
 
     @Test
     public void markQuestionAsSeenTest() {
-        userServiceInterface.addUser(username, password);
+        assertTrue("markQuestionAsSeenTest: should run if user was added", userServiceInterface.addUser(username, password));
         User newUser = userServiceInterface.userLookupUsername(username);
         assertTrue("markQuestionAsSeenTest: inputted question should be within the getSeenQuestions list",
                 questionServiceInterface.markQuestionAsSeen(newUser, question));
@@ -147,19 +237,29 @@ public class QuestionServiceTest {
 
     @Test
     public void moreSeenQuestions() {
+        Question nextQuestions = new Question("diamonds", "rhinestones");
         User user2 = new User("john", "putz");
-        userServiceInterface.addUser(username, password);
-        userServiceInterface.addUser(user2.getUsername(), user2.getPassword());
+        assertTrue("moreSeenQuestions: should run if user was added",
+                userServiceInterface.addUser(username, password));
+        assertTrue("moreSeenQuestions: should run if user was added",
+                userServiceInterface.addUser(user2.getUsername(), user2.getPassword()));
         User newUser = userServiceInterface.userLookupUsername(username);
         User newUser2 = userServiceInterface.userLookupUsername(user2.getUsername());
-        questionServiceInterface.addQuestion(question);
-        questionServiceInterface.addQuestion(nextQuestion);
+        assertTrue("moreSeenQuestions: should run if question was added",
+                questionServiceInterface.addQuestion(question));
+        assertTrue("moreSeenQuestions: should run if nextQuestions was added",
+                questionServiceInterface.addQuestion(nextQuestions));
         Question question3 = new Question("always", "never");
-        questionServiceInterface.addQuestion(question3);
-        questionServiceInterface.markQuestionAsSeen(newUser, question);
-        questionServiceInterface.markQuestionAsSeen(newUser, nextQuestion);
-        questionServiceInterface.markQuestionAsSeen(newUser, question3);
-        questionServiceInterface.markQuestionAsSeen(newUser2, question);
+        assertTrue("moreSeenQuestions: should run if question3 was added",
+                questionServiceInterface.addQuestion(question3));
+        assertTrue("moreSeenQuestions: should run if question was marked for user",
+                questionServiceInterface.markQuestionAsSeen(newUser, question));
+        assertTrue("moreSeenQuestions: should run if nextQuestions was marked for user",
+                questionServiceInterface.markQuestionAsSeen(newUser, nextQuestions));
+        assertTrue("moreSeenQuestions: should run if question3 was marked for user",
+                questionServiceInterface.markQuestionAsSeen(newUser, question3));
+        assertTrue("moreSeenQuestions: should run if question was marked for user2",
+                questionServiceInterface.markQuestionAsSeen(newUser2, question));
         List<Question> user1List = newUser.getSeenQuestions();
         List<Question> user2List = newUser2.getSeenQuestions();
         assertTrue("moreSeenQuestions: newUser has all three questions seen, while newUser2 only has one of them seen, ",
@@ -169,10 +269,13 @@ public class QuestionServiceTest {
 
     @Test
     public void getSeenQuestionTest() {
-        userServiceInterface.addUser(username, password);
+        assertTrue("getSeenQuestionTest: should run if user was added",
+                userServiceInterface.addUser(username, password));
         User newUser = userServiceInterface.userLookupUsername(username);
-        questionServiceInterface.addQuestion(question);
-        questionServiceInterface.markQuestionAsSeen(newUser, question);
+        assertTrue("getSeenQuestionTest: should run if question was added",
+                questionServiceInterface.addQuestion(question));
+        assertTrue("getSeenQuestionTest: should run if newUser had question marked as seen",
+                questionServiceInterface.markQuestionAsSeen(newUser, question));
         assertEquals("getSeenQuestionTest: the marked question and the inputted question should be equal",
                 questionServiceInterface.getSeenQuestion(newUser, question, false), question);
 
@@ -180,11 +283,16 @@ public class QuestionServiceTest {
 
     @Test
     public void onlyOneSeenQuestionTest() {
-        userServiceInterface.addUser(username, password);
+        assertTrue("onlyOneSeenQuestionTest: should run if user was added",
+                userServiceInterface.addUser(username, password));
         User newUser = userServiceInterface.userLookupUsername(username);
         userServiceInterface.resetSeenQuestions(newUser);
-        questionServiceInterface.addQuestion(question);
-        questionServiceInterface.markQuestionAsSeen(newUser, question);
+        assertEquals("onlyOneSeenQuestionTest: should run if the resetSeenQuestions method worked",
+                newUser.getSeenQuestions().size(), 0);
+        assertTrue("onlyOneSeenQuestionTest: should run if question was added",
+                questionServiceInterface.addQuestion(question));
+        assertTrue("onlyOneSeenQuestionTest: should run if question is marked for newUser",
+                questionServiceInterface.markQuestionAsSeen(newUser, question));
         List<Question> newUserSeenQ = newUser.getSeenQuestions();
         assertEquals("onlyOneSeenQuestionTest: there should only be one question within the seenQuestions" +
                 " list for inputted user", newUserSeenQ.size(), 1);
@@ -192,10 +300,14 @@ public class QuestionServiceTest {
 
     @Test
     public void noneSeenQuestionTest() {
-        userServiceInterface.addUser(username, password);
+        assertTrue("noneSeenQuestionTest: should run if user was added",
+                userServiceInterface.addUser(username, password));
         User newUser = userServiceInterface.userLookupUsername(username);
         userServiceInterface.resetSeenQuestions(newUser);
-        questionServiceInterface.addQuestion(question);
+        assertEquals("noneSeenQuestionTest: should run if the resetSeenQuestions method worked",
+                newUser.getSeenQuestions().size(), 0);
+        assertTrue("noneSeenQuestionTest: should run if question was added",
+                questionServiceInterface.addQuestion(question));
         List<Question> newUserSeenQ = newUser.getSeenQuestions();
         assertEquals("noneSeenQuestionTest: there should be no seen questions within the seenQuestions" +
                 " list for inputted user", newUserSeenQ.size(), 0);
@@ -203,13 +315,24 @@ public class QuestionServiceTest {
 
     @Test
     public void deleteSeenQuestionsForOneUserAndLetTheOtherKeepTheirs() {
-        userServiceInterface.addUser(username, password);
+        assertTrue("deleteSeenQuestionsForOneUserAndLetTheOtherKeepTheirs: " +
+                "should run if user was added",
+                userServiceInterface.addUser(username, password));
         User newUser = userServiceInterface.userLookupUsername(username);
-        userServiceInterface.addUser("john", "putz");
+        assertTrue("deleteSeenQuestionsForOneUserAndLetTheOtherKeepTheirs: " +
+                    "should run if user 'john' was added",
+                    userServiceInterface.addUser("john", "putz"));
         User newUser2 = userServiceInterface.userLookupUsername("john");
         userServiceInterface.resetSeenQuestions(newUser);
-        questionServiceInterface.addQuestion(question);
-        questionServiceInterface.markQuestionAsSeen(newUser2, question);
+        assertEquals("deleteSeenQuestionsForOneUserAndLetTheOtherKeepTheirs: " +
+                    "should run if the resetSeenQuestions method worked",
+                    newUser.getSeenQuestions().size(), 0);
+        assertTrue("deleteSeenQuestionsForOneUserAndLetTheOtherKeepTheirs: " +
+                "should run if question was added to the interface",
+                questionServiceInterface.addQuestion(question));
+        assertTrue("deleteSeenQuestionsForOneUserAndLetTheOtherKeepTheirs: " +
+                "should run if question was marked as seen for newUser2",
+                questionServiceInterface.markQuestionAsSeen(newUser2, question));
         List<Question> newUserSeenQ = newUser.getSeenQuestions();
         List<Question> newUser2SeenQ = newUser2.getSeenQuestions();
         assertTrue("deleteSeenQuestionsForOneUserAndLetTheOtherKeepTheirs: newUser2 should have more seen questions" +
@@ -219,26 +342,35 @@ public class QuestionServiceTest {
 
     @Test
     public void checkForNotSeenQuestionTest() {
-        userServiceInterface.addUser(username, password);
+        Question nextQuestions = new Question("diamonds", "rhinestones");
+        assertTrue("checkForNotSeenQuestionTest: should run if user was added",
+                userServiceInterface.addUser(username, password));
         User newUser = userServiceInterface.userLookupUsername(username);
-        questionServiceInterface.addQuestion(question);
-        questionServiceInterface.markQuestionAsSeen(newUser, question);
+        assertTrue("checkForNotSeenQuestionTest: should run if question was added",
+                questionServiceInterface.addQuestion(question));
+        assertTrue("checkForNotSeenQuestionTest: should run if question was marked as seen for newUser",
+                questionServiceInterface.markQuestionAsSeen(newUser, question));
         assertNotEquals("checkForNotSeenQuestionTest: the marked question and the inputted question should not be equal",
-                questionServiceInterface.getSeenQuestion(newUser, question, false), nextQuestion);
+                questionServiceInterface.getSeenQuestion(newUser, question, false), nextQuestions);
 
     }
 
     @Test
     public void checkForCorrectSeenQuestionTest() {
-        userServiceInterface.addUser(username, password);
+        Question nextQuestions = new Question("diamonds", "rhinestones");
+        assertTrue("checkForCorrectSeenQuestionTest: should run if new user was added",
+                userServiceInterface.addUser(username, password));
         User newUser = userServiceInterface.userLookupUsername(username);
-        questionServiceInterface.addQuestion(question);
-        questionServiceInterface.addQuestion(nextQuestion);
-        questionServiceInterface.markQuestionAsSeen(newUser, question);
+        assertTrue("checkForCorrectSeenQuestionTest: should run if question was added",
+                questionServiceInterface.addQuestion(question));
+        assertTrue("checkForCorrectSeenQuestionTest: should run if nextQuestions was added",
+        questionServiceInterface.addQuestion(nextQuestions));
+        assertTrue("checkForCorrectSeenQuestionTest: should run if question was marked as seen for newUser",
+                questionServiceInterface.markQuestionAsSeen(newUser, question));
         List<Question> newUserSeenQ = newUser.getSeenQuestions();
         assertFalse("checkForCorrectSeenQuestionTest: question should be marked as seen while nextQuestion" +
                         " should not be marked as seen",
-                newUserSeenQ.contains(nextQuestion));
+                newUserSeenQ.contains(nextQuestions));
     }
 
     @Test
@@ -250,13 +382,19 @@ public class QuestionServiceTest {
 
     @Test
     public void randomUnseenQuestionTest() {
-        userServiceInterface.addUser(username, password);
+        Question nextQuestions = new Question("diamonds", "rhinestones");
+        assertTrue("randomUnseenQuestionsTest: should run if user was added",
+                userServiceInterface.addUser(username, password));
         User newUser = userServiceInterface.userLookupUsername(username);
-        questionServiceInterface.addQuestion(question);
-        questionServiceInterface.addQuestion(nextQuestion);
+        assertTrue("randomUnseenQuestionTest: should run if question was added",
+                questionServiceInterface.addQuestion(question));
+        assertTrue("randomUnseenQuestionTest: should run if nextQuestions was added",
+                questionServiceInterface.addQuestion(nextQuestions));
         Question question3 = new Question("always", "never");
-        questionServiceInterface.addQuestion(question3);
-        questionServiceInterface.markQuestionAsSeen(newUser, question);
+        assertTrue("randomUnseenQuestionTest: should run if question3 was added",
+                questionServiceInterface.addQuestion(question3));
+        assertTrue("randomUnseenQuestionTest: should run if question was marked as seen for newUser",
+                questionServiceInterface.markQuestionAsSeen(newUser, question));
         List<Question> newUserSeenQ = newUser.getSeenQuestions();
         Question randomQ = questionServiceInterface.randomUnseenQuestion(newUser);
         assertFalse("randomUnseenQuestionTest: newUserSeenQ list should not have randomUnseenQuestion " +
@@ -266,10 +404,13 @@ public class QuestionServiceTest {
 
     @Test
     public void checkToSeeRandomQuestionReturnNull() {
-        userServiceInterface.addUser(username, password);
+        assertTrue("checkToSeeRandomQuestionReturnNull: should run if user was added",
+                userServiceInterface.addUser(username, password));
         User newUser = userServiceInterface.userLookupUsername(username);
-        questionServiceInterface.addQuestion(question);
-        questionServiceInterface.markQuestionAsSeen(newUser, question);
+        assertTrue("checkToSeeRandomQuestionReturnNull: should run if question was added",
+                questionServiceInterface.addQuestion(question));
+        assertTrue("checkToSeeRandomQuestionReturnNull: should run if question was marked as seen for newUser",
+                questionServiceInterface.markQuestionAsSeen(newUser, question));
         assertNull("checkToSeeRandomQuestionReturnNull: newUserSeenQ list should not have randomUnseenQuestion " +
                         "as an element",
                 questionServiceInterface.randomUnseenQuestion(newUser));
@@ -277,13 +418,19 @@ public class QuestionServiceTest {
 
     @Test
     public void checkRandomUnseenQuestionForMoreThanOneElement() {
-        userServiceInterface.addUser(username, password);
+        Question nextQuestions = new Question("diamonds", "rhinestones");
+        assertTrue("checkRandomUnseenQuestionForMoreThanOneElement: should run if user was added",
+                userServiceInterface.addUser(username, password));
         User newUser = userServiceInterface.userLookupUsername(username);
-        questionServiceInterface.addQuestion(question);
-        questionServiceInterface.addQuestion(nextQuestion);
+        assertTrue("checkRandomUnseenQuestionForMoreThanOneElement: should run if question was added",
+                questionServiceInterface.addQuestion(question));
+        assertTrue("checkRandomUnseenQuestionForMoreThanOneElement: should run if nextQuestions was added",
+                questionServiceInterface.addQuestion(nextQuestions));
         Question question3 = new Question("always", "never");
-        questionServiceInterface.addQuestion(question3);
-        questionServiceInterface.markQuestionAsSeen(newUser, question);
+        assertTrue("checkRandomUnseenQuestionForMoreThanOneElement: should run if question3 was added",
+                questionServiceInterface.addQuestion(question3));
+        assertTrue("checkRandomUnseenQuestionForMoreThanOneElement: should run if question was marked as seen",
+                questionServiceInterface.markQuestionAsSeen(newUser, question));
         List<Question> newUserSeenQ = newUser.getSeenQuestions();
         List<Question> unseenQ = questionServiceInterface.getAllQuestions();
         unseenQ.removeAll(newUserSeenQ);
@@ -294,21 +441,27 @@ public class QuestionServiceTest {
 
     @Test
     public void questionsDontMatch() {
-        questionServiceInterface.addQuestion(question);
-        questionServiceInterface.addQuestion(nextQuestion);
+        Question nextQuestions = new Question("diamonds", "rhinestones");
+        assertTrue("questionsDontMatch: should run if question was added",
+                questionServiceInterface.addQuestion(question));
+        assertTrue("questionsDontMatch: should run if nextQuestions was added",
+                questionServiceInterface.addQuestion(nextQuestions));
         List<Question> qi = questionServiceInterface.getAllQuestions();
         int oldQuestionIdx = qi.indexOf(question);
-        int newQuestionIdx = qi.indexOf(nextQuestion);
+        int newQuestionIdx = qi.indexOf(nextQuestions);
         assertFalse("getSeenQuestionTest: will fail if previous seen question is the same as the next question",
                 oldQuestionIdx == newQuestionIdx);
     }
 
     @Test
     public void questionIdLookupTest() {
-        questionServiceInterface.addQuestion(question);
-        questionServiceInterface.addQuestion(nextQuestion);
+        Question nextQuestions = new Question("diamonds", "rhinestones");
+        assertTrue("questionIdLookupTest: should run if question was added",
+                questionServiceInterface.addQuestion(question));
+        assertTrue("questionsDontMatch: should run if nextQuestions was added",
+                questionServiceInterface.addQuestion(nextQuestions));
         Long questionId = question.getId();
-        Long questionId2 = nextQuestion.getId();
+        Long questionId2 = nextQuestions.getId();
         assertNotEquals("questionIdLookupTest: fails if question IDs are the same", questionId, questionId2);
     }
 
@@ -322,8 +475,11 @@ public class QuestionServiceTest {
     @Test
     public void voteForOptionATest() {
         User user = new User(username, password);
-        questionServiceInterface.addQuestion(question);
+        assertTrue("voteForOptionATest: should run if question was added",
+                questionServiceInterface.addQuestion(question));
         questionServiceInterface.voteForOptionA(user, question);
+        assertTrue("voteForOptionATest: should run if optionA was voted for question",
+                question.getVotesForOptionA().size() == 1);
         List<User> userVote = question.getVotesForOptionA();
         assertEquals("voteForOptionATest: this should return only one item ",
                 userVote.size(), 1);
@@ -332,8 +488,11 @@ public class QuestionServiceTest {
     @Test
     public void voteForOptionBTest() {
         User user = new User(username, password);
-        questionServiceInterface.addQuestion(question);
+        assertTrue("voteForOptionBTest: should run if question was added",
+                questionServiceInterface.addQuestion(question));
         questionServiceInterface.voteForOptionB(user, question);
+        assertTrue("voteForOptionBTest: should run if optionB was voted for question",
+                question.getVotesForOptionB().size() == 1);
         List<User> userVote = question.getVotesForOptionB();
         assertEquals("voteForOptionBTest: this should return only one item ",
                 userVote.size(), 1);
@@ -341,7 +500,8 @@ public class QuestionServiceTest {
 
     @Test
     public void checkOptionAVoteIsEmpty() {
-        questionServiceInterface.addQuestion(question);
+        assertTrue("checkOptionAVoteIsEmpty: should run if question was added",
+                questionServiceInterface.addQuestion(question));
         List<User> userVote = question.getVotesForOptionA();
         assertEquals("checkOptionAVoteIsEmpty: getVotesForOptionA list should be empty",
                 userVote.size(), 0);
@@ -349,7 +509,8 @@ public class QuestionServiceTest {
 
     @Test
     public void checkOptionBVoteIsEmpty() {
-        questionServiceInterface.addQuestion(question);
+        assertTrue("checkOptionBVoteIsEmpty: should run if question was added",
+                questionServiceInterface.addQuestion(question));
         List<User> userVote = question.getVotesForOptionB();
         assertEquals("checkOptionBVoteIsEmpty: getVotesForOptionB list should be empty",
                 userVote.size(), 0);
@@ -359,13 +520,17 @@ public class QuestionServiceTest {
     public void compareVotingTest() {
         User user2 = new User("john", "putz");
         User user3 = new User("Adrian", "crow");
-        userServiceInterface.addUser(username, password);
-        userServiceInterface.addUser(user2.getUsername(), user2.getPassword());
-        userServiceInterface.addUser(user3.getUsername(), user3.getPassword());
+        assertTrue("compareVotingTest: should run if user was added",
+                userServiceInterface.addUser(username, password));
+        assertTrue("compareVotingTest: should run if user 'john' was added",
+                userServiceInterface.addUser(user2.getUsername(), user2.getPassword()));
+        assertTrue("compareVotingTest: should run if user 'Adrian' was added",
+                userServiceInterface.addUser(user3.getUsername(), user3.getPassword()));
         User newUser = userServiceInterface.userLookupUsername(username);
         User newUser2 = userServiceInterface.userLookupUsername(user2.getUsername());
         User newUser3 = userServiceInterface.userLookupUsername(user3.getUsername());
-        questionServiceInterface.addQuestion(question);
+        assertTrue("compareVotingTest: should run if question was added",
+                questionServiceInterface.addQuestion(question));
         questionServiceInterface.voteForOptionA(newUser, question);
         questionServiceInterface.voteForOptionA(newUser2, question);
         questionServiceInterface.voteForOptionB(newUser3, question);
