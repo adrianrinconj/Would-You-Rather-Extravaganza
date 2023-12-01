@@ -84,4 +84,14 @@ public interface QuestionServiceInterface {
      * @return True if the question is successfully marked as seen, false otherwise.
      */
     boolean markQuestionAsSeen(User user, Question question);
+
+    /**
+     * Marks a specific question as seen by a user.
+     *
+     * @param user     The user whose vote is being checked.
+     * @param question The question to be marked as seen.
+     * @return True if the User voted for A, False if the user voted for B.
+     * And null if the user did not vote on this question
+     */
+    Boolean getUserVoteForQuestion(User user, Question question);
 }

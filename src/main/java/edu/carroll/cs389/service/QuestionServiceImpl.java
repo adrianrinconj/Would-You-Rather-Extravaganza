@@ -71,7 +71,7 @@ public class QuestionServiceImpl implements QuestionServiceInterface {
     @Override
     public boolean uniqueQuestion(Question newQuestion) {
         for (Question currentQuestion : getAllQuestions()) {
-            if (newQuestion.getOptionA().equals(currentQuestion.getOptionA()) || Objects.equals(newQuestion.getOptionB(), currentQuestion.getOptionB())) {
+            if (newQuestion.equals(currentQuestion)) {
                 return false;
             }
         }
@@ -176,6 +176,21 @@ public class QuestionServiceImpl implements QuestionServiceInterface {
     public void voteForOptionB(User user, Question question) {
         question.getVotesForOptionB().add(user);
         repository.save(question);
+    }
+
+    @Override
+    public Boolean getUserVoteForQuestion(User user, Question question) {
+        for (User thisUser : question.getVotesForOptionA()) {
+            if (user == thisUser) {
+                return true;
+            }
+        }
+        for (User thisUser : question.getVotesForOptionB()) {
+            if (user == thisUser) {
+                return false;
+            }
+        }
+        return null;
     }
 
     /**

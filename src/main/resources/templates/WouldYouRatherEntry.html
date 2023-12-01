@@ -17,6 +17,16 @@
         <td th:if="${#fields.hasErrors('optionB')}" th:errors="*{optionB}">Option A Error</td>
 <!--    <div class="break"></div>-->
     </div>
+    <div th:if="${AddSuccess != null && showPopUp != null}">
+        <div class="optionsDivider" th:if="${AddSuccess && showPopUp}">
+            <span>Your Question Was Added!</span>
+            <button name="FeedbackClose" value="success">Ok</button>
+        </div>
+        <div class="optionsDivider" th:if="${!AddSuccess && showPopUp}">
+            <span>Your question was a duplicate and was not added</span>
+            <button name="FeedbackClose" value="failure">Ok</button>
+        </div>
+    </div>
     <button class="questionSubmit" type="submit">Submit</button>
 </form>
 <a th:href="@{/DisplayOptions}"> Vote on what others are wondering!</a>

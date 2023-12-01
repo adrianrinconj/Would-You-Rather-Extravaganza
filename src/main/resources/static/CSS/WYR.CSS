@@ -192,6 +192,26 @@ input {
   justify-content: space-evenly;
 }
 
+.vote {
+  background-color: #b986ff;
+  color: orange;
+  text-overline-color: black;
+  border: none;
+  display: flex;
+  flex-flow: column;
+  justify-content: space-evenly;
+}
+
+.voteDisplayBox {
+  background-color: #9853f3;
+  border-radius: 10px;
+  margin: 2%;
+  padding: 1em;
+  display: flex;
+  flex-flow: column;
+  justify-content: space-evenly;
+}
+
 a {
   margin: 5px;
   color: white;

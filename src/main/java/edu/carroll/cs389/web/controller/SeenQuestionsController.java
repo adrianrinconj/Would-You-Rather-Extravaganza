@@ -55,7 +55,10 @@ public class SeenQuestionsController {
                 (Question) session.getAttribute("lastQuestion"),
                 (Boolean) session.getAttribute("nextOrPrevious"));
 
+
         if (currentQuestion != null) {
+            model.addAttribute("votedForA", questionService.getUserVoteForQuestion(currentUser, currentQuestion));
+            System.out.println("votedForA "+model.getAttribute("votedForA"));
             session.setAttribute("lastQuestion", currentQuestion);
             model.addAttribute("optionA", currentQuestion.getOptionA());
             model.addAttribute("optionB", currentQuestion.getOptionB());

@@ -11,8 +11,14 @@
 <h1 class="coolheader"> previously seen questions</h1>
 <div class="mainContentDiv" style="flex-flow: column">
     <div class="optionsDivider" style="background-color: transparent">
-        <p th:text="'Option A:' + ${optionA}"></p>
-        <p th:text="'Option B:' + ${optionB}"></p>
+        <div class="voteDisplayBox">
+            <p class="vote" th:if="${votedForA}"> You voted for this option </p>
+            <p th:text="'Option A:' + ${optionA}"></p>
+        </div>
+        <div class="voteDisplayBox">
+            <p class="vote" th:if="${votedForA == false}"> You voted for this option </p>
+            <p th:text="'Option B:' + ${optionB}"></p>
+        </div>
     </div>
     <form action="#" th:action="@{/seenQuestions}"  method="post" style="background-color: transparent">
         <div class="seenQuestionButtonDivider">
@@ -21,7 +27,7 @@
         </div>
     </form>
     <a th:href="@{/DisplayOptions}"> Back to New Questions</a>
-    <a th:href="@{/}">Go to Entry</a>
+    <a th:href="@{/entry}">Go to Entry</a>
 </div>
 </body>
 </html>

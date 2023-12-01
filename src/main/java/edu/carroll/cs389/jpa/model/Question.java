@@ -148,8 +148,8 @@ public class Question implements Serializable {
         if (this == o) return true;
         if (!(o instanceof Question)) return false;
         Question question = (Question) o;
-        return Objects.equals(id, question.id) &&
-                Objects.equals(optionA, question.optionA) &&
-                Objects.equals(optionB, question.optionB);
+        if (optionA.equals(question.optionA) && optionB.equals(question.optionB)){
+            return true;
+        } else return optionA.equals(question.optionB) && optionB.equals(question.optionA);
     }
 }

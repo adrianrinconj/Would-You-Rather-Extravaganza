@@ -10,8 +10,16 @@
 <h1>Vote Results</h1>
 <div class="mainContentDiv" style="flex-flow: column">
     <div class="optionsDivider">
-        <p th:text="'Option A: ' + ${AVotes}"/>
-        <p th:text="'Option B: ' + ${BVotes}"/>
+        <div class="voteDisplayBox">
+            <span class="vote" th:if="${votedForA}"> You voted for this option </span>
+            <p th:text="'Option A: ' + ${optionA}"/>
+            <p th:text="'votes: ' + ${AVotes}"/>
+        </div>
+        <div class="voteDisplayBox">
+            <span class="vote" th:if="${votedForA == false}"> You voted for this option </span>
+            <p th:text="'Option B: ' + ${optionB}"/>
+            <p th:text="'votes: ' + ${BVotes}"/>
+        </div>
     </div>
     <a th:href="@{/DisplayOptions}">Next Question</a>
 </div>

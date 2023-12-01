@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  * Controller responsible for displaying the "Would You Rather" game options and handling user votes.
@@ -50,7 +51,6 @@ public class WouldYouRatherDisplayController {
             return "redirect:/";
         }
         Question randomQuestion = questionService.randomUnseenQuestion(currentUser);
-        questionService.markQuestionAsSeen(currentUser, randomQuestion);
 
         if (randomQuestion != null) {
             logInfo.info("Random question is not null; both optionA and optionB are filled");
@@ -75,7 +75,7 @@ public class WouldYouRatherDisplayController {
      * @return A redirect instruction to the results page.
      */
     @PostMapping(value = "/DisplayOptions", params = "vote=optionA")
-    public String voteForOptionA(HttpSession session, @RequestParam(value = "id", required = false) Long id) {
+    public String voteForOptionA(HttpSession session, RedirectAttributes attrs, @RequestParam(value = "id", required = false) Long id) {
         User currentUser = ensureLoggedIn(session);
         if (currentUser == null) {
             return "redirect:/";
@@ -85,6 +85,8 @@ public class WouldYouRatherDisplayController {
         if (votedQuestion != null) {
             session.setAttribute("lastQuestionID", id);
             questionService.voteForOptionA(currentUser, votedQuestion);
+            questionService.markQuestionAsSeen(currentUser, votedQuestion);
+            attrs.addFlashAttribute("votedForA", true);
             return "redirect:/results";
         }
         return "/DisplayOptions";
@@ -98,7 +100,7 @@ public class WouldYouRatherDisplayController {
      * @return A redirect instruction to the results page.
      */
     @PostMapping(value = "/DisplayOptions", params = "vote=optionB")
-    public String voteForOptionB(HttpSession session, @RequestParam(value = "id", required = false) Long id) {
+    public String voteForOptionB(HttpSession session, RedirectAttributes attrs, @RequestParam(value = "id", required = false) Long id) {
         User currentUser = ensureLoggedIn(session);
         if (currentUser == null) {
             return "redirect:/";
@@ -108,6 +110,8 @@ public class WouldYouRatherDisplayController {
         if (votedQuestion != null) {
             session.setAttribute("lastQuestionID", id);
             questionService.voteForOptionB(currentUser, votedQuestion);
+            questionService.markQuestionAsSeen(currentUser, votedQuestion);
+            attrs.addFlashAttribute("votedForA", false);
             return "redirect:/results";
         }
         return "redirect:/DisplayOptions";
@@ -122,9 +126,13 @@ public class WouldYouRatherDisplayController {
      */
     @GetMapping("/results")
     public String showResults(Model model, HttpSession session) {
+        ensureLoggedIn(session);
         Question votedQuestion = questionService.questionIdLookup((Long) session.getAttribute("lastQuestionID"));
+
         model.addAttribute("AVotes", votedQuestion.getVotesForOptionA().size());
+        model.addAttribute("optionA", votedQuestion.getOptionA());
         model.addAttribute("BVotes", votedQuestion.getVotesForOptionB().size());
+        model.addAttribute("optionB", votedQuestion.getOptionB());
         return "Results";
     }
 
