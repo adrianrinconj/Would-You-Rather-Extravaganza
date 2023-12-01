@@ -77,7 +77,7 @@ public class UserServiceImpl implements UserServiceInterface {
     @Override
     public User loginValidation(String Username, String rawPassword) {
         // log information about the login attempt
-        log.debug("loginValidation: user '{}' attempted login", Username);
+        log.info("loginValidation: user '{}' attempted login", Username);
 
         //ensure only one user with the given username exists (should always be true)
         List<User> users = userRepository.findByUsernameIgnoreCase(Username);
@@ -89,6 +89,7 @@ public class UserServiceImpl implements UserServiceInterface {
         for (User a : userRepository.findAll()) {
             if (Objects.equals(a.getUsername(), Username) && BCrypt.checkpw(rawPassword, a.getPassword())) {
                 // return the user object if the login is successful
+                log.info("login successful");
                 return a;
             }
         }

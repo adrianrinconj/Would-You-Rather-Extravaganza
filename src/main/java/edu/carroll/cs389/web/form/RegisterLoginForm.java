@@ -6,10 +6,10 @@ import jakarta.validation.constraints.Size;
 public class RegisterLoginForm {
 
     @NotNull
-    @Size(min = 1, message = "You must enter a username")
+    @Size(min = 4, message = "username must contain at least 4 characters")
     private String username;
     @NotNull
-    @Size(min = 1, message = "You must enter a password")
+    @Size(min = 8, message = "password must contain at least 8 characters")
     private String rawPassword;
 
     public String getUsername() {

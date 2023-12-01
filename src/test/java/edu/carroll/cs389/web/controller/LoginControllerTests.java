@@ -39,6 +39,9 @@ public class LoginControllerTests {
         mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
     }
 
+    /**
+     * Test certifying that get request for login page functions as expected
+     */
     @Test
     public void testLoginGet() throws Exception {
         mockMvc.perform(get("/"))
@@ -47,7 +50,9 @@ public class LoginControllerTests {
                 .andExpect(model().attributeExists("loginForm"));
     }
 
-
+    /**
+     * Test certifying that the login page responds successfully to a successful login
+     */
     @Test
     public void testLoginPostWithValidData() throws Exception {
         LoginForm form = new LoginForm();
@@ -67,6 +72,9 @@ public class LoginControllerTests {
                 .andExpect(request().sessionAttribute("loggedUserID", user.getId()));
     }
 
+    /**
+     * Test certifying that login page responds as expected to bad log in credentials
+     */
     @Test
     public void testLoginPostWithInvalidData() throws Exception {
         LoginForm form = new LoginForm();

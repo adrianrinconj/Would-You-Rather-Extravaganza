@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link th:href="@{/styles/WYR.css}" rel="stylesheet" />
+    <link th:href="@{/CSS/WYR.css}" rel="stylesheet" />
     <title>What Would You Rather?</title>
 </head>
 <body>
@@ -11,6 +11,9 @@
 <div class="mainContentDiv" style="flex-flow: column">
     <form action="#" th:if="${currentQuestion != null}" th:action="@{/DisplayOptions}" th:object="${currentQuestion}" method="post" style="background-color: transparent">
         <input type="hidden" th:field="*{id}" name="id"/>
+        <div class="header">
+            <h1>Click an Option Below to Vote!</h1>
+        </div>
         <div class="optionsDivider" style="background-color: transparent">
             <button class="optionButton" type="submit" name="vote" value="optionA" th:text="'Option A:' + ${optionA}"></button>
             <button class="optionButton" type="submit" name="vote" value="optionB" th:text="'Option B:' + ${optionB}"></button>
@@ -25,3 +28,6 @@
 </div>
 </body>
 </html>
+
+
+

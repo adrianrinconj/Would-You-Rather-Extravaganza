@@ -15,9 +15,8 @@ import static org.springframework.test.util.AssertionErrors.*;
 
 /**
  * Tests for QuestionServiceInterface.
- * Checks if methods within QuestionServiceInterface
+ * Checks if methods within QuestionServiceInterface function as expected.
  */
-
 @Transactional
 @SpringBootTest
 public class QuestionServiceTest {
@@ -30,13 +29,15 @@ public class QuestionServiceTest {
     private static final String password = "testpass";
     User user = new User(username, password);
 
-
     @Autowired
     private QuestionServiceInterface questionServiceInterface;
 
     @Autowired
     private UserServiceInterface userServiceInterface;
 
+    /**
+     * Test to verify if a question can be successfully added.
+     */
     @Test
     public void addQuestionTest() {
         Question question = new Question();
@@ -54,7 +55,9 @@ public class QuestionServiceTest {
 
     }
 
-
+    /**
+     * Test to ensure that the index of questions is correctly maintained after adding a question.
+     */
     @Test
     public void addTwoQuestionsTest() {
         Question question = new Question();
@@ -78,7 +81,6 @@ public class QuestionServiceTest {
         assertEquals("addTwoQuestionsTest: question2 in list optionA should match added question", question2.getOptionA(), qWithinList2.getOptionA());
         assertEquals("addTwoQuestionsTest: question2 in list optionB should match added question", question2.getOptionB(), qWithinList2.getOptionB());
     }
-
 
     @Test
     public void addThreeQuestionsTest() {
@@ -119,6 +121,9 @@ public class QuestionServiceTest {
 //        assertEquals("checkForCorrectIndices: there should only be one question", qi.size(), 1);
 //    }
 
+    /**
+     * Test to verify that the option A in the added question matches the expected value.
+     */
     @Test
     public void checkOptionAMatches() {
         assertTrue("checkOptionAMatches: should run if question was added", questionServiceInterface.addQuestion(question));
@@ -127,6 +132,9 @@ public class QuestionServiceTest {
         assertEquals("checkOptionAMatches: optionA should match the question that was just added", question.getOptionA(), addedQuestion.getOptionA());
     }
 
+    /**
+     * Test to verify that the option B in the added question matches the expected value.
+     */
     @Test
     public void checkOptionBMatches() {
         assertTrue("checkOptionBMatches: should run if question was added", questionServiceInterface.addQuestion(question));
@@ -226,7 +234,11 @@ public class QuestionServiceTest {
                         " with another question",
                 questionServiceInterface.getAllQuestions().size() > 1);
     }
+    // ... (rest of the test methods with their implementations)
 
+    /**
+     * Test to verify the functionality of marking a question as seen by a user.
+     */
     @Test
     public void markQuestionAsSeenTest() {
         assertTrue("markQuestionAsSeenTest: should run if user was added", userServiceInterface.addUser(username, password));
@@ -235,6 +247,9 @@ public class QuestionServiceTest {
                 questionServiceInterface.markQuestionAsSeen(newUser, question));
     }
 
+    /**
+     * Test to compare the number of seen questions between two users.
+     */
     @Test
     public void moreSeenQuestions() {
         Question nextQuestions = new Question("diamonds", "rhinestones");
@@ -266,7 +281,9 @@ public class QuestionServiceTest {
                 user1List.size() > user2List.size());
     }
 
-
+    /**
+     * Test to verify the functionality of retrieving a seen question.
+     */
     @Test
     public void getSeenQuestionTest() {
         assertTrue("getSeenQuestionTest: should run if user was added",
@@ -278,9 +295,11 @@ public class QuestionServiceTest {
                 questionServiceInterface.markQuestionAsSeen(newUser, question));
         assertEquals("getSeenQuestionTest: the marked question and the inputted question should be equal",
                 questionServiceInterface.getSeenQuestion(newUser, question, false), question);
-
     }
 
+    /**
+     * Test to ensure only one question is seen for a user after resetting seen questions.
+     */
     @Test
     public void onlyOneSeenQuestionTest() {
         assertTrue("onlyOneSeenQuestionTest: should run if user was added",
@@ -298,6 +317,9 @@ public class QuestionServiceTest {
                 " list for inputted user", newUserSeenQ.size(), 1);
     }
 
+    /**
+     * Test to verify that no questions are seen for a new user.
+     */
     @Test
     public void noneSeenQuestionTest() {
         assertTrue("noneSeenQuestionTest: should run if user was added",
@@ -313,6 +335,9 @@ public class QuestionServiceTest {
                 " list for inputted user", newUserSeenQ.size(), 0);
     }
 
+    /**
+     * Test to check behavior when seen questions are reset for one user but not for another.
+     */
     @Test
     public void deleteSeenQuestionsForOneUserAndLetTheOtherKeepTheirs() {
         assertTrue("deleteSeenQuestionsForOneUserAndLetTheOtherKeepTheirs: " +
@@ -340,6 +365,9 @@ public class QuestionServiceTest {
                 newUserSeenQ.size() < newUser2SeenQ.size());
     }
 
+    /**
+     * Test to ensure a not seen question is correctly identified.
+     */
     @Test
     public void checkForNotSeenQuestionTest() {
         Question nextQuestions = new Question("diamonds", "rhinestones");
@@ -355,6 +383,9 @@ public class QuestionServiceTest {
 
     }
 
+    /**
+     * Test to verify correct seen question retrieval behavior.
+     */
     @Test
     public void checkForCorrectSeenQuestionTest() {
         Question nextQuestions = new Question("diamonds", "rhinestones");
@@ -373,6 +404,9 @@ public class QuestionServiceTest {
                 newUserSeenQ.contains(nextQuestions));
     }
 
+    /**
+     * Test to verify correct behavior when getSeenQuestion is used when no questions have been  marked seen.
+     */
     @Test
     public void checkForNullGetSeenQuestionTest() {
         assertNull("checkForNullGetSeenQuestionTest: no questions were marked as seen so this should" +
@@ -380,6 +414,9 @@ public class QuestionServiceTest {
                 questionServiceInterface.getSeenQuestion(user, null, true));
     }
 
+    /**
+     * Test confirming that randomUnseenQuestionTest does not return a seen question
+     */
     @Test
     public void randomUnseenQuestionTest() {
         Question nextQuestions = new Question("diamonds", "rhinestones");
@@ -402,6 +439,9 @@ public class QuestionServiceTest {
                 newUserSeenQ.contains(randomQ));
     }
 
+    /**
+     * Test certifying that randomUnseenQuestion does not return a question when all questions are seen
+     */
     @Test
     public void checkToSeeRandomQuestionReturnNull() {
         assertTrue("checkToSeeRandomQuestionReturnNull: should run if user was added",
@@ -416,6 +456,9 @@ public class QuestionServiceTest {
                 questionServiceInterface.randomUnseenQuestion(newUser));
     }
 
+    /**
+     * Test certifying when there are multiple questions a user has not seen, that the users unseen question list is greater than 1
+     */
     @Test
     public void checkRandomUnseenQuestionForMoreThanOneElement() {
         Question nextQuestions = new Question("diamonds", "rhinestones");
@@ -439,6 +482,9 @@ public class QuestionServiceTest {
                 unseenQ.size() > 1);
     }
 
+    /**
+     * Test certifying that questions are not duplicate in the service
+     */
     @Test
     public void questionsDontMatch() {
         Question nextQuestions = new Question("diamonds", "rhinestones");
@@ -453,6 +499,9 @@ public class QuestionServiceTest {
                 oldQuestionIdx == newQuestionIdx);
     }
 
+    /**
+     * Test certifying that questions do not have duplicate ID's
+     */
     @Test
     public void questionIdLookupTest() {
         Question nextQuestions = new Question("diamonds", "rhinestones");
@@ -465,6 +514,9 @@ public class QuestionServiceTest {
         assertNotEquals("questionIdLookupTest: fails if question IDs are the same", questionId, questionId2);
     }
 
+    /**
+     * Test certifying that the questionIdLookup returns null when searching for a bad ID
+     */
     @Test
     public void questionIdLookupNullTest() {
         Long questionId = question.getId();
@@ -472,6 +524,9 @@ public class QuestionServiceTest {
                 questionServiceInterface.questionIdLookup(questionId));
     }
 
+    /**
+     * Test certifying that question voting for option A counts properly
+     */
     @Test
     public void voteForOptionATest() {
         User user = new User(username, password);
@@ -485,6 +540,9 @@ public class QuestionServiceTest {
                 userVote.size(), 1);
     }
 
+    /**
+     * Test certifying that question voting for option B counts properly
+     */
     @Test
     public void voteForOptionBTest() {
         User user = new User(username, password);
@@ -498,6 +556,9 @@ public class QuestionServiceTest {
                 userVote.size(), 1);
     }
 
+    /**
+     * Test certifying that votes for option A are not falsely counted
+     */
     @Test
     public void checkOptionAVoteIsEmpty() {
         assertTrue("checkOptionAVoteIsEmpty: should run if question was added",
@@ -507,6 +568,9 @@ public class QuestionServiceTest {
                 userVote.size(), 0);
     }
 
+    /**
+     * Test certifying that votes for option B are not falsely counted.
+     */
     @Test
     public void checkOptionBVoteIsEmpty() {
         assertTrue("checkOptionBVoteIsEmpty: should run if question was added",
@@ -516,6 +580,9 @@ public class QuestionServiceTest {
                 userVote.size(), 0);
     }
 
+    /**
+     * Combination Test certifying that when multiple votes happen for various options they are counted properly
+     */
     @Test
     public void compareVotingTest() {
         User user2 = new User("john", "putz");
