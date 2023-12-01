@@ -10,6 +10,9 @@
 <h1 class="coolheader">What Would You Rather?</h1>
 <form class="questionEntryForm" action="#" th:action="@{/entry}" th:object="${wouldYouRatherForm}" method="post">
 <!--    class="questionEntryForm"-->
+    <div class="header">
+        <h1>Please Input Your Options</h1>
+    </div>
     <div class="optionsDivider">
         <input type="text" th:field="*{optionA}" placeholder="optionA"/>
         <td th:if="${#fields.hasErrors('optionA')}" th:errors="*{optionA}">Option A Error</td>
